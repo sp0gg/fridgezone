@@ -19,7 +19,7 @@ import net.sp0gg.fridgezone.domain.Item;
 @ContextConfiguration(classes=TestDataConfig.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("dev")
-@DirtiesContext
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestFridgezoneRepository {
 	
 	@Autowired FridgezoneRepository repo;
@@ -34,5 +34,15 @@ public class TestFridgezoneRepository {
 		}
 		assertEquals("Pop", items.get(0).getName());
 		assertEquals(5, items.size());
+	}
+
+	@Test
+	public void shouldAddItem(){
+		System.out.println("Running shouldAddItem");
+		Item newItem = new Item();
+		newItem.setName("Grapes");
+		repo.save(newItem);
+        Item i2 = repo.findOne((long) 6);
+		assertEquals("Grapes", i2.getName());
 	}
 }

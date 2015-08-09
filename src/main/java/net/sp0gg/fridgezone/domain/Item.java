@@ -9,7 +9,7 @@ import javax.persistence.Id;;
 public class Item {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue
 	private long id;
 	
 	private String name;
@@ -29,7 +29,9 @@ public class Item {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
-	
+
+    public boolean equals(Item item){
+        return(item.getId() == this.getId() && item.getName() == this.getName());
+    }
+
 }

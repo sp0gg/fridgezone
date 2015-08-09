@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import net.sp0gg.fridgezone.data.repository.FridgezoneRepository;
 import net.sp0gg.fridgezone.domain.Item;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/")
 public class FridgezoneController {
 	
 	private FridgezoneRepository repo;
@@ -21,14 +21,21 @@ public class FridgezoneController {
 	public FridgezoneController(FridgezoneRepository repo) {
 		this.repo = repo;
 	}
-	
-	@RequestMapping(method=RequestMethod.GET)
+
+    @RequestMapping(value = "/", method=RequestMethod.GET)
 	public String inventory(Model model){
 		List<Item> items = repo.findAll();
 		model.addAttribute("items", items);
 		return "inventory";
 	}
-	
+
+    @RequestMapping(value = "/addItem", method=RequestMethod.POST)
+    public String addItem(Item item, Model model){
+        repo.save(item);
+        List<Item> items = repo.findAll();
+        model.addAttribute("items", items);
+        return "inventory";
+    }
 //	@RequestMapping(method = RequestMethod.GET)
 //	public String hello(Model model) {
 //		model.addAttribute("message", "iohisdufh");
