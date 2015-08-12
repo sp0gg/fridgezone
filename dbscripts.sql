@@ -1,8 +1,12 @@
+CREATE DATABASE fridgezone_<PROFILE>;
 CREATE USER fridgezoneUser@localhost IDENTIFIED BY 'gandalf';
-use fridgezone_test;
-GRANT SELECT,INSERT,UPDATE,DELETE ON fridgezone_test.* to fridgezoneUser@localhost;
+USE fridgezone_<PROFILE>;
+GRANT SELECT,INSERT,UPDATE,DELETE ON fridgezone_<PROFILE>.* to fridgezoneUser@localhost;
 
-alter table item add create_by varchar(25);
-alter table item add create_date timestamp default current_timestamp;
-alter table item modify id int(10)auto_increment;
-
+CREATE TABLE item
+(
+  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255),
+  create_by VARCHAR(25),
+  create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+);

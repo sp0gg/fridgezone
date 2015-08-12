@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import java.time.Clock;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,14 +21,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import net.sp0gg.fridgezone.config.TestDataConfig;
-import net.sp0gg.fridgezone.config.WebConfig;
 import net.sp0gg.fridgezone.data.repository.FridgezoneRepository;
 import net.sp0gg.fridgezone.domain.Item;
 
 @ContextConfiguration(classes = {TestDataConfig.class})
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfiles("dev")
+@ActiveProfiles("local")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestFridgezoneController {
 

@@ -17,7 +17,7 @@ public class TestDataConfig {
 	String schemaLocation = "classpath:/schema.sql";
 	String testDataLocation = "classpath:test-data.sql";
 
-	@Profile("dev")
+	@Profile("local")
 	@Bean
 	public DataSource testFridgezoneDataSource() {
 		return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2)

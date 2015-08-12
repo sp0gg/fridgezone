@@ -16,5 +16,15 @@
 		</c:forEach>
 	</div>
 
+<div id="itemInput">
+    <h2>Add item</h2>
+    <form method="POST" action="addItem">
+    <input type="text" id="itemName" name="name"/>
+        <br/>
+    <input type="submit" id="addItem" value="Add"/>
+    </form>
+
+</div>
+
 </body>
 </html>

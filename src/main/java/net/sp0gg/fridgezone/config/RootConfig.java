@@ -14,7 +14,7 @@ import org.springframework.jndi.JndiObjectFactoryBean;
 @ComponentScan
 public class RootConfig {
 	
-	@Profile(value={"test", "prod"})
+	@Profile(value={"dev", "test", "prod"})
 	@Bean
 	public DataSource fridgezoneDataSource() throws IllegalArgumentException, NamingException{
 		JndiObjectFactoryBean jndiObjectFB = new JndiObjectFactoryBean();

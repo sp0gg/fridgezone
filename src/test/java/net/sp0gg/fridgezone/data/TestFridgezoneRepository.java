@@ -18,7 +18,7 @@ import net.sp0gg.fridgezone.domain.Item;
 
 @ContextConfiguration(classes=TestDataConfig.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfiles("dev")
+@ActiveProfiles("local")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestFridgezoneRepository {
 	
