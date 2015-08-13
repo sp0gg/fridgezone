@@ -13,8 +13,9 @@ public class Item {
 	private long id;
 	
 	private String name;
-	
-	public String toString(){
+    private int quantity;
+
+    public String toString(){
 		return String.format("Item[id=%d, name='%s']", id, name);
 	}
 
@@ -34,4 +35,11 @@ public class Item {
         return(item.getId() == this.getId() && item.getName() == this.getName());
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }

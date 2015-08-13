@@ -33,6 +33,7 @@ public class TestFridgezoneRepository {
 			System.out.println(item.toString());
 		}
 		assertEquals("Pop", items.get(0).getName());
+        assertEquals(10, items.get(0).getQuantity());
 		assertEquals(5, items.size());
 	}
 

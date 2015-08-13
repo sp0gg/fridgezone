@@ -11,17 +11,37 @@
 
 	<div id="items">
 		Your items:<br />
+        <table id="itemsTable">
+            <tr>
+                <td>Item Name</td>
+                <td>Quantity</td>
+            </tr>
 		<c:forEach var="item" items="${items}">
-			<br />${item.name} 
+			<tr>
+	    		<td>${item.name}</td>
+                <td>${item.quantity}</td>
+            </tr>
 		</c:forEach>
+        </table>
 	</div>
 
 <div id="itemInput">
     <h2>Add item</h2>
     <form method="POST" action="addItem">
-    <input type="text" id="itemName" name="name"/>
-        <br/>
-    <input type="submit" id="addItem" value="Add"/>
+        <table id="itemInputTable">
+            <tr>
+                <td>Item Name</td>
+                <td>Quantity</td>
+            </tr>
+            <tr>
+                <td><input type="text" id="itemName" name="name"/></td>
+                <td><input type="text" id="itemQuantity" name="quantity" size="2"></td>
+            </tr>
+
+        </table>
+     <br/>
+     <input type="submit" id="addItem" value="Add"/>
+
     </form>
 
 </div>

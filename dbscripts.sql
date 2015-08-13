@@ -10,3 +10,6 @@ CREATE TABLE item
   create_by VARCHAR(25),
   create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
+
+
+ALTER TABLE fridgezone_test.item ADD quantity INT NOT NULL;

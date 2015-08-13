@@ -23,7 +23,6 @@ public class RootConfig {
 		jndiObjectFB.setProxyInterface(javax.sql.DataSource.class);
 		jndiObjectFB.afterPropertiesSet();
 		DataSource ds = (DataSource) jndiObjectFB.getObject();
-		System.out.println("datasource is: " + ds.toString());
 		return ds;
 	}
 

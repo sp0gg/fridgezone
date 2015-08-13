@@ -23,18 +23,23 @@ public class FridgezoneController {
 	}
 
     @RequestMapping(value = "/", method=RequestMethod.GET)
-	public String inventory(Model model){
-		List<Item> items = repo.findAll();
-		model.addAttribute("items", items);
-		return "inventory";
+	public String root(){
+		return "redirect:/inventory";
 	}
 
-    @RequestMapping(value = "/addItem", method=RequestMethod.POST)
-    public String addItem(Item item, Model model){
-        repo.save(item);
+    @RequestMapping(value = "/inventory", method=RequestMethod.GET)
+    public String inventory(Model model){
         List<Item> items = repo.findAll();
         model.addAttribute("items", items);
         return "inventory";
+    }
+
+    @RequestMapping(value = "/addItem", method=RequestMethod.POST)
+    public String addItem(Item item){
+        repo.save(item);
+//        List<Item> items = repo.findAll();
+//        model.addAttribute("items", items);
+        return "redirect:/inventory";
     }
 //	@RequestMapping(method = RequestMethod.GET)
 //	public String hello(Model model) {

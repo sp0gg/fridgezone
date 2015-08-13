@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -23,6 +24,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import net.sp0gg.fridgezone.config.TestDataConfig;
 import net.sp0gg.fridgezone.data.repository.FridgezoneRepository;
 import net.sp0gg.fridgezone.domain.Item;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @ContextConfiguration(classes = {TestDataConfig.class})
 @WebAppConfiguration
@@ -31,8 +34,30 @@ import net.sp0gg.fridgezone.domain.Item;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestFridgezoneController {
 
+//    @Autowired
+//    public ViewResolver viewRes;
+
+    public ViewResolver viewRes(){
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/views/");
+        resolver.setSuffix(".jsp");
+        resolver.setExposeContextBeansAsAttributes(true);
+        return resolver;
+    }
+
+    @Test
+    public void rootPathShouldRedirectToInventoryPage() throws Exception {
+        System.out.println("Running rootSHouldRedirectToInventoryPage");
+        FridgezoneRepository mockRepo = mock(FridgezoneRepository.class);
+        FridgezoneController fridgezoneController = new FridgezoneController(mockRepo);
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(fridgezoneController).build();
+            mockMvc.perform(get("/")).andExpect(view().name("redirect:/inventory"));
+
+
+    }
+
 	@Test
-	public void shouldReturnItemListInModel() throws Exception {
+	public void inventoryPathShouldReturnItemListInModel() throws Exception {
 		System.out.println("Running shouldReturnItemListInModel");
 		List<Item> expectedItems = new ArrayList<>();
 		Item i1 = new Item();
@@ -50,8 +75,8 @@ public class TestFridgezoneController {
 
 		FridgezoneController fridgezoneController = new FridgezoneController(mockRepo);
 
-		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(fridgezoneController).build();
-		mockMvc.perform(get("/"))
+		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(fridgezoneController).setViewResolvers(viewRes()).build();
+		mockMvc.perform(get("/inventory"))
             .andExpect(view().name("inventory"))
             .andExpect(model().attributeExists("items"))
             .andExpect(model().attribute("items", hasItems(expectedItems.toArray())))
@@ -83,10 +108,10 @@ public class TestFridgezoneController {
         when(mockRepo.findAll()).thenReturn(expectedItems);
 
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(fridgezoneController).build();
-        mockMvc.perform(post("/addItem").param("name", "Grapes"))
-            .andExpect(view().name("inventory"))
-            .andExpect(model().attributeExists("items"))
-            .andExpect(model().attribute("items", hasItems(expectedItems.toArray())))
+        mockMvc.perform(post("/addItem").param("name", "Grapes").param("quantity", "60"))
+            .andExpect(view().name("redirect:/inventory"))
+//            .andExpect(model().attributeExists("items"))
+//            .andExpect(model().attribute("items", hasItems(expectedItems.toArray())))
             ;
 //        verify(mockRepo, atLeastOnce()).save(newItem);
     }
