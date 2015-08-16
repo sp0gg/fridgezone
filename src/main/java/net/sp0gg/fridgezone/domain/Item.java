@@ -31,15 +31,39 @@ public class Item {
 		this.name = name;
 	}
 
-    public boolean equals(Item item){
-        return(item.getId() == this.getId() && item.getName() == this.getName());
-    }
-
     public int getQuantity() {
         return quantity;
     }
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Item item = (Item) o;
+
+        return new org.apache.commons.lang3.builder.EqualsBuilder()
+                .append(id, item.id)
+                .append(quantity, item.quantity)
+                .append(name, item.name)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new org.apache.commons.lang3.builder.HashCodeBuilder(17, 37)
+                .append(id)
+                .append(name)
+                .append(quantity)
+                .toHashCode();
     }
 }

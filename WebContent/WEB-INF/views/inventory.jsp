@@ -11,31 +11,40 @@
 
 	<div id="items">
 		Your items:<br />
-        <table id="itemsTable">
+        <br/>
+        <table id="itemTable">
             <tr>
                 <td>Item Name</td>
-                <td>Quantity</td>
+                <td colspan="2">Quantity</td>
             </tr>
-		<c:forEach var="item" items="${items}">
-			<tr>
+
+		<c:forEach var="item" items="${items}" varStatus="count">
+            <form id="updateItemForm" method="POST" action="addItem">
+            <tr>
 	    		<td>${item.name}</td>
-                <td>${item.quantity}</td>
+                <input type="hidden" value="${item.name}" name="name"/>
+                <td><input type="text" id="itemUpdateQuantity${count.index}" name="quantity" value="${item.quantity}" size="2"/></td>
+                <input type="hidden" value="${item.id}" name="id"/>
+                <td><input type="submit" id="updateItem${count.index}" value="Update"/></td>
             </tr>
-		</c:forEach>
+            </form>
+
+        </c:forEach>
         </table>
+
 	</div>
 
 <div id="itemInput">
     <h2>Add item</h2>
-    <form method="POST" action="addItem">
+    <form id="addItemForm" method="POST" action="addItem">
         <table id="itemInputTable">
             <tr>
                 <td>Item Name</td>
                 <td>Quantity</td>
             </tr>
             <tr>
-                <td><input type="text" id="itemName" name="name"/></td>
-                <td><input type="text" id="itemQuantity" name="quantity" size="2"></td>
+                <td><input type="text" id="itemAddName" name="name"/></td>
+                <td><input type="text" id="itemAddQuantity" name="quantity" size="2"></td>
             </tr>
 
         </table>

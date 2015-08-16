@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -47,13 +48,11 @@ public class TestFridgezoneController {
 
     @Test
     public void rootPathShouldRedirectToInventoryPage() throws Exception {
-        System.out.println("Running rootSHouldRedirectToInventoryPage");
+        System.out.println("Running rootShouldRedirectToInventoryPage");
         FridgezoneRepository mockRepo = mock(FridgezoneRepository.class);
         FridgezoneController fridgezoneController = new FridgezoneController(mockRepo);
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(fridgezoneController).build();
             mockMvc.perform(get("/")).andExpect(view().name("redirect:/inventory"));
-
-
     }
 
 	@Test
@@ -116,5 +115,35 @@ public class TestFridgezoneController {
 //        verify(mockRepo, atLeastOnce()).save(newItem);
     }
 
+    @Test
+    public void updateItemShouldReturnToInventoryScreenWithNewItemQuantitiesDisplayed() throws Exception {
+        System.out.println("Running updateItemShouldReturnToInventoryScreenWithNewItemQuantitiesDisplayed");
+
+        List<Item> expectedItems = new ArrayList<>();
+        Item i1 = new Item();
+        Item i2 = new Item();
+        Item i3 = new Item();
+        Item newItem = new Item();
+        i1.setName("Pop");
+        i2.setName("Cheese");
+        i3.setName("Eggs");
+        newItem.setName("Grapes");
+        expectedItems.add(i1);
+        expectedItems.add(i2);
+        expectedItems.add(i3);
+        expectedItems.add(newItem);
+
+        FridgezoneRepository mockRepo = mock(FridgezoneRepository.class);
+
+        FridgezoneController fridgezoneController = new FridgezoneController(mockRepo);
+        when(mockRepo.save(newItem)).thenReturn(newItem);
+        when(mockRepo.findAll()).thenReturn(expectedItems);
+
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(fridgezoneController).build();
+        mockMvc.perform(post("/addItem").param("name", "Grapes").param("quantity", "60").param("id", "6"))
+                .andExpect(view().name("redirect:/inventory"))
+                ;
+
+    }
 
 }
