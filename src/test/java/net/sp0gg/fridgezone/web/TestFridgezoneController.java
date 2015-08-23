@@ -34,13 +34,10 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestFridgezoneController {
 
-//    @Autowired
-//    public ViewResolver viewRes;
-
     public ViewResolver viewRes(){
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         resolver.setPrefix("/WEB-INF/views/");
-        resolver.setSuffix(".jsp");
+        resolver.setSuffix(".html");
         resolver.setExposeContextBeansAsAttributes(true);
         return resolver;
     }
@@ -54,95 +51,6 @@ public class TestFridgezoneController {
             mockMvc.perform(get("/")).andExpect(view().name("redirect:/inventory"));
     }
 
-	@Test
-	public void inventoryPathShouldReturnItemListInModel() throws Exception {
-		System.out.println("Running shouldReturnItemListInModel");
-		List<Item> expectedItems = new ArrayList<>();
-		Item i1 = new Item();
-		Item i2 = new Item();
-		Item i3 = new Item();
-		i1.setName("Pop");
-		i2.setName("Cheese");
-		i3.setName("Eggs");
-		expectedItems.add(i1);
-		expectedItems.add(i2);
-		expectedItems.add(i3);
 
-		ItemRepository mockRepo = mock(ItemRepository.class);
-		when(mockRepo.findAll()).thenReturn(expectedItems);
-
-		FridgezoneController fridgezoneController = new FridgezoneController(mockRepo);
-
-		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(fridgezoneController).setViewResolvers(viewRes()).build();
-		mockMvc.perform(get("/inventory"))
-            .andExpect(view().name("inventory"))
-            .andExpect(model().attributeExists("items"))
-            .andExpect(model().attribute("items", hasItems(expectedItems.toArray())))
-            ;
-	}
-
-	@Test
-	public void addItemShouldReturnToInventoryScreenWithNewItemDisplayed() throws Exception {
-		System.out.println("Running addItemShouldReturnToInventoryScreenWithNewItemDisplayed");
-
-        List<Item> expectedItems = new ArrayList<>();
-        Item i1 = new Item();
-        Item i2 = new Item();
-        Item i3 = new Item();
-        Item newItem = new Item();
-        i1.setName("Pop");
-        i2.setName("Cheese");
-        i3.setName("Eggs");
-        newItem.setName("Grapes");
-        expectedItems.add(i1);
-        expectedItems.add(i2);
-        expectedItems.add(i3);
-        expectedItems.add(newItem);
-
-        ItemRepository mockRepo = mock(ItemRepository.class);
-
-        FridgezoneController fridgezoneController = new FridgezoneController(mockRepo);
-        when(mockRepo.save(newItem)).thenReturn(newItem);
-        when(mockRepo.findAll()).thenReturn(expectedItems);
-
-        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(fridgezoneController).build();
-        mockMvc.perform(post("/addItem").param("name", "Grapes").param("quantity", "60"))
-            .andExpect(view().name("redirect:/inventory"))
-//            .andExpect(model().attributeExists("items"))
-//            .andExpect(model().attribute("items", hasItems(expectedItems.toArray())))
-            ;
-//        verify(mockRepo, atLeastOnce()).save(newItem);
-    }
-
-    @Test
-    public void updateItemShouldReturnToInventoryScreenWithNewItemQuantitiesDisplayed() throws Exception {
-        System.out.println("Running updateItemShouldReturnToInventoryScreenWithNewItemQuantitiesDisplayed");
-
-        List<Item> expectedItems = new ArrayList<>();
-        Item i1 = new Item();
-        Item i2 = new Item();
-        Item i3 = new Item();
-        Item newItem = new Item();
-        i1.setName("Pop");
-        i2.setName("Cheese");
-        i3.setName("Eggs");
-        newItem.setName("Grapes");
-        expectedItems.add(i1);
-        expectedItems.add(i2);
-        expectedItems.add(i3);
-        expectedItems.add(newItem);
-
-        ItemRepository mockRepo = mock(ItemRepository.class);
-
-        FridgezoneController fridgezoneController = new FridgezoneController(mockRepo);
-        when(mockRepo.save(newItem)).thenReturn(newItem);
-        when(mockRepo.findAll()).thenReturn(expectedItems);
-
-        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(fridgezoneController).build();
-        mockMvc.perform(post("/addItem").param("name", "Grapes").param("quantity", "60").param("id", "6"))
-                .andExpect(view().name("redirect:/inventory"))
-                ;
-
-    }
 
 }

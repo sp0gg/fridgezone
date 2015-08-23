@@ -32,10 +32,4 @@ public class FridgezoneController {
         return "inventory";
     }
 
-    @RequestMapping(value = "/addItem", method=RequestMethod.POST)
-    public String addItem(Item item){
-        repo.save(item);
-        return "redirect:/inventory";
-    }
-
 }

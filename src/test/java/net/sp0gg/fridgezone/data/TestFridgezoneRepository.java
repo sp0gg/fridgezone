@@ -2,6 +2,7 @@ package net.sp0gg.fridgezone.data;
 
 import static org.junit.Assert.assertEquals;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class TestFridgezoneRepository {
 			System.out.println(item.toString());
 		}
 		assertEquals("Pop", items.get(0).getName());
-        assertEquals(10, items.get(0).getQuantity());
+        assertEquals(new BigDecimal("10.00"), items.get(0).getQuantity());
 		assertEquals(5, items.size());
 	}
 
@@ -44,9 +45,11 @@ public class TestFridgezoneRepository {
 		System.out.println("Running shouldAddItem");
 		Item newItem = new Item();
 		newItem.setName("Grapes");
+        newItem.setQuantity(BigDecimal.valueOf(2.5));
 		repo.save(newItem);
         Item i2 = repo.findOne((long) 6);
 		assertEquals("Grapes", i2.getName());
+        assertEquals(new BigDecimal("2.50"), i2.getQuantity());
 	}
 
     @Test
@@ -55,16 +58,16 @@ public class TestFridgezoneRepository {
         Item cheese = new Item();
         Item eggs = new Item();
         cheese.setId(3);
-        cheese.setQuantity(50);
-        eggs.setQuantity(75);
+        cheese.setQuantity(BigDecimal.valueOf(50));
+        eggs.setQuantity(BigDecimal.valueOf(75));
         eggs.setId(5);
         List<Item> items = new ArrayList<>();
         items.add(cheese);
         items.add(eggs);
         repo.save(items);
 
-        assertEquals(50, repo.findOne(Long.valueOf(3)).getQuantity());
-        assertEquals(75, repo.findOne(Long.valueOf(5)).getQuantity());
+        assertEquals(new BigDecimal("50.00"), repo.findOne(Long.valueOf(3)).getQuantity());
+        assertEquals(new BigDecimal("75.00"), repo.findOne(Long.valueOf(5)).getQuantity());
     }
 
 //    @Test

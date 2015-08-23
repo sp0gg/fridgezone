@@ -59,6 +59,8 @@
           <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.4" />
           <element id="library" level="project" name="Maven: org.webjars:bootstrap:3.3.5" />
           <element id="library" level="project" name="Maven: org.webjars:jquery:1.11.1" />
+          <element id="library" level="project" name="Maven: org.webjars:angular-ui-bootstrap:0.13.3" />
+          <element id="library" level="project" name="Maven: org.webjars:angularjs:1.2.16-2" />
           <element id="library" level="project" name="Maven: org.webjars.bower:angular:1.4.4" />
           <element id="library" level="project" name="Maven: org.webjars.bower:angular-resource:1.4.4" />
         </element>

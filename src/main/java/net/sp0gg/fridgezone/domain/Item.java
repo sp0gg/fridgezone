@@ -3,7 +3,7 @@ package net.sp0gg.fridgezone.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;;
+import javax.persistence.Id;;import java.math.BigDecimal;
 
 @Entity(name="item")
 public class Item {
@@ -13,7 +13,7 @@ public class Item {
 	private long id;
 	
 	private String name;
-    private int quantity;
+    private BigDecimal quantity;
 
     public String toString(){
 		return String.format("Item[id=%d, name='%s']", id, name);
@@ -31,11 +31,11 @@ public class Item {
 		this.name = name;
 	}
 
-    public int getQuantity() {
+    public BigDecimal getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
     }
 

@@ -179,16 +179,11 @@
             <artifactId>bootstrap</artifactId>
             <version>3.3.5</version>
         </dependency>
-<!--        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>angularjs</artifactId>
-            <version>1.4.3-1</version>
-        </dependency>
         <dependency>
-            <groupId>org.webjars.bower</groupId>
+            <groupId>org.webjars</groupId>
             <artifactId>angular-ui-bootstrap</artifactId>
-            <version>0.13.1</version>
-        </dependency>-->
+            <version>0.13.3</version>
+        </dependency>
         <dependency>
             <groupId>org.webjars.bower</groupId>
             <artifactId>angular</artifactId>
@@ -199,10 +194,5 @@
             <artifactId>angular-resource</artifactId>
             <version>1.4.4</version>
         </dependency>
-<!--        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery</artifactId>
-            <version>1.11.3</version>
-        </dependency>-->
     </dependencies>
 </project>

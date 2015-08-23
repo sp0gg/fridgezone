@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<link rel="stylesheet" href="webjars/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Fridgezone</title>
+</head>
+<body ng-app="fridgezone" ng-controller="mainCtrl">
+<div class="container-fluid">
+    <div class="row">
+        <div id="items" class="col-sm-1 col-lg-3">
+            <table id="itemTable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tr ng-repeat="item in itemList">
+                    <td>{{item.name}}</td>
+                    <td>
+                        <input type="text" ng-model="item.quantity" size="2"/>
+                    </td>
+                    <td>
+                        <button ng-click="updateItem(item)" class="btn btn-success btn-xs"><span
+                                class="glyphicon glyphicon-ok"></span>Update
+                        </button>
+                    </td>
+                    <input type="hidden" ng-model="item.id"/>
+                </tr>
+                <tr id="itemInputRow">
+                    <form id="addItemForm">
+                        <td><input type="text" id="itemAddName" ng-model="item.new.name" size="10"/></td>
+                        <td><input type="text" id="itemAddQuantity" ng-model="item.new.quantity" size="2"></td>
+                        <td>
+                            <button ng-click="addItem(item.new)" id="addItem" class="btn btn-success btn-xs"><span
+                                    class="glyphicon glyphicon-ok"></span>Add
+                            </button>
+                        </td>
+                    </form>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="webjars/angular/1.4.4/angular.js" type="application/javascript"></script>
+<script src="webjars/angular-resource/1.4.4/angular-resource.js"></script>
+<script src="webjars/angular-ui-bootstrap/0.13.3/ui-bootstrap.js"></script>
+
+<script>
+    var fzApp = angular.module('fridgezone', ['ngResource']);
+
+    fzApp.factory("Item", function ($resource) {
+        return $resource('api/items/:id', {id: '@id'}, {
+            query: {method: 'GET', params: {id: ''}, isArray: true}
+            , add: {method: 'POST'}
+            , update: {method: 'PUT'}
+        });
+    });
+
+    fzApp.controller("mainCtrl", function ($scope, Item) {
+        $scope.itemList = Item.query();
+
+        $scope.addItem = function (item) {
+            Item.add(item);
+            $scope.item.new = {};
+            $scope.itemList = Item.query();
+        }
+
+        $scope.updateItem = function (item) {
+            Item.update(item);
+        }
+    });
+
+</script>
+
+</body>
+
+
+</html>
