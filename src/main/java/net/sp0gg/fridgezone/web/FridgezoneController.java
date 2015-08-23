@@ -1,23 +1,22 @@
 package net.sp0gg.fridgezone.web;
 
-import net.sp0gg.fridgezone.data.repository.FridgezoneRepository;
+import net.sp0gg.fridgezone.data.repository.ItemRepository;
 import net.sp0gg.fridgezone.domain.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @Controller
 public class FridgezoneController {
 	
-	private FridgezoneRepository repo;
+	private ItemRepository repo;
 	
 	@Autowired
-	public FridgezoneController(FridgezoneRepository repo) {
+	public FridgezoneController(ItemRepository repo) {
 		this.repo = repo;
 	}
 

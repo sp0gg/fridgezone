@@ -89,6 +89,11 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-rest-webmvc</artifactId>
+            <version>2.3.2.RELEASE</version>
+        </dependency>
 		<dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
@@ -174,10 +179,30 @@
             <artifactId>bootstrap</artifactId>
             <version>3.3.5</version>
         </dependency>
+<!--        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>angularjs</artifactId>
+            <version>1.4.3-1</version>
+        </dependency>
         <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-ui-bootstrap</artifactId>
+            <version>0.13.1</version>
+        </dependency>-->
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular</artifactId>
+            <version>1.4.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-resource</artifactId>
+            <version>1.4.4</version>
+        </dependency>
+<!--        <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
             <version>1.11.3</version>
-        </dependency>
+        </dependency>-->
     </dependencies>
 </project>

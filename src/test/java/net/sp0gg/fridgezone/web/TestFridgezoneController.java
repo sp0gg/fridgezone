@@ -13,7 +13,6 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -23,7 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import net.sp0gg.fridgezone.config.TestDataConfig;
-import net.sp0gg.fridgezone.data.repository.FridgezoneRepository;
+import net.sp0gg.fridgezone.data.repository.ItemRepository;
 import net.sp0gg.fridgezone.domain.Item;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -49,7 +48,7 @@ public class TestFridgezoneController {
     @Test
     public void rootPathShouldRedirectToInventoryPage() throws Exception {
         System.out.println("Running rootShouldRedirectToInventoryPage");
-        FridgezoneRepository mockRepo = mock(FridgezoneRepository.class);
+        ItemRepository mockRepo = mock(ItemRepository.class);
         FridgezoneController fridgezoneController = new FridgezoneController(mockRepo);
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(fridgezoneController).build();
             mockMvc.perform(get("/")).andExpect(view().name("redirect:/inventory"));
@@ -69,7 +68,7 @@ public class TestFridgezoneController {
 		expectedItems.add(i2);
 		expectedItems.add(i3);
 
-		FridgezoneRepository mockRepo = mock(FridgezoneRepository.class);
+		ItemRepository mockRepo = mock(ItemRepository.class);
 		when(mockRepo.findAll()).thenReturn(expectedItems);
 
 		FridgezoneController fridgezoneController = new FridgezoneController(mockRepo);
@@ -100,7 +99,7 @@ public class TestFridgezoneController {
         expectedItems.add(i3);
         expectedItems.add(newItem);
 
-        FridgezoneRepository mockRepo = mock(FridgezoneRepository.class);
+        ItemRepository mockRepo = mock(ItemRepository.class);
 
         FridgezoneController fridgezoneController = new FridgezoneController(mockRepo);
         when(mockRepo.save(newItem)).thenReturn(newItem);
@@ -133,7 +132,7 @@ public class TestFridgezoneController {
         expectedItems.add(i3);
         expectedItems.add(newItem);
 
-        FridgezoneRepository mockRepo = mock(FridgezoneRepository.class);
+        ItemRepository mockRepo = mock(ItemRepository.class);
 
         FridgezoneController fridgezoneController = new FridgezoneController(mockRepo);
         when(mockRepo.save(newItem)).thenReturn(newItem);

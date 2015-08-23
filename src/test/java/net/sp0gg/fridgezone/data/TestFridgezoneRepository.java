@@ -14,7 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import net.sp0gg.fridgezone.config.TestDataConfig;
-import net.sp0gg.fridgezone.data.repository.FridgezoneRepository;
+import net.sp0gg.fridgezone.data.repository.ItemRepository;
 import net.sp0gg.fridgezone.domain.Item;
 
 @ContextConfiguration(classes=TestDataConfig.class)
@@ -23,7 +23,8 @@ import net.sp0gg.fridgezone.domain.Item;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestFridgezoneRepository {
 	
-	@Autowired FridgezoneRepository repo;
+	@Autowired
+    ItemRepository repo;
 
 	@Test
 	public void shouldFindAllItems() {
