@@ -95,5 +95,7 @@
     <orderEntry type="library" name="Maven: org.webjars:angularjs:1.2.16-2" level="project" />
     <orderEntry type="library" name="Maven: org.webjars.bower:angular:1.4.4" level="project" />
     <orderEntry type="library" name="Maven: org.webjars.bower:angular-resource:1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars:ui-grid:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars:angular-ui:0.4.0-3" level="project" />
   </component>
 </module>

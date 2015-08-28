@@ -1,5 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <link rel="stylesheet" href="webjars/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="webjars/ui-grid/3.0.1/ui-grid.css">
+
 
 <html>
 <head>
@@ -13,15 +15,19 @@
         <div id="items" class="col-sm-1 col-lg-3">
             <table id="itemTable" class="table table-striped">
                 <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Quantity</th>
-                    </tr>
+                <tr>
+                    <th ng-click="orderByField='item'; reverseSort = !reverseSort">Item</th>
+                    <th ng-click="orderByField='quantity'; reverseSort = !reverseSort">Quantity</th>
+                    <th ng-click="orderByField='units'; reverseSort = !reverseSort">Units</th>
+                </tr>
                 </thead>
-                <tr ng-repeat="item in itemList">
+                <tr ng-repeat="item in itemList|orderBy:orderByField:reverseSort">
                     <td>{{item.name}}</td>
                     <td>
-                        <input type="text" ng-model="item.quantity" size="2"/>
+                        <input type="text" ng-model="item.quantity" size="4" value="{{item.quantity}}"/>
+                    </td>
+                    <td>
+                        {{item.units}}
                     </td>
                     <td>
                         <button ng-click="updateItem(item)" class="btn btn-success btn-xs"><span
@@ -33,7 +39,8 @@
                 <tr id="itemInputRow">
                     <form id="addItemForm">
                         <td><input type="text" id="itemAddName" ng-model="item.new.name" size="10"/></td>
-                        <td><input type="text" id="itemAddQuantity" ng-model="item.new.quantity" size="2"></td>
+                        <td><input type="text" id="itemAddQuantity" ng-model="item.new.quantity" size="4"></td>
+                        <td><input type="text" id="itemAddUnits" ng-model="item.new.units" size="10"></td>
                         <td>
                             <button ng-click="addItem(item.new)" id="addItem" class="btn btn-success btn-xs"><span
                                     class="glyphicon glyphicon-ok"></span>Add
@@ -43,15 +50,24 @@
                 </tr>
             </table>
         </div>
+
+    </div>
+
+    <div class="row">
+        <div id="items2" class="col-sm-2 col-lg-3">
+            <div ui-grid="itemGridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellnav class="grid"></div>
+        </div>
     </div>
 </div>
 
 <script src="webjars/angular/1.4.4/angular.js" type="application/javascript"></script>
 <script src="webjars/angular-resource/1.4.4/angular-resource.js"></script>
-<script src="webjars/angular-ui-bootstrap/0.13.3/ui-bootstrap.js"></script>
+<script src="webjars/ui-grid/3.0.1/ui-grid.js"></script>
+
+<!--<script src="webjars/angular-ui-bootstrap/0.13.3/ui-bootstrap.js"></script>-->
 
 <script>
-    var fzApp = angular.module('fridgezone', ['ngResource']);
+    var fzApp = angular.module('fridgezone', ['ngResource', 'ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav']);
 
     fzApp.factory("Item", function ($resource) {
         return $resource('api/items/:id', {id: '@id'}, {
@@ -61,18 +77,43 @@
         });
     });
 
-    fzApp.controller("mainCtrl", function ($scope, Item) {
+    fzApp.controller("mainCtrl", function ($q, $scope, Item) {
         $scope.itemList = Item.query();
+        $scope.orderByField = 'item';
+        $scope.reverseSort = false;
 
         $scope.addItem = function (item) {
-            Item.add(item);
+            var addedItem = Item.add(item);
+            $scope.itemList.push(addedItem);
             $scope.item.new = {};
-            $scope.itemList = Item.query();
         }
 
         $scope.updateItem = function (item) {
-            Item.update(item);
+            return Item.update(item);
         }
+
+        $scope.itemGridOptions={
+            data: $scope.itemList,
+            columnDefs: [
+                {field: 'id',  visible: false},
+                {field: 'name', displayName: 'Item', enableCellEdit: true},
+                {field: 'quantity', enableCellEdit: true},
+                {field: 'units', enableCellEdit: true}
+            ]
+        }
+
+        //CP
+        $scope.saveRow = function(rowEntity){
+            var promise = $scope.updateItem(rowEntity).$promise;
+            $scope.gridApi.rowEdit.setSavePromise(rowEntity, promise);
+        }
+
+        //CP
+        $scope.itemGridOptions.onRegisterApi = function(gridApi){
+            $scope.gridApi = gridApi;
+            gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
+        };
+
     });
 
 </script>

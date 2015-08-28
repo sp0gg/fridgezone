@@ -14,6 +14,7 @@ public class Item {
 	
 	private String name;
     private BigDecimal quantity;
+    private String units;
 
     public String toString(){
 		return String.format("Item[id=%d, name='%s']", id, name);
@@ -65,5 +66,13 @@ public class Item {
                 .append(name)
                 .append(quantity)
                 .toHashCode();
+    }
+
+    public String getUnits() {
+        return units;
+    }
+
+    public void setUnits(String units) {
+        this.units = units;
     }
 }

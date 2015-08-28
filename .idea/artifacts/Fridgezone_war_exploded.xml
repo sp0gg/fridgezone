@@ -63,6 +63,8 @@
           <element id="library" level="project" name="Maven: org.webjars:angularjs:1.2.16-2" />
           <element id="library" level="project" name="Maven: org.webjars.bower:angular:1.4.4" />
           <element id="library" level="project" name="Maven: org.webjars.bower:angular-resource:1.4.4" />
+          <element id="library" level="project" name="Maven: org.webjars:ui-grid:3.0.1" />
+          <element id="library" level="project" name="Maven: org.webjars:angular-ui:0.4.0-3" />
         </element>
       </element>
       <element id="directory" name="META-INF">

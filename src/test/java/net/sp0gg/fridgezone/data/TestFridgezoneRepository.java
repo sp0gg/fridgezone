@@ -35,8 +35,10 @@ public class TestFridgezoneRepository {
 		for (Item item : items) {
 			System.out.println(item.toString());
 		}
-		assertEquals("Pop", items.get(0).getName());
-        assertEquals(new BigDecimal("10.00"), items.get(0).getQuantity());
+        Item item = items.get(0);
+		assertEquals("Pop", item.getName());
+        assertEquals(new BigDecimal("10.00"), item.getQuantity());
+        assertEquals("Bottles", item.getUnits());
 		assertEquals(5, items.size());
 	}
 
@@ -46,21 +48,27 @@ public class TestFridgezoneRepository {
 		Item newItem = new Item();
 		newItem.setName("Grapes");
         newItem.setQuantity(BigDecimal.valueOf(2.5));
+        newItem.setUnits("Items");
 		repo.save(newItem);
         Item i2 = repo.findOne((long) 6);
 		assertEquals("Grapes", i2.getName());
         assertEquals(new BigDecimal("2.50"), i2.getQuantity());
+        assertEquals("Items", i2.getUnits());
 	}
 
     @Test
-    public void shouldUpdateQuantities(){
-        System.out.println("Running shouldUpdateQuantities");
+    public void shouldUpdate(){
+        System.out.println("Running shouldUpdate");
         Item cheese = new Item();
         Item eggs = new Item();
         cheese.setId(3);
         cheese.setQuantity(BigDecimal.valueOf(50));
+        cheese.setName("Cheese");
+        cheese.setUnits("Bags");
         eggs.setQuantity(BigDecimal.valueOf(75));
         eggs.setId(5);
+        eggs.setName("Eggs");
+        eggs.setUnits("Cartons");
         List<Item> items = new ArrayList<>();
         items.add(cheese);
         items.add(eggs);
@@ -70,11 +78,4 @@ public class TestFridgezoneRepository {
         assertEquals(new BigDecimal("75.00"), repo.findOne(Long.valueOf(5)).getQuantity());
     }
 
-//    @Test
-//    public void shouldUpdateItem(){
-//        System.out.println("Running shouldUpdateItem");
-//
-//
-//        assertEquals(updatedItem, repo.findOne(Long.valueOf(1)));
-//    }
 }
