@@ -37,8 +37,8 @@ public class TestFridgezoneRepository {
 		}
         Item item = items.get(0);
 		assertEquals("Pop", item.getName());
-        assertEquals(new BigDecimal("10.00"), item.getQuantity());
-        assertEquals("Bottles", item.getUnits());
+        assertEquals("Out", item.getStockLevel());
+        assertEquals(2, item.getOptimalQuantity());
 		assertEquals(5, items.size());
 	}
 
@@ -47,13 +47,13 @@ public class TestFridgezoneRepository {
 		System.out.println("Running shouldAddItem");
 		Item newItem = new Item();
 		newItem.setName("Grapes");
-        newItem.setQuantity(BigDecimal.valueOf(2.5));
-        newItem.setUnits("Items");
+        newItem.setStockLevel("Out");
+        newItem.setOptimalQuantity(1);
 		repo.save(newItem);
         Item i2 = repo.findOne((long) 6);
 		assertEquals("Grapes", i2.getName());
-        assertEquals(new BigDecimal("2.50"), i2.getQuantity());
-        assertEquals("Items", i2.getUnits());
+        assertEquals("Out", i2.getStockLevel());
+        assertEquals(1, i2.getOptimalQuantity());
 	}
 
     @Test
@@ -62,20 +62,24 @@ public class TestFridgezoneRepository {
         Item cheese = new Item();
         Item eggs = new Item();
         cheese.setId(3);
-        cheese.setQuantity(BigDecimal.valueOf(50));
+        cheese.setStockLevel("Stocked");
         cheese.setName("Cheese");
-        cheese.setUnits("Bags");
-        eggs.setQuantity(BigDecimal.valueOf(75));
+        cheese.setOptimalQuantity(2);
+        eggs.setStockLevel("Surplus");
         eggs.setId(5);
         eggs.setName("Eggs");
-        eggs.setUnits("Cartons");
+        eggs.setOptimalQuantity(2);
         List<Item> items = new ArrayList<>();
         items.add(cheese);
         items.add(eggs);
         repo.save(items);
 
-        assertEquals(new BigDecimal("50.00"), repo.findOne(Long.valueOf(3)).getQuantity());
-        assertEquals(new BigDecimal("75.00"), repo.findOne(Long.valueOf(5)).getQuantity());
+        Item cheeseRetrieved = repo.findOne(Long.valueOf(3));
+        Item eggsRetrieved = repo.findOne(Long.valueOf(5));
+        assertEquals("Stocked", cheeseRetrieved.getStockLevel());
+        assertEquals(2, cheeseRetrieved.getOptimalQuantity());
+        assertEquals("Surplus", eggsRetrieved.getStockLevel());
+        assertEquals(2, eggsRetrieved.getOptimalQuantity());
     }
 
 }

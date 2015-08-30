@@ -12,51 +12,29 @@
 <body ng-app="fridgezone" ng-controller="mainCtrl">
 <div class="container-fluid">
     <div class="row">
-        <div id="items" class="col-sm-1 col-lg-3">
-            <table id="itemTable" class="table table-striped">
-                <thead>
-                <tr>
-                    <th ng-click="orderByField='item'; reverseSort = !reverseSort">Item</th>
-                    <th ng-click="orderByField='quantity'; reverseSort = !reverseSort">Quantity</th>
-                    <th ng-click="orderByField='units'; reverseSort = !reverseSort">Units</th>
-                </tr>
-                </thead>
-                <tr ng-repeat="item in itemList|orderBy:orderByField:reverseSort">
-                    <td>{{item.name}}</td>
-                    <td>
-                        <input type="text" ng-model="item.quantity" size="4" value="{{item.quantity}}"/>
-                    </td>
-                    <td>
-                        {{item.units}}
-                    </td>
-                    <td>
-                        <button ng-click="updateItem(item)" class="btn btn-success btn-xs"><span
-                                class="glyphicon glyphicon-ok"></span>Update
-                        </button>
-                    </td>
-                    <input type="hidden" ng-model="item.id"/>
-                </tr>
-                <tr id="itemInputRow">
-                    <form id="addItemForm">
-                        <td><input type="text" id="itemAddName" ng-model="item.new.name" size="10"/></td>
-                        <td><input type="text" id="itemAddQuantity" ng-model="item.new.quantity" size="4"></td>
-                        <td><input type="text" id="itemAddUnits" ng-model="item.new.units" size="10"></td>
-                        <td>
-                            <button ng-click="addItem(item.new)" id="addItem" class="btn btn-success btn-xs"><span
-                                    class="glyphicon glyphicon-ok"></span>Add
-                            </button>
-                        </td>
-                    </form>
-                </tr>
-            </table>
+        <div id="items" class="col-sm-2 col-lg-3">
+            <div id="itemGrid" ui-grid="itemGridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellnav ui-grid-autoresize class="grid"></div>
         </div>
-
+        <br/>
     </div>
-
     <div class="row">
-        <div id="items2" class="col-sm-2 col-lg-3">
-            <div ui-grid="itemGridOptions" ui-grid-edit ui-grid-row-edit ui-grid-cellnav class="grid"></div>
-        </div>
+        <table id="itemInputTable" class="col-sm-2 col-lg-3" class="table table-striped">
+            <thead>
+            <tr>
+                <th>Item</th>
+                <th>Stock Level</th>
+                <th>Optimal Quantity</th>
+            </tr>
+            </thead>
+            <tr>
+        <td><input type="text" id="itemAddName" ng-model="item.new.name" size="10"/></td>
+        <td><input type="text" id="itemAddStockLevel" ng-model="item.new.stockLevel" size="6"></td>
+        <td><input type="text" id="itemAddOptimalQuantity" ng-model="item.new.optimalQuantity" size="2">
+        <button ng-click="addItem(item.new)" id="addItem" class="btn btn-success btn-xs"><span
+                class="glyphicon glyphicon-ok"></span>Add
+        </button></td>
+            </tr>
+        </table>
     </div>
 </div>
 
@@ -67,7 +45,7 @@
 <!--<script src="webjars/angular-ui-bootstrap/0.13.3/ui-bootstrap.js"></script>-->
 
 <script>
-    var fzApp = angular.module('fridgezone', ['ngResource', 'ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav']);
+    var fzApp = angular.module('fridgezone', ['ngResource', 'ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav', 'ui.grid.autoResize']);
 
     fzApp.factory("Item", function ($resource) {
         return $resource('api/items/:id', {id: '@id'}, {
@@ -77,10 +55,8 @@
         });
     });
 
-    fzApp.controller("mainCtrl", function ($q, $scope, Item) {
+    fzApp.controller("mainCtrl", function ($scope, Item) {
         $scope.itemList = Item.query();
-        $scope.orderByField = 'item';
-        $scope.reverseSort = false;
 
         $scope.addItem = function (item) {
             var addedItem = Item.add(item);
@@ -94,12 +70,15 @@
 
         $scope.itemGridOptions={
             data: $scope.itemList,
+            //enableColumnMenus
+
             columnDefs: [
                 {field: 'id',  visible: false},
-                {field: 'name', displayName: 'Item', enableCellEdit: true},
-                {field: 'quantity', enableCellEdit: true},
-                {field: 'units', enableCellEdit: true}
-            ]
+                {field: 'name', name: 'name', displayName: 'Item', enableCellEdit: true},
+                {field: 'stockLevel', enableCellEdit: true},
+                {field: 'optimalQuantity', enableCellEdit: true}
+            ],
+            rowEditWaitInterval: 1000
         }
 
         //CP

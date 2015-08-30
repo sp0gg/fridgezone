@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="630324973">
+  <component name="DataSourceManagerImpl" format="xml" hash="3098145914">
     <data-source source="LOCAL" name="MySQL - fridgezone_test@localhost" uuid="0abaed9d-bc21-40be-a762-1d07d35c0d1b">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
