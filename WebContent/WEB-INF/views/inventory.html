@@ -19,35 +19,32 @@
 <div class="container-fluid">
     <div class="row">
         <div id="items" class="col-sm-6">
-            <div id="itemGrid" ui-grid="itemGridOptions" ui-grid-edit ui-grid-row-edit class="grid"></div>
+            <div id="itemGrid" ui-grid="itemGridOptions" ui-grid-selection class="grid"></div>
         </div>
         <br/>
     </div>
     <div class="row">
         <div class="form-inline" class="col-sm-3">
-            <form name="itemForm" id="itemForm" novalidate ng-submit="addItem(item.new)">
+            <form name="itemForm" id="itemForm" novalidate ng-submit="saveItem(newItem)">
                 <div class="form-group">
                     <label class="sr-only" for="itemAddName">Item name</label>
-                    <input type="text" ng-model="item.new.name" class="form-control" id="itemAddName"
+                    <input type="text" ng-model="newItem.name" class="form-control" id="itemAddName"
                            placeholder="Item name" ng-maxlength="25" required>
-                </div>
-                <div class="form-group">
                     <label class="sr-only" for="itemAddStockLevel">Stock level</label>
-                    <input type="text" ng-model="item.new.stockLevel" class="form-control" id="itemAddStockLevel"
+                    <input type="text" ng-model="newItem.stockLevel" class="form-control" id="itemAddStockLevel"
                            placeholder="Stock Level" ng-maxlength="15" required>
-                </div>
-                <div class="form-group">
                     <label class="sr-only" for="itemAddOptimalQuantity">Optimal quantity</label>
-                    <input type="number" ng-model="item.new.optimalQuantity" class="form-control"
+                    <input type="number" ng-model="newItem.optimalQuantity" class="form-control"
                            id="itemAddOptimalQuantity" placeholder="Optimal Quantity" min="1" max="99" required>
-                </div>
-                <div class="form-group">
-                    <button type="submit" id="addItem" ng-disabled="itemForm.$invalid" class="btn btn-success btn-med"><span
-                            class="glyphicon glyphicon-ok"></span>Add
+                    <input type="hidden" ng-model="newItem.id">
+                    <button type="submit" id="addItem" ng-disabled="itemForm.$invalid" class="btn btn-success btn-med">
+                        <span class="glyphicon glyphicon-ok"></span>{{saveLabel || 'Add'}}
+                    </button>
+                    <button type="button" id="cancelButton" class="btn btn-danger btn-small" ng-click="resetItemForm()">
+                        <span class="glyphicon glyphicon-remove"></span>Cancel
                     </button>
                 </div>
             </form>
-
         </div>
     </div>
 </div>
@@ -60,6 +57,5 @@
 <script src="assets/js/services.js"></script>
 
 </body>
-
 
 </html>
