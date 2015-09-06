@@ -1,6 +1,12 @@
 fzApp.controller("mainCtrl", function ($scope, Item, uiGridConstants) {
     $scope.itemList = Item.query();
     $scope.saveMethod = 'add';
+    $scope.stockLevelValues = [
+        'Out',
+        'Low',
+        'Stocked',
+        'Surplus'
+    ];
 
     $scope.addItem = function (item) {
         var addedItem = Item.add(item);
