@@ -4,6 +4,8 @@
 <head>
     <link rel="stylesheet" href="webjars/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="webjars/ui-grid/3.0.1/ui-grid.css">
+    <link rel="stylesheet" href="assets/style/fridgezone.css">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Fridgezone</title>
@@ -18,13 +20,47 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div id="items" class="col-sm-6">
+        <div id="items" class="col-sm-12">
             <div id="itemGrid" ui-grid="itemGridOptions" ui-grid-selection class="grid"></div>
         </div>
         <br/>
     </div>
     <div class="row">
-        <div class="form-inline" class="col-sm-3">
+        <!--<div class="form-inline" class="col-sm-12">-->
+            <!--<form name="itemForm" id="itemForm" novalidate ng-submit="saveItem(newItem)">-->
+                <!--<div class="form-group">-->
+                    <!--<label class="sr-only" for="itemAddName">Item name</label>-->
+                    <!--<input type="text" ng-model="newItem.name" class="form-control" id="itemAddName"-->
+                           <!--placeholder="Item name" ng-maxlength="25" required>-->
+                    <!--<label class="sr-only" for="itemAddStockLevel">Stock level</label>-->
+                    <!--&lt;!&ndash;<input type="text" ng-model="newItem.stockLevel" class="form-control" id="itemAddStockLevel"&ndash;&gt;-->
+                           <!--&lt;!&ndash;placeholder="Stock Level" ng-maxlength="15" required>&ndash;&gt;-->
+                    <!--<select class="form-control" ng-model="newItem.stockLevel" id="itemAddStockLevel" placeholder="Stock Level" required>-->
+                        <!--<option ng-repeat="level in stockLevelValues">{{level}}</option>-->
+                    <!--</select>-->
+                    <!--<label class="sr-only" for="itemAddOptimalQuantity">Optimal quantity</label>-->
+                    <!--<input type="number" ng-model="newItem.optimalQuantity" class="form-control"-->
+                           <!--id="itemAddOptimalQuantity" placeholder="Optimal Quantity" min="1" max="99" required>-->
+                    <!--<input type="hidden" ng-model="newItem.id">-->
+                    <!--<button type="submit" id="addItem" ng-disabled="itemForm.$invalid" class="btn btn-success btn-med">-->
+                        <!--<span class="glyphicon glyphicon-ok"></span>{{saveLabel || 'Add'}}-->
+                    <!--</button>-->
+                    <!--<button type="button" id="cancelButton" class="btn btn-danger btn-small" ng-click="resetItemForm()">-->
+                        <!--<span class="glyphicon glyphicon-remove"></span>Cancel-->
+                    <!--</button>-->
+                <!--</div>-->
+            <!--</form>-->
+        <!--</div>-->
+    </div>
+</div>
+------------------------------------------------<br/>
+<div ng-controller="ItemModalCtrl">
+<script type="text/ng-template" id="itemModalTemplate">
+    <div class="modal-header">
+        <h3 class="modal-title">Add/update item</h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-inline" class="col-sm-12">
             <form name="itemForm" id="itemForm" novalidate ng-submit="saveItem(newItem)">
                 <div class="form-group">
                     <label class="sr-only" for="itemAddName">Item name</label>
@@ -32,7 +68,7 @@
                            placeholder="Item name" ng-maxlength="25" required>
                     <label class="sr-only" for="itemAddStockLevel">Stock level</label>
                     <!--<input type="text" ng-model="newItem.stockLevel" class="form-control" id="itemAddStockLevel"-->
-                           <!--placeholder="Stock Level" ng-maxlength="15" required>-->
+                    <!--placeholder="Stock Level" ng-maxlength="15" required>-->
                     <select class="form-control" ng-model="newItem.stockLevel" id="itemAddStockLevel" placeholder="Stock Level" required>
                         <option ng-repeat="level in stockLevelValues">{{level}}</option>
                     </select>
@@ -40,23 +76,38 @@
                     <input type="number" ng-model="newItem.optimalQuantity" class="form-control"
                            id="itemAddOptimalQuantity" placeholder="Optimal Quantity" min="1" max="99" required>
                     <input type="hidden" ng-model="newItem.id">
-                    <button type="submit" id="addItem" ng-disabled="itemForm.$invalid" class="btn btn-success btn-med">
+<!--                    <button type="submit" id="addItem" ng-disabled="itemForm.$invalid" class="btn btn-success btn-med">
                         <span class="glyphicon glyphicon-ok"></span>{{saveLabel || 'Add'}}
                     </button>
                     <button type="button" id="cancelButton" class="btn btn-danger btn-small" ng-click="resetItemForm()">
                         <span class="glyphicon glyphicon-remove"></span>Cancel
-                    </button>
+                    </button>-->
                 </div>
             </form>
         </div>
     </div>
+    <div class="modal-footer">
+        <button id="addItem" class="btn btn-primary" type="button" ng-disabled="itemForm.$invalid" ng-click="ok()">
+            <span class="glyphicon glyphicon-ok"></span>{{saveLabel || 'Add'}}
+        </button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
+
+<button type="button" class="btn btn-default" ng-click="open()">Open me!</button>
 </div>
+----------------------------------------------------------------
+
+
+
 
 <script src="webjars/angular/1.4.4/angular.js" type="application/javascript"></script>
 <script src="webjars/angular-resource/1.4.4/angular-resource.js"></script>
 <script src="webjars/ui-grid/3.0.1/ui-grid.js"></script>
+<script src="webjars/angular-ui-bootstrap/0.13.3/ui-bootstrap-tpls.min.js"></script>
 <script src="assets/js/app.js"></script>
 <script src="assets/js/main.ctrl.js"></script>
+<script src="assets/js/main.modal.ctrl.js"></script>
 <script src="assets/js/services.js"></script>
 
 </body>

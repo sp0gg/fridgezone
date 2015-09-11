@@ -1,25 +1,14 @@
 fzApp.controller("mainCtrl", function ($scope, Item, uiGridConstants) {
     $scope.itemList = Item.query();
+    $scope.selectedItem = {};
     $scope.saveMethod = 'add';
-    $scope.stockLevelValues = [
-        'Out',
-        'Low',
-        'Stocked',
-        'Surplus'
-    ];
 
-    $scope.addItem = function (item) {
-        var addedItem = Item.add(item);
-        $scope.itemList.push(addedItem);
-        $scope.newItem = {};
-    }
 
-    $scope.updateItem = function (item) {
-        var index = $scope.itemList.indexOf($scope.oldItem);
-        var updatedItem = Item.update(item);
-        $scope.itemList[index] = updatedItem;
-        $scope.setSaveDialog({}, 'add');
-        return updatedItem;
+    $scope.getCellClass = function(item){
+        if(item.stockLevel === 'Low' || item.stockLevel === 'Out') {
+            return 'low';
+        }
+        return '';
     }
 
     $scope.handleGridSelection = function(row){
@@ -29,8 +18,8 @@ fzApp.controller("mainCtrl", function ($scope, Item, uiGridConstants) {
             }else{
                 return 'add';
             }
-        })();
-        $scope.setSaveDialog(row.entity, method);
+        });
+        $scope.setSaveDialog(method);
     }
 
     $scope.setSaveDialog = function(item, method) {
@@ -42,7 +31,6 @@ fzApp.controller("mainCtrl", function ($scope, Item, uiGridConstants) {
             $scope.saveLabel = 'Update';
             $scope.saveMethod = 'update';
 
-            console.log(item);
             $scope.newItem = {};
             $scope.newItem.id = item.id;
             $scope.newItem.name = item.name;
@@ -60,32 +48,33 @@ fzApp.controller("mainCtrl", function ($scope, Item, uiGridConstants) {
         $scope.gridApi.selection.clearSelectedRows();
     }
 
-    $scope.saveItem = function(item){
-        console.log(item);
-        if($scope.saveMethod === 'update'){
-            console.log('upd');
-            $scope.updateItem(item);
-        }else if($scope.saveMethod === 'add'){
-            $scope.addItem(item);
-        }
-    }
+
     $scope.itemGridOptions={
         data: $scope.itemList,
         columnDefs: [
             {field: 'id',  visible: false},
-            {field: 'name', name: 'name', displayName: 'Item', enableCellEdit: true,
+            {field: 'name', name: 'name', displayName: 'Item',
+                cellClass: function(grid, row) {
+                    return $scope.getCellClass(row.entity);
+                },
                 sort: {
                     direction: uiGridConstants.ASC
                 }
             },
-            {field: 'stockLevel', enableCellEdit: true},
-            {field: 'optimalQuantity', enableCellEdit: true}
+            {field: 'stockLevel',
+                cellClass: function(grid, row) {
+                    return $scope.getCellClass(row.entity);
+                }
+            },
+            {field: 'optimalQuantity',
+                cellClass: function(grid, row) {
+                    return $scope.getCellClass(row.entity);
+                }
+            }
         ],
-        enableRowSelection: true,
         enableSelectAll: false,
         enableColumnMenus: false,
-        multiSelect: false,
-        rowEditWaitInterval: 1000
+        multiSelect: false
     }
     //CP
     $scope.saveRow = function(rowEntity){
