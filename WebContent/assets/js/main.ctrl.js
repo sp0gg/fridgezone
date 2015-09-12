@@ -1,4 +1,4 @@
-fzApp.controller("mainCtrl", function ($scope, Item, uiGridConstants) {
+fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants) {
     $scope.itemList = Item.query();
     $scope.selectedItem = {};
     $scope.saveMethod = 'add';
@@ -12,42 +12,58 @@ fzApp.controller("mainCtrl", function ($scope, Item, uiGridConstants) {
     }
 
     $scope.handleGridSelection = function(row){
-        var method = (function(){
-            if(row.isSelected){
-                return 'update';
-            }else{
-                return 'add';
-            }
-        });
-        $scope.setSaveDialog(method);
-    }
-
-    $scope.setSaveDialog = function(item, method) {
-        if(method === 'add'){
-            $scope.newItem = {};
-            $scope.saveLabel = 'Add';
-            $scope.saveMethod = 'add';
-        }else if(method === 'update'){
-            $scope.saveLabel = 'Update';
-            $scope.saveMethod = 'update';
-
-            $scope.newItem = {};
-            $scope.newItem.id = item.id;
-            $scope.newItem.name = item.name;
-            $scope.newItem.stockLevel = item.stockLevel;
-            $scope.newItem.optimalQuantity = item.optimalQuantity;
-            $scope.oldItem = item;
-            //$scope.newItem = item;
+        if(row.isSelected) {
+            $scope.openItemDialog(row.entity);
         }
-
     }
+
     $scope.resetItemForm = function(){
         $scope.newItem = {};
         $scope.oldItem = {};
-        $scope.setSaveDialog({}, 'add');
         $scope.gridApi.selection.clearSelectedRows();
     }
 
+    $scope.openItemDialog = function(item){
+        $rootScope.$broadcast('openItemDialog', item);
+    }
+
+    $scope.$on('itemAdded', function(event, item){
+        console.log('item has been added: ' + angular.toJson(item));
+        var returnedItem = $scope.saveItem(item);
+        if(typeof item.id === 'undefined'){
+            $scope.itemList.push(returnedItem);
+            $scope.newItem = {};
+        }else{
+            //REFACTOR THIS NOT TO NEED TO CHECK FOR ID OR SOMETHING
+            //if index is -1, push
+            var oldItem = $scope.itemList.filter(function(listItem){
+                return listItem.id === returnedItem.id;
+            });
+            oldItem = oldItem[0];
+            console.log('old item is ' + angular.toJson(oldItem));
+            var index = $scope.itemList.indexOf(oldItem);
+            console.log('index is ' + index + ' for item ' + angular.toJson(oldItem));
+            $scope.itemList[index] = returnedItem;
+            //ADD THIS?
+            //scrollToIfNecessary(gridRow, gridCol)
+        }
+    });
+
+    $scope.saveItem = function(item){
+        if(typeof item.id === 'undefined'){
+            return $scope.addItem(item);
+        }else{
+            return $scope.updateItem(item);
+        }
+    }
+
+    $scope.addItem = function (item) {
+        return Item.add(item);
+    }
+
+    $scope.updateItem = function (item) {
+        return Item.update(item);
+    }
 
     $scope.itemGridOptions={
         data: $scope.itemList,

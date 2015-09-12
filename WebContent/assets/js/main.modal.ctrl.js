@@ -1,44 +1,28 @@
-fzApp.controller('ItemModalCtrl', function ($scope, $modal, $log, Item) {
+fzApp.controller('ItemModalCtrl', function ($scope, $rootScope, $modal, $log, Item) {
 
-    $scope.open = function () {
+    $scope.$on('openItemDialog', function(event, item){
+        console.log('received item for modal ' + angular.toJson(item));
+        $scope.open(item);
+    });
+
+    $scope.open = function(item) {
         var modalInstance = $modal.open({
             templateUrl: 'itemModalTemplate',
             controller: 'ItemModalInstanceCtrl',
             resolve: {
                 item: function () {
-                    return angular.copy($scope.selectedItem);
+                    return angular.copy(item);
                 }
             }
         });
 
         modalInstance.result.then(function (modalItem) {
-            $scope.saveItem(modalItem);
+            console.log('modal returning item ' + angular.toJson(modalItem));
+            $rootScope.$broadcast('itemAdded', modalItem);
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
         });
     };
-
-    $scope.saveItem = function(item){
-        if(typeof item.id === 'undefined'){
-            $scope.addItem(item);
-        }else{
-            $scope.updateItem(item);
-        }
-    }
-
-    $scope.addItem = function (item) {
-        var addedItem = Item.add(item);
-        $scope.itemList.push(addedItem);
-        $scope.newItem = {};
-    }
-
-    $scope.updateItem = function (item) {
-        var index = $scope.itemList.indexOf($scope.oldItem);
-        var updatedItem = Item.update(item);
-        $scope.itemList[index] = updatedItem;
-        $scope.setSaveDialog({}, 'add');
-        return updatedItem;
-    }
 
 });
 
