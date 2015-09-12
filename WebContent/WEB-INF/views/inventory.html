@@ -25,43 +25,19 @@
         </div>
         <br/>
     </div>
-    <div class="row">
-        <!--<div class="form-inline" class="col-sm-12">-->
-            <!--<form name="itemForm" id="itemForm" novalidate ng-submit="saveItem(newItem)">-->
-                <!--<div class="form-group">-->
-                    <!--<label class="sr-only" for="itemAddName">Item name</label>-->
-                    <!--<input type="text" ng-model="newItem.name" class="form-control" id="itemAddName"-->
-                           <!--placeholder="Item name" ng-maxlength="25" required>-->
-                    <!--<label class="sr-only" for="itemAddStockLevel">Stock level</label>-->
-                    <!--&lt;!&ndash;<input type="text" ng-model="newItem.stockLevel" class="form-control" id="itemAddStockLevel"&ndash;&gt;-->
-                           <!--&lt;!&ndash;placeholder="Stock Level" ng-maxlength="15" required>&ndash;&gt;-->
-                    <!--<select class="form-control" ng-model="newItem.stockLevel" id="itemAddStockLevel" placeholder="Stock Level" required>-->
-                        <!--<option ng-repeat="level in stockLevelValues">{{level}}</option>-->
-                    <!--</select>-->
-                    <!--<label class="sr-only" for="itemAddOptimalQuantity">Optimal quantity</label>-->
-                    <!--<input type="number" ng-model="newItem.optimalQuantity" class="form-control"-->
-                           <!--id="itemAddOptimalQuantity" placeholder="Optimal Quantity" min="1" max="99" required>-->
-                    <!--<input type="hidden" ng-model="newItem.id">-->
-                    <!--<button type="submit" id="addItem" ng-disabled="itemForm.$invalid" class="btn btn-success btn-med">-->
-                        <!--<span class="glyphicon glyphicon-ok"></span>{{saveLabel || 'Add'}}-->
-                    <!--</button>-->
-                    <!--<button type="button" id="cancelButton" class="btn btn-danger btn-small" ng-click="resetItemForm()">-->
-                        <!--<span class="glyphicon glyphicon-remove"></span>Cancel-->
-                    <!--</button>-->
-                <!--</div>-->
-            <!--</form>-->
-        <!--</div>-->
+    <div class="row" style="padding: 20px">
+        <button class="btn btn-success" ng-click="openItemDialog({})"><span class="glyphicon glyphicon-plus-sign"></span> Add item</button>
     </div>
 </div>
-<br/>
+
 <div ng-controller="ItemModalCtrl">
     <script type="text/ng-template" id="itemModalTemplate">
         <div class="modal-header">
-            <h3 class="modal-title">Add/update item</h3>
+            <h3 class="modal-title">{{saveLabel}} item {{item.name}}</h3>
         </div>
         <div class="modal-body">
             <div class="form-inline" class="col-sm-12">
-                <form name="itemForm" id="itemForm" novalidate ng-submit="saveItem(newItem)">
+                <form name="itemForm" id="itemForm" novalidate>
                     <div class="form-group">
                         <label class="sr-only" for="itemAddName">Item name</label>
                         <input type="text" ng-model="newItem.name" class="form-control" id="itemAddName"
@@ -79,15 +55,10 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button id="addItem" class="btn btn-primary" type="button" ng-disabled="itemForm.$invalid" ng-click="ok()">
-                <span class="glyphicon glyphicon-ok"></span>{{saveLabel || 'Add'}}
-            </button>
-            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            <button id="addItem" class="btn btn-success" ng-disabled="itemForm.$invalid" ng-click="ok()"><span class="glyphicon glyphicon-ok-sign"></span> {{saveLabel}}</button>
+            <button id="cancelAddItem" class="btn btn-danger" ng-click="cancel()"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
         </div>
     </script>
-
-    <button type="button" class="btn btn-default" ng-click="openItemDialog({})">Add item</button>
-
 </div>
 
 

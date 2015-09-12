@@ -1,8 +1,6 @@
 fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants) {
     $scope.itemList = Item.query();
     $scope.selectedItem = {};
-    $scope.saveMethod = 'add';
-
 
     $scope.getCellClass = function(item){
         if(item.stockLevel === 'Low' || item.stockLevel === 'Out') {
@@ -13,6 +11,7 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
 
     $scope.handleGridSelection = function(row){
         if(row.isSelected) {
+            $scope.gridApi.selection.clearSelectedRows();
             $scope.openItemDialog(row.entity);
         }
     }
@@ -57,11 +56,11 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
         }
     }
 
-    $scope.addItem = function (item) {
+    $scope.addItem = function (item){
         return Item.add(item);
     }
 
-    $scope.updateItem = function (item) {
+    $scope.updateItem = function (item){
         return Item.update(item);
     }
 

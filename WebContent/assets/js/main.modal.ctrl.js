@@ -1,4 +1,4 @@
-fzApp.controller('ItemModalCtrl', function ($scope, $rootScope, $modal, $log, Item) {
+fzApp.controller('ItemModalCtrl', function ($scope, $rootScope, $modal, $log) {
 
     $scope.$on('openItemDialog', function(event, item){
         console.log('received item for modal ' + angular.toJson(item));
@@ -35,6 +35,15 @@ fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item
     ];
 
     $scope.newItem = item;
+    $scope.item = angular.copy(item);
+
+    $scope.saveLabel = (function(){
+        if(typeof item.id === 'undefined'){
+            return 'Add';
+        }else{
+            return 'Update';
+        }
+    })();
 
     $scope.ok = function () {
         $modalInstance.close(item);
