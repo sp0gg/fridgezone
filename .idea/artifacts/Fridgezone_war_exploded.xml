@@ -9,7 +9,6 @@
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.springframework:spring-context:4.1.7.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.1.7.RELEASE" />
-          <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.1.7.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:4.1.7.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-test:4.1.7.RELEASE" />
@@ -35,6 +34,10 @@
           <element id="library" level="project" name="Maven: com.google.guava:guava:16.0.1" />
           <element id="library" level="project" name="Maven: com.google.code.findbugs:jsr305:2.0.1" />
           <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.12" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:4.0.2.RELEASE" />
+          <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:4.0.2.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:4.0.2.RELEASE" />
           <element id="library" level="project" name="Maven: jstl:jstl:1.2" />
           <element id="library" level="project" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.1.Final" />
           <element id="library" level="project" name="Maven: org.springframework.data:spring-data-jpa:1.8.2.RELEASE" />

@@ -23,16 +23,4 @@ public class RootConfig {
 		DataSource ds = (DataSource) jndiObjectFB.getObject();
 		return ds;
 	}
-
-/*
-@Bean
-public JndiObjectFactoryBean fridgezoneDataSource(){
-JndiObjectFactoryBean jndiObjectFB = new JndiObjectFactoryBean();
-jndiObjectFB.setJndiName("jdbc/fridgezone");
-jndiObjectFB.setResourceRef(true);
-jndiObjectFB.setProxyInterface(javax.sql.DataSource.class);
-return jndiObjectFB;
-}
-*/
-
 }
