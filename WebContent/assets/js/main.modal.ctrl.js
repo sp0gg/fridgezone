@@ -1,7 +1,6 @@
 fzApp.controller('ItemModalCtrl', function ($scope, $rootScope, $modal, $log) {
 
     $scope.$on('openItemDialog', function(event, item){
-        console.log('received item for modal ' + angular.toJson(item));
         $scope.open(item);
     });
 
@@ -17,7 +16,6 @@ fzApp.controller('ItemModalCtrl', function ($scope, $rootScope, $modal, $log) {
         });
 
         modalInstance.result.then(function (modalItem) {
-            console.log('modal returning item ' + angular.toJson(modalItem));
             $rootScope.$broadcast('itemAdded', modalItem);
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
@@ -27,15 +25,16 @@ fzApp.controller('ItemModalCtrl', function ($scope, $rootScope, $modal, $log) {
 });
 
 fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item) {
-    $scope.stockLevelValues = [
-        'Out',
-        'Low',
-        'Stocked',
-        'Surplus'
-    ];
 
     $scope.newItem = item;
     $scope.item = angular.copy(item);
+
+    $scope.stockLevelValues = [
+        'Surplus',
+        'Stocked',
+        'Low',
+        'Out'
+    ];
 
     $scope.saveLabel = (function(){
         if(typeof item.id === 'undefined'){
@@ -43,15 +42,14 @@ fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item
         }else{
             return 'Update';
         }
-    })();
+    }());
 
-    $scope.ok = function () {
+    $scope.save = function () {
         $modalInstance.close(item);
     };
 
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
-
 
 });

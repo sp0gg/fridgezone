@@ -26,7 +26,7 @@
         <br/>
     </div>
     <div class="row" style="padding: 20px">
-        <button class="btn btn-success" ng-click="openItemDialog({})"><span class="glyphicon glyphicon-plus-sign"></span> Add item</button>
+        <button id="addItem" class="btn btn-success" ng-click="openItemDialog({})"><span class="glyphicon glyphicon-plus-sign"></span> Add item</button>
     </div>
 </div>
 
@@ -43,19 +43,20 @@
                         <input type="text" ng-model="newItem.name" class="form-control" id="itemAddName"
                                placeholder="Item name" ng-maxlength="25" required>
                         <label class="sr-only" for="itemAddStockLevel">Stock level</label>
-                        <select class="form-control" ng-model="newItem.stockLevel" id="itemAddStockLevel" placeholder="Stock Level" required>
+                        <select class="form-control" ng-model="newItem.stockLevel" id="itemAddStockLevel" required>
+                            <option value='' disabled>Stock Level</option>
                             <option ng-repeat="level in stockLevelValues">{{level}}</option>
                         </select>
                         <label class="sr-only" for="itemAddOptimalQuantity">Optimal quantity</label>
                         <input type="number" ng-model="newItem.optimalQuantity" class="form-control"
-                               id="itemAddOptimalQuantity" placeholder="Optimal Quantity" min="1" max="99" required>
+                               id="itemAddOptimalQuantity" placeholder="Optimal Quantity" min="0" max="99" required>
                         <input type="hidden" ng-model="newItem.id">
                     </div>
                 </form>
             </div>
         </div>
         <div class="modal-footer">
-            <button id="addItem" class="btn btn-success" ng-disabled="itemForm.$invalid" ng-click="ok()"><span class="glyphicon glyphicon-ok-sign"></span> {{saveLabel}}</button>
+            <button id="saveItem" class="btn btn-success" ng-disabled="itemForm.$invalid" ng-click="save()"><span class="glyphicon glyphicon-ok-sign"></span> {{saveLabel}}</button>
             <button id="cancelAddItem" class="btn btn-danger" ng-click="cancel()"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
         </div>
     </script>

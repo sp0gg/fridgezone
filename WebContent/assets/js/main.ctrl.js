@@ -2,13 +2,6 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
     $scope.itemList = Item.query();
     $scope.selectedItem = {};
 
-    $scope.getCellClass = function(item){
-        if(item.stockLevel === 'Low' || item.stockLevel === 'Out') {
-            return 'low';
-        }
-        return '';
-    }
-
     $scope.handleGridSelection = function(row){
         if(row.isSelected) {
             $scope.gridApi.selection.clearSelectedRows();
@@ -16,36 +9,25 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
         }
     }
 
-    $scope.resetItemForm = function(){
-        $scope.newItem = {};
-        $scope.oldItem = {};
-        $scope.gridApi.selection.clearSelectedRows();
-    }
-
     $scope.openItemDialog = function(item){
         $rootScope.$broadcast('openItemDialog', item);
     }
 
     $scope.$on('itemAdded', function(event, item){
-        console.log('item has been added: ' + angular.toJson(item));
         var returnedItem = $scope.saveItem(item);
-        if(typeof item.id === 'undefined'){
-            $scope.itemList.push(returnedItem);
-            $scope.newItem = {};
-        }else{
-            //REFACTOR THIS NOT TO NEED TO CHECK FOR ID OR SOMETHING
-            //if index is -1, push
-            var oldItem = $scope.itemList.filter(function(listItem){
-                return listItem.id === returnedItem.id;
-            });
-            oldItem = oldItem[0];
-            console.log('old item is ' + angular.toJson(oldItem));
-            var index = $scope.itemList.indexOf(oldItem);
-            console.log('index is ' + index + ' for item ' + angular.toJson(oldItem));
+
+        var oldItem = $scope.itemList.filter(function(listItem){
+            return listItem.id === returnedItem.id;
+        })[0];
+        var index = $scope.itemList.indexOf(oldItem);
+        if(index >= 0) {
             $scope.itemList[index] = returnedItem;
-            //ADD THIS?
-            //scrollToIfNecessary(gridRow, gridCol)
+        }else{
+            $scope.itemList.push(returnedItem);
         }
+        //ADD THIS?
+        //scrollToIfNecessary(gridRow, gridCol)
+
     });
 
     $scope.saveItem = function(item){
@@ -62,6 +44,13 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
 
     $scope.updateItem = function (item){
         return Item.update(item);
+    }
+
+    $scope.getCellClass = function(item){
+        if(item.stockLevel === 'Low' || item.stockLevel === 'Out') {
+            return 'low';
+        }
+        return '';
     }
 
     $scope.itemGridOptions={
@@ -90,11 +79,6 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
         enableSelectAll: false,
         enableColumnMenus: false,
         multiSelect: false
-    }
-    //CP
-    $scope.saveRow = function(rowEntity){
-        var promise = $scope.updateItem(rowEntity).$promise;
-        $scope.gridApi.rowEdit.setSavePromise(rowEntity, promise);
     }
 
     //CP
