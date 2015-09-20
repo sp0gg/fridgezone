@@ -1,7 +1,9 @@
 package net.sp0gg.fridgezone.domain;
 
 import javax.persistence.*;
-;import java.math.BigDecimal;
+import java.util.List;
+
+;
 
 @Entity(name="item")
 public class Item {
@@ -16,13 +18,13 @@ public class Item {
     @Column(name = "optimal_quantity")
     private int optimalQuantity;
 
-    public String toString(){
-		return String.format("Item[id=%d, name='%s']", id, name);
-	}
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="itemId")
+    private List<Tag> tags;
 
-	public long getId() {
-		return id;
-	}
+    public long getId() {return id;}
+    public void setId(long id) {
+        this.id = id;
+    }
 
 	public String getName() {
 		return name;
@@ -31,11 +33,31 @@ public class Item {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-    public void setId(long id) {
-        this.id = id;
+    public String getStockLevel() {
+        return stockLevel;
+    }
+    public void setStockLevel(String stockLevel) {
+        this.stockLevel = stockLevel;
+    }
+    public int getOptimalQuantity() {
+        return optimalQuantity;
     }
 
+    public void setOptimalQuantity(int optimalQuantity) {
+        this.optimalQuantity = optimalQuantity;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public String toString(){
+        return String.format("Item[id=%d, name='%s']", id, name);
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -56,21 +78,5 @@ public class Item {
                 .append(id)
                 .append(name)
                 .toHashCode();
-    }
-
-    public String getStockLevel() {
-        return stockLevel;
-    }
-
-    public void setStockLevel(String stockLevel) {
-        this.stockLevel = stockLevel;
-    }
-
-    public int getOptimalQuantity() {
-        return optimalQuantity;
-    }
-
-    public void setOptimalQuantity(int optimalQuantity) {
-        this.optimalQuantity = optimalQuantity;
     }
 }
