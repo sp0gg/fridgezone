@@ -20,6 +20,9 @@
 
 <div class="container-fluid">
     <div class="row">
+        <div id="filters">
+            <button id="filterFavorites" ng-click="filterTag('favorite')">Favorites</button>
+        </div>
         <div id="items" class="col-sm-12">
             <div id="itemGrid" ui-grid="itemGridOptions" ui-grid-selection class="grid"></div>
         </div>
@@ -61,9 +64,6 @@
         </div>
     </script>
 </div>
-
-
-
 
 <script src="webjars/angular/1.4.4/angular.min.js" type="application/javascript"></script>
 <script src="webjars/angular-resource/1.4.4/angular-resource.min.js"></script>
