@@ -1,28 +1,32 @@
 package net.sp0gg.fridgezone.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-;
-
 @Entity(name="item")
-public class Item {
-	
-	@Id
-    @GeneratedValue
-	private long id;
+public class Item implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 	
 	private String name;
+
     @Column(name = "stock_level")
     private String stockLevel;
+
     @Column(name = "optimal_quantity")
     private int optimalQuantity;
 
-    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="itemId")
-    private List<Tag> tags;
+    @OneToMany(mappedBy="item", fetch=FetchType.EAGER)
+//    @OneToMany(mappedBy="item", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    private List<Tag> tags = new ArrayList<>();
 
-    public long getId() {return id;}
-    public void setId(long id) {
+
+    public Long getId() {return id;}
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -33,12 +37,14 @@ public class Item {
 	public void setName(String name) {
 		this.name = name;
 	}
+
     public String getStockLevel() {
         return stockLevel;
     }
     public void setStockLevel(String stockLevel) {
         this.stockLevel = stockLevel;
     }
+
     public int getOptimalQuantity() {
         return optimalQuantity;
     }
@@ -55,28 +61,20 @@ public class Item {
         this.tags = tags;
     }
 
+    public void addTag(Tag tag){
+        if(tag == null){
+            return;
+        }else{
+            if(this.tags == null){
+                this.tags = new ArrayList<>();
+            }
+            tag.setItem(this);
+            this.tags.add(tag);
+        }
+    }
+
     public String toString(){
         return String.format("Item[id=%d, name='%s']", id, name);
     }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
 
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Item item = (Item) o;
-
-        return new org.apache.commons.lang3.builder.EqualsBuilder()
-                .append(id, item.id)
-                .append(name, item.name)
-                .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new org.apache.commons.lang3.builder.HashCodeBuilder(17, 37)
-                .append(id)
-                .append(name)
-                .toHashCode();
-    }
 }

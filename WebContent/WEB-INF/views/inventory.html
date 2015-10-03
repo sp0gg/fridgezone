@@ -21,7 +21,7 @@
 <div class="container-fluid">
     <div class="row">
         <div id="filters">
-            <button id="filterFavorites" ng-click="filterTag('favorite')">Favorites</button>
+            <button id="filterFavorites" ng-click="filterTag()">Favorites</button>
         </div>
         <div id="items" class="col-sm-12">
             <div id="itemGrid" ui-grid="itemGridOptions" ui-grid-selection class="grid"></div>
@@ -42,18 +42,24 @@
             <div class="form-inline" class="col-sm-12">
                 <form name="itemForm" id="itemForm" novalidate>
                     <div class="form-group">
-                        <label class="sr-only" for="itemAddName">Item name</label>
-                        <input type="text" ng-model="newItem.name" class="form-control" id="itemAddName"
-                               placeholder="Item name" ng-maxlength="25" required>
-                        <label class="sr-only" for="itemAddStockLevel">Stock level</label>
-                        <select class="form-control" ng-model="newItem.stockLevel" id="itemAddStockLevel" required>
-                            <option value='' disabled>Stock Level</option>
-                            <option ng-repeat="level in stockLevelValues">{{level}}</option>
-                        </select>
-                        <label class="sr-only" for="itemAddOptimalQuantity">Optimal quantity</label>
-                        <input type="number" ng-model="newItem.optimalQuantity" class="form-control"
-                               id="itemAddOptimalQuantity" placeholder="Optimal Quantity" min="0" max="99" required>
-                        <input type="hidden" ng-model="newItem.id">
+                        <div class="row">
+                            <label class="sr-only" for="itemAddName">Item name</label>
+                            <input type="text" id="itemAddName" ng-model="newItem.name" class="form-control"
+                                   placeholder="Item name" ng-maxlength="25" required>
+                            <label class="sr-only" for="itemAddStockLevel">Stock level</label>
+                            <select id="itemAddStockLevel" ng-model="newItem.stockLevel" class="form-control"   required>
+                                <option value='' disabled>Stock Level</option>
+                                <option ng-repeat="level in stockLevelValues">{{level}}</option>
+                            </select>
+                            <label class="sr-only" for="itemAddOptimalQuantity">Optimal quantity</label>
+                            <input type="number" id="itemAddOptimalQuantity" ng-model="newItem.optimalQuantity"
+                                   class="form-control" placeholder="Optimal Quantity" min="0" max="99" required>
+                            <input type="hidden" ng-model="newItem.id">
+                        </div>
+                        <div class="row" style="padding: 10px">
+                            <input type="checkbox" id="itemAddTagFavorite" ng-click="toggleFavorite()" ng-model="favorite" class="form-control" placeholder="Favorite">
+                            <label for="itemAddTagFavorite">Favorite</label>
+                        </div>
                     </div>
                 </form>
             </div>

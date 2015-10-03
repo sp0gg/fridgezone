@@ -16,6 +16,7 @@ fzApp.controller('ItemModalCtrl', function ($scope, $rootScope, $modal, $log) {
         });
 
         modalInstance.result.then(function (modalItem) {
+            console.log("item returned: " + angular.toJson(modalItem));
             $rootScope.$broadcast('itemAdded', modalItem);
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
@@ -28,6 +29,20 @@ fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item
 
     $scope.newItem = item;
     $scope.item = angular.copy(item);
+
+    $scope.containsFavoriteTag = function(item){
+        if("tags" in item) {
+            var favorites = item.tags.filter(function (tag) {
+                return (tag.name === "favorite");
+            });
+            return (favorites.length > 0);
+        }
+        return false;
+    };
+
+    $scope.favorite = (function(){
+        return $scope.containsFavoriteTag(item);
+    }());
 
     $scope.stockLevelValues = [
         'Surplus',
@@ -43,6 +58,17 @@ fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item
             return 'Update';
         }
     }());
+
+    $scope.toggleFavorite = function(){
+        var favorite = $scope.favorite;
+        item.tags = [];
+        if(favorite){
+            var tag = {name: "favorite"};
+            item.tags.push(tag);
+        }else{
+            item.tags = undefined;
+        }
+    };
 
     $scope.save = function () {
         $modalInstance.close(item);

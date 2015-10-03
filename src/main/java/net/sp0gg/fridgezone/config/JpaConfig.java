@@ -50,10 +50,5 @@ public class JpaConfig {
 	public JpaTransactionManager transactionManager(EntityManagerFactory emf){
 		return new JpaTransactionManager(emf);
 	}
-	
-//	@Bean
-//	public BeanPostProcessor persistenceTranslation() {
-//		return new PersistenceExceptionTranslationPostProcessor();
-//	}
-	
+
 }

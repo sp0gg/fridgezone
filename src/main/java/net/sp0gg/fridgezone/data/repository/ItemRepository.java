@@ -7,5 +7,4 @@ import net.sp0gg.fridgezone.domain.Item;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
-	
 }

@@ -1,28 +1,33 @@
 package net.sp0gg.fridgezone.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by sp0gg on 9/19/15.
  */
 
 @Entity(name="tag")
-public class Tag {
+public class Tag implements Serializable {
 
     @Id
-    @GeneratedValue
-    private long id;
-
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String name;
+    @Transient
+    private Long itemId;
+    @ManyToOne
+    @JoinColumn(name="item_id")
+    @JsonIgnore
+    private Item item;
 
-    @Column(name = "item_id")
-    private long itemId;
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -34,11 +39,19 @@ public class Tag {
         this.name = name;
     }
 
-    public long getItemId() {
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public Long getItemId() {
         return itemId;
     }
 
-    public void setItemId(long itemId) {
+    public void setItemId(Long itemId) {
         this.itemId = itemId;
     }
 }
