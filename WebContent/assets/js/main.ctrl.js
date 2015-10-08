@@ -1,6 +1,7 @@
 fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants) {
     $scope.itemList = Item.query();
     $scope.selectedItem = {};
+    $scope.favoriteFiltered = false;
 
     $scope.handleGridSelection = function(row){
         if(row.isSelected) {

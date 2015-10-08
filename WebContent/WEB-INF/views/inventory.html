@@ -20,8 +20,8 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div id="filters">
-            <button id="filterFavorites" ng-click="filterTag()">Favorites</button>
+        <div id="filters" style="padding: 20px">
+            <button type="button" class="btn btn-primary" btn-checkbox ng-model="favoriteFiltered" id="filterFavorites" ng-click="filterTag()">Favorites</button>
         </div>
         <div id="items" class="col-sm-12">
             <div id="itemGrid" ui-grid="itemGridOptions" ui-grid-selection class="grid"></div>
@@ -57,8 +57,8 @@
                             <input type="hidden" ng-model="newItem.id">
                         </div>
                         <div class="row" style="padding: 10px">
-                            <input type="checkbox" id="itemAddTagFavorite" ng-click="toggleFavorite()" ng-model="favorite" class="form-control" placeholder="Favorite">
-                            <label for="itemAddTagFavorite">Favorite</label>
+                            <input class="text-left" type="checkbox" id="itemAddTagFavorite" ng-click="toggleFavorite()" ng-model="favorite" class="form-control" placeholder="Favorite">
+                            <label class="text-left" for="itemAddTagFavorite">Favorite</label>
                         </div>
                     </div>
                 </form>
