@@ -2,6 +2,7 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
     $scope.itemList = Item.query();
     $scope.selectedItem = {};
     $scope.favoriteFiltered = false;
+    $scope.tagFilter = '';
 
     $scope.handleGridSelection = function(row){
         if(row.isSelected) {
@@ -81,23 +82,26 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
             },
             {field: 'tags[0].name', displayName: 'Tags',
                 filter: {
-                    condition: uiGridConstants.filter.EXACT,
-                    //placeholder: '#WHOOPS',
-                    //noTerm: true,
-                    term: 'favorite'
+                    condition: function(searchTerm, cellValue){
+                        console.log("i am conditioning. value is " + cellValue);
+                        return (cellValue === $scope.tagFilter);
+                    },
+                    noTerm: true,
                 }
             }
         ],
-        //enableFiltering: false,
         disableCancelFilterButton: true,
         enableSelectAll: false,
         enableColumnMenus: false,
         multiSelect: false
     };
 
-    $scope.filterTag = function(){
+    $scope.filterTag = function(tag){
+        console.log('tag is: ' + tag);
+        $scope.tagFilter = tag;
         $scope.itemGridOptions.enableFiltering = !$scope.itemGridOptions.enableFiltering;
         $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
+
     };
 
     //CP

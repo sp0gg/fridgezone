@@ -3,7 +3,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="webjars/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="webjars/ui-grid/3.0.1/ui-grid.min.css">
+    <link rel="stylesheet" href="webjars/angular-ui-grid/3.0.7/ui-grid.min.css">
     <link rel="stylesheet" href="assets/style/fridgezone.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,9 +21,13 @@
 <div class="container-fluid">
     <div class="row">
         <div id="filters" style="padding: 20px">
-            <button type="button" class="btn btn-primary" btn-checkbox ng-model="favoriteFiltered" id="filterFavorites" ng-click="filterTag()">Favorites</button>
+            <br/>
+            tag: {{tagFilter}}
+            <br/>
+            <button type="button" class="btn btn-primary" btn-checkbox ng-model="favoriteFiltered" id="filterFavorites" ng-click="filterTag('favorite')"><span class="glyphicon glyphicon-heart"></span> Favorites</button>
+            <button type="button" class="btn btn-warning" btn-checkbox ng-model="shoppingFiltered" id="filterShopping" ng-click="filterTag('shopping')"><span class="glyphicon glyphicon-shopping-cart"></span> Shopping</button>
         </div>
-        <div id="items" class="col-sm-12">
+        <div id="items" class="col-sm-12" style="padding-left: 20px; padding-right: 20px">
             <div id="itemGrid" ui-grid="itemGridOptions" ui-grid-selection class="grid"></div>
         </div>
         <br/>
@@ -59,6 +63,9 @@
                         <div class="row" style="padding: 10px">
                             <input class="text-left" type="checkbox" id="itemAddTagFavorite" ng-click="toggleFavorite()" ng-model="favorite" class="form-control" placeholder="Favorite">
                             <label class="text-left" for="itemAddTagFavorite">Favorite</label>
+
+                            <input class="text-left" type="checkbox" id="itemAddTagShopping" ng-click="toggleShopping()" ng-model="shopping" class="form-control" placeholder="Shopping">
+                            <label class="text-left" for="itemAddTagShopping">Shopping</label>
                         </div>
                     </div>
                 </form>
@@ -73,7 +80,7 @@
 
 <script src="webjars/angular/1.4.4/angular.min.js" type="application/javascript"></script>
 <script src="webjars/angular-resource/1.4.4/angular-resource.min.js"></script>
-<script src="webjars/ui-grid/3.0.1/ui-grid.min.js"></script>
+<script src="webjars/angular-ui-grid/3.0.7/ui-grid.min.js"></script>
 <script src="webjars/angular-ui-bootstrap/0.13.3/ui-bootstrap-tpls.min.js"></script>
 <script src="assets/js/app.js"></script>
 <script src="assets/js/main.ctrl.js"></script>

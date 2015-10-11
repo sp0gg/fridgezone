@@ -7,3 +7,7 @@
 select option[disabled]{
     display: none;
 }
+
+.ui-grid-filter-container {
+    display: none;
+}

@@ -30,10 +30,10 @@ fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item
     $scope.newItem = item;
     $scope.item = angular.copy(item);
 
-    $scope.containsFavoriteTag = function(item){
+    $scope.containsTag = function(item, tagName){
         if("tags" in item) {
             var favorites = item.tags.filter(function (tag) {
-                return (tag.name === "favorite");
+                return (tag.name === tagName);
             });
             return (favorites.length > 0);
         }
@@ -41,7 +41,11 @@ fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item
     };
 
     $scope.favorite = (function(){
-        return $scope.containsFavoriteTag(item);
+        return $scope.containsTag(item, 'favorite');
+    }());
+
+    $scope.shopping = (function(){
+        return $scope.containsTag(item, 'shopping');
     }());
 
     $scope.stockLevelValues = [
@@ -64,6 +68,17 @@ fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item
         item.tags = [];
         if(favorite){
             var tag = {name: "favorite"};
+            item.tags.push(tag);
+        }else{
+            item.tags = undefined;
+        }
+    };
+
+    $scope.toggleShopping = function(){
+        var shopping = $scope.shopping;
+        item.tags = [];
+        if(shopping){
+            var tag = {name: 'shopping'};
             item.tags.push(tag);
         }else{
             item.tags = undefined;
