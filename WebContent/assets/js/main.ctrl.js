@@ -86,7 +86,7 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
                         console.log("i am conditioning. value is " + cellValue);
                         return (cellValue === $scope.tagFilter);
                     },
-                    noTerm: true,
+                    noTerm: true
                 }
             }
         ],

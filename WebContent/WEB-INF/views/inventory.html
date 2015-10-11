@@ -22,7 +22,7 @@
     <div class="row">
         <div id="filters" style="padding: 20px">
             <br/>
-            tag: {{tagFilter}}
+            filter condition: {{tagFilter}}
             <br/>
             <button type="button" class="btn btn-primary" btn-checkbox ng-model="favoriteFiltered" id="filterFavorites" ng-click="filterTag('favorite')"><span class="glyphicon glyphicon-heart"></span> Favorites</button>
             <button type="button" class="btn btn-warning" btn-checkbox ng-model="shoppingFiltered" id="filterShopping" ng-click="filterTag('shopping')"><span class="glyphicon glyphicon-shopping-cart"></span> Shopping</button>
@@ -33,7 +33,7 @@
         <br/>
     </div>
     <div class="row" style="padding: 20px">
-        <button id="addItem" class="btn btn-success" ng-click="openItemDialog({})"><span class="glyphicon glyphicon-plus-sign"></span> Add item</button>
+        <button id="addItem" class="btn btn-success" ng-click="openItemDialog({tags: []})"><span class="glyphicon glyphicon-plus-sign"></span> Add item</button>
     </div>
 </div>
 
@@ -51,7 +51,7 @@
                             <input type="text" id="itemAddName" ng-model="newItem.name" class="form-control"
                                    placeholder="Item name" ng-maxlength="25" required>
                             <label class="sr-only" for="itemAddStockLevel">Stock level</label>
-                            <select id="itemAddStockLevel" ng-model="newItem.stockLevel" class="form-control"   required>
+                            <select id="itemAddStockLevel" ng-model="newItem.stockLevel" class="form-control" required>
                                 <option value='' disabled>Stock Level</option>
                                 <option ng-repeat="level in stockLevelValues">{{level}}</option>
                             </select>
