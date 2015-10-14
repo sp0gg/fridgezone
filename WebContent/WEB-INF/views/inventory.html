@@ -21,9 +21,6 @@
 <div class="container-fluid">
     <div class="row">
         <div id="filters" style="padding: 20px">
-            <br/>
-            filter condition: {{tagFilter}}
-            <br/>
             <button type="button" class="btn btn-primary" btn-checkbox ng-model="favoriteFiltered" id="filterFavorites" ng-click="filterTag('favorite')"><span class="glyphicon glyphicon-heart"></span> Favorites</button>
             <button type="button" class="btn btn-warning" btn-checkbox ng-model="shoppingFiltered" id="filterShopping" ng-click="filterTag('shopping')"><span class="glyphicon glyphicon-shopping-cart"></span> Shopping</button>
         </div>
@@ -80,6 +77,7 @@
 
 <script src="webjars/angular/1.4.4/angular.min.js" type="application/javascript"></script>
 <script src="webjars/angular-resource/1.4.4/angular-resource.min.js"></script>
+
 <script src="webjars/angular-ui-grid/3.0.7/ui-grid.min.js"></script>
 <script src="webjars/angular-ui-bootstrap/0.13.3/ui-bootstrap-tpls.min.js"></script>
 <script src="assets/js/app.js"></script>

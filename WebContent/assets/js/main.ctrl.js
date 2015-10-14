@@ -1,5 +1,17 @@
 fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants) {
-    $scope.itemList = Item.query();
+
+    $scope.itemList = Item.query(function(items){
+        angular.forEach(items, function(item){
+            item.getTagsFormatted = function(){
+                var tagsFormatted = '';
+                angular.forEach(this.tags, function(tag){
+                  tagsFormatted += ' ' + tag.name;
+                });
+                return tagsFormatted;
+            }
+        });
+    });
+
     $scope.selectedItem = {};
     $scope.favoriteFiltered = false;
     $scope.tagFilter = '';
@@ -29,7 +41,6 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
         }
         //ADD THIS?
         //scrollToIfNecessary(gridRow, gridCol)
-
     });
 
     $scope.saveItem = function(item){
@@ -80,11 +91,12 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
                 },
                 enableFiltering: false
             },
-            {field: 'tags[0].name', displayName: 'Tags',
+            {
+                field: 'getTagsFormatted()',
+                displayName: 'Tags',
                 filter: {
                     condition: function(searchTerm, cellValue){
-                        console.log("i am conditioning. value is " + cellValue);
-                        return (cellValue === $scope.tagFilter);
+                        return((cellValue.indexOf($scope.tagFilter) > 0));
                     },
                     noTerm: true
                 }
@@ -97,11 +109,10 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
     };
 
     $scope.filterTag = function(tag){
-        console.log('tag is: ' + tag);
+
         $scope.tagFilter = tag;
         $scope.itemGridOptions.enableFiltering = !$scope.itemGridOptions.enableFiltering;
         $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
-
     };
 
     //CP
