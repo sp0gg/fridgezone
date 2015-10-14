@@ -34,7 +34,7 @@ fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item
 
 
     $scope.containsTag = function(item, tagName){
-        if("tags" in item) {
+        if('tags' in item) {
             var favorites = item.tags.filter(function (tag) {
                 return (tag.name === tagName);
             });

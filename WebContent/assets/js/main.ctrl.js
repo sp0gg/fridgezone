@@ -52,11 +52,27 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
     };
 
     $scope.addItem = function(item){
-        return Item.add(item);
+        return Item.add(item, function(item){
+            item.getTagsFormatted = function(){
+                var tagsFormatted = '';
+                angular.forEach(this.tags, function(tag){
+                    tagsFormatted += ' ' + tag.name;
+                });
+                return tagsFormatted;
+            }
+        });
     };
 
     $scope.updateItem = function(item){
-        return Item.update(item);
+        return Item.update(item, function(item){
+            item.getTagsFormatted = function(){
+                var tagsFormatted = '';
+                angular.forEach(this.tags, function(tag){
+                    tagsFormatted += ' ' + tag.name;
+                });
+                return tagsFormatted;
+            }
+        });
     };
 
     $scope.getCellClass = function(item){
