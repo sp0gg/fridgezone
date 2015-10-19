@@ -9,7 +9,7 @@ fzApp.controller('ItemModalCtrl', function ($scope, $rootScope, $modal, $log) {
             templateUrl: 'itemModalTemplate',
             controller: 'ItemModalInstanceCtrl',
             resolve: {
-                item: function () {
+                item: function(){
                     return angular.copy(item);
                 }
             }
@@ -27,11 +27,11 @@ fzApp.controller('ItemModalCtrl', function ($scope, $rootScope, $modal, $log) {
 
 fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item) {
 
-    $scope.newItem = item;
+    $scope.modalItem = item;
+    $scope.modalTag = {};
     $scope.item = angular.copy(item);
 
     console.log("item passed in: " + angular.toJson(item));
-
 
     $scope.containsTag = function(item, tagName){
         if('tags' in item) {
@@ -66,10 +66,24 @@ fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item
         }
     }());
 
+    $scope.filterForCustomTags = function(tag){
+        return (tag.name !== 'favorite' && tag.name !== 'shopping')
+    };
+
+    $scope.addTag = function(tagName){
+        var tag = {name: tagName};
+        item.tags.push(tag);
+    };
+
+    $scope.addModalTag = function(){
+        var modalTag = angular.copy($scope.modalTag);
+        $scope.addTag(modalTag.name);
+        $scope.modalTag = {};
+    };
+
     $scope.toggleFavorite = function(){
         if($scope.favorite){
-            var tag = {name: "favorite"};
-            item.tags.push(tag);
+            $scope.addTag('favorite');
         }else{
             if("tags" in item) {
                 item.tags = item.tags.filter(function (tag) {
@@ -81,8 +95,7 @@ fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item
 
     $scope.toggleShopping = function(){
         if($scope.shopping){
-            var tag = {name: 'shopping'};
-            item.tags.push(tag);
+            $scope.addTag('shopping');
         }else{
             if("tags" in item) {
                 item.tags = item.tags.filter(function (tag) {

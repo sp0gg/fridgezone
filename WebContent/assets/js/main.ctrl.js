@@ -1,5 +1,27 @@
 fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants) {
 
+    $scope.ItemConst = function(){
+      var item = {};
+        item.tags = [];
+        item.getTagsFormatted = function(){
+            var tagsFormatted = '';
+            angular.forEach(this.tags, function(tag){
+                tagsFormatted += ' ' + tag.name;
+            });
+            return tagsFormatted;
+        };
+        item.getCustomTags = function() {
+            var customTags = [];
+            angular.forEach(this.tags, function (tag) {
+                if (tag.name !== 'favorite' && tag.name !== 'shopping') {
+                    customTags.push(tag);
+                }
+            });
+            return customTags;
+        };
+        return item;
+    };
+
     $scope.itemList = Item.query(function(items){
         angular.forEach(items, function(item){
             item.getTagsFormatted = function(){
@@ -8,7 +30,16 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
                   tagsFormatted += ' ' + tag.name;
                 });
                 return tagsFormatted;
-            }
+            };
+            item.getCustomTags = function() {
+                var customTags = [];
+                angular.forEach(this.tags, function (tag) {
+                    if (tag.name !== 'favorite' && tag.name !== 'shopping') {
+                        customTags.push(tag);
+                    }
+                });
+                return customTags;
+            };
         });
     });
 
@@ -24,6 +55,9 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
     };
 
     $scope.openItemDialog = function(item){
+        if(typeof item === 'undefined'){
+            item = new $scope.ItemConst();
+        }
         $rootScope.$broadcast('openItemDialog', item);
     };
 
@@ -59,7 +93,16 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
                     tagsFormatted += ' ' + tag.name;
                 });
                 return tagsFormatted;
-            }
+            };
+            item.getCustomTags = function() {
+                var customTags = [];
+                angular.forEach(this.tags, function (tag) {
+                    if (tag.name !== 'favorite' && tag.name !== 'shopping') {
+                        customTags.push(tag);
+                    }
+                });
+                return customTags;
+            };
         });
     };
 
@@ -71,7 +114,16 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
                     tagsFormatted += ' ' + tag.name;
                 });
                 return tagsFormatted;
-            }
+            };
+            item.getCustomTags = function() {
+                var customTags = [];
+                angular.forEach(this.tags, function (tag) {
+                    if (tag.name !== 'favorite' && tag.name !== 'shopping') {
+                        customTags.push(tag);
+                    }
+                });
+                return customTags;
+            };
         });
     };
 
@@ -96,12 +148,6 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
                 enableFiltering: false
             },
             {field: 'stockLevel',
-                cellClass: function(grid, row) {
-                    return $scope.getCellClass(row.entity);
-                },
-                enableFiltering: false
-            },
-            {field: 'optimalQuantity', cellFilter: 'number',
                 cellClass: function(grid, row) {
                     return $scope.getCellClass(row.entity);
                 },

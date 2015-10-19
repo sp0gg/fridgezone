@@ -30,9 +30,11 @@
         <br/>
     </div>
     <div class="row" style="padding: 20px">
-        <button id="addItem" class="btn btn-success" ng-click="openItemDialog({tags: []})"><span class="glyphicon glyphicon-plus-sign"></span> Add item</button>
+        <button id="addItem" class="btn btn-success" ng-click="openItemDialog()"><span class="glyphicon glyphicon-plus-sign"></span> New item</button>
     </div>
 </div>
+
+<!----------####### modal ------->
 
 <div ng-controller="ItemModalCtrl">
     <script type="text/ng-template" id="itemModalTemplate">
@@ -45,17 +47,14 @@
                     <div class="form-group">
                         <div class="row">
                             <label class="sr-only" for="itemAddName">Item name</label>
-                            <input type="text" id="itemAddName" ng-model="newItem.name" class="form-control"
+                            <input type="text" id="itemAddName" ng-model="modalItem.name" class="form-control"
                                    placeholder="Item name" ng-maxlength="25" required>
                             <label class="sr-only" for="itemAddStockLevel">Stock level</label>
-                            <select id="itemAddStockLevel" ng-model="newItem.stockLevel" class="form-control" required>
+                            <select id="itemAddStockLevel" ng-model="modalItem.stockLevel" class="form-control" required>
                                 <option value='' disabled>Stock Level</option>
                                 <option ng-repeat="level in stockLevelValues">{{level}}</option>
                             </select>
-                            <label class="sr-only" for="itemAddOptimalQuantity">Optimal quantity</label>
-                            <input type="number" id="itemAddOptimalQuantity" ng-model="newItem.optimalQuantity"
-                                   class="form-control" placeholder="Optimal Quantity" min="0" max="99" required>
-                            <input type="hidden" ng-model="newItem.id">
+                            <input type="hidden" ng-model="modalItem.id">
                         </div>
                         <div class="row" style="padding: 10px">
                             <input class="text-left" type="checkbox" id="itemAddTagFavorite" ng-click="toggleFavorite()" ng-model="favorite" class="form-control" placeholder="Favorite">
@@ -63,6 +62,18 @@
 
                             <input class="text-left" type="checkbox" id="itemAddTagShopping" ng-click="toggleShopping()" ng-model="shopping" class="form-control" placeholder="Shopping">
                             <label class="text-left" for="itemAddTagShopping">Shopping</label>
+                        </div>
+                        <div class="row" style="padding: 10px" class="col-sm-1">
+                            <h4>Custom tags</h4>
+                            <div id="itemTags">
+                                <ul class="list-group">
+                                    <li ng-repeat="tag in modalItem.getCustomTags()" class="list-group-item">
+                                        {{tag.name}}
+                                    </li>
+                                </ul>
+                            </div>
+                            <input type="text" ng-model="modalTag.name" id="itemAddTagName" class="form-control" placeholder="Tag name" ng-maxlength="15">
+                            <button id="itemSaveTag" class="btn btn-success" ng-click="addModalTag()"><span class="glyphicon glyphicon-ok-sign"></span> Add tag</button>
                         </div>
                     </div>
                 </form>
