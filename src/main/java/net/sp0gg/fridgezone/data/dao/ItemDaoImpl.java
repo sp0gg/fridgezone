@@ -36,11 +36,8 @@ public class ItemDaoImpl implements ItemDao {
 
     public Item update(Item item) {
         item = applyTagItemRelations(item);
-        if (item.getTags().isEmpty()) {
-            tagRepo.deleteByItem(item);
-        }else{
-            tagRepo.save(item.getTags());
-        }
+        tagRepo.deleteByItem(item);
+        tagRepo.save(item.getTags());
 
         return itemRepo.save(item);
     }
@@ -51,6 +48,7 @@ public class ItemDaoImpl implements ItemDao {
             for (Tag tag : tags) {
                 tag.setItem(item);
                 tag.setItemId(item.getId());
+                tag.setId(null);
             }
             item.setTags(tags);
         }

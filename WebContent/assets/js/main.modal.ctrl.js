@@ -22,7 +22,6 @@ fzApp.controller('ItemModalCtrl', function ($scope, $rootScope, $modal, $log) {
             $log.info('Modal dismissed at: ' + new Date());
         });
     };
-
 });
 
 fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item) {
@@ -73,6 +72,14 @@ fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item
     $scope.addTag = function(tagName){
         var tag = {name: tagName};
         item.tags.push(tag);
+    };
+
+    $scope.removeTag = function(modalTag){
+        if("tags" in item) {
+            item.tags = item.tags.filter(function (tag) {
+                return tag.name !== modalTag.name;
+            })
+        }
     };
 
     $scope.addModalTag = function(){

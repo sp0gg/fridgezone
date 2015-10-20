@@ -171,7 +171,6 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
     };
 
     $scope.filterTag = function(tag){
-
         $scope.tagFilter = tag;
         $scope.itemGridOptions.enableFiltering = !$scope.itemGridOptions.enableFiltering;
         $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);

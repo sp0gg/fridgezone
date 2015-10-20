@@ -5,6 +5,7 @@ import net.sp0gg.fridgezone.data.repository.ItemRepository;
 import net.sp0gg.fridgezone.data.repository.TagRepository;
 import net.sp0gg.fridgezone.domain.Item;
 import net.sp0gg.fridgezone.domain.Tag;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -111,6 +112,7 @@ public class TestFridgezoneRepository {
         assertEquals(2, eggsRetrieved.getOptimalQuantity());
         assertEquals("favorite", eggsRetrieved.getTags().get(0).getName());
     }
+
 
     @Test
     public void learningToRemoveExistingTags(){

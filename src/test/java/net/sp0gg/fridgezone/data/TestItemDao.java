@@ -52,6 +52,22 @@ public class TestItemDao {
     }
 
     @Test
+    public void shouldRemoveExistingTagsNotPassedIn() throws Exception{
+        Item testItem = itemRepo.findOne(4L);
+        List<Tag> tags = new ArrayList<>();
+        Tag tag = new Tag();
+        tag.setName("favorite");
+        tags.add(tag);
+        testItem.setTags(tags);
+        itemDao.update(testItem);
+        Item updatedItem = itemRepo.findOne(4L);
+
+        assertNotNull(updatedItem.getTags());
+        assertEquals(1, updatedItem.getTags().size());
+        assertEquals("favorite", updatedItem.getTags().get(0).getName());
+    }
+
+    @Test
     public void shouldAddItemWithTags(){
         Item item = new Item();
         item.setName("New Item");
