@@ -11,3 +11,17 @@ select option[disabled]{
 .ui-grid-filter-container {
     display: none;
 }
+
+.custom-tag-li{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.custom-tag-button{
+    width: 80px;
+}
+
+.modal-dialog {
+    width: 400px;
+    margin: 30px auto;
+}
