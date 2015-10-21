@@ -1,6 +1,6 @@
-/*.grid {*/
-    /*height: 800px;*/
-/*}*/
+.grid {
+    height: 60vh;
+}
 
 .low {background-color: rgba(255,0,0,.1) !important;}
 
