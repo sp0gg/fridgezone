@@ -73,8 +73,6 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
         }else{
             $scope.itemList.push(returnedItem);
         }
-        //ADD THIS?
-        //scrollToIfNecessary(gridRow, gridCol)
     });
 
     $scope.saveItem = function(item){

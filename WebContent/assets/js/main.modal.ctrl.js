@@ -30,6 +30,13 @@ fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item
     $scope.modalTag = {};
     $scope.item = angular.copy(item);
 
+    $scope.stockLevelValues = [
+        'Surplus',
+        'Stocked',
+        'Low',
+        'Out'
+    ];
+
     console.log("item passed in: " + angular.toJson(item));
 
     $scope.containsTag = function(item, tagName){
@@ -49,13 +56,6 @@ fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item
     $scope.shopping = (function(){
         return $scope.containsTag(item, 'shopping');
     }());
-
-    $scope.stockLevelValues = [
-        'Surplus',
-        'Stocked',
-        'Low',
-        'Out'
-    ];
 
     $scope.saveLabel = (function(){
         if(typeof item.id === 'undefined'){
