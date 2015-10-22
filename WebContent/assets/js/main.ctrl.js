@@ -1,5 +1,9 @@
 fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants) {
 
+    $scope.selectedItem = {};
+    $scope.favoriteFiltered = false;
+    $scope.tagFilter = '';
+
     $scope.ItemConst = function(){
       var item = {};
         item.tags = [];
@@ -42,10 +46,6 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
             };
         });
     });
-
-    $scope.selectedItem = {};
-    $scope.favoriteFiltered = false;
-    $scope.tagFilter = '';
 
     $scope.handleGridSelection = function(row){
         if(row.isSelected) {
@@ -161,19 +161,27 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
                         return((cellValue.indexOf($scope.tagFilter) > 0));
                     },
                     noTerm: true
+
                 }
             }
         ],
         disableCancelFilterButton: true,
         enableSelectAll: false,
         enableColumnMenus: false,
-        multiSelect: false
+        multiSelect: false,
+        enableFiltering: false
+
     };
 
     $scope.filterTag = function(tag){
         $scope.tagFilter = tag;
-        $scope.itemGridOptions.enableFiltering = !$scope.itemGridOptions.enableFiltering;
-        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
+
+        if(tag !== ''){
+            $scope.itemGridOptions.enableFiltering = true;
+        }else{
+            $scope.itemGridOptions.enableFiltering = false;
+        }
+        $scope.gridApi.grid.refresh();
     };
 
     //CP
