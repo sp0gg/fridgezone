@@ -8,3 +8,7 @@ fzApp.factory("Item", function itemServiceFactory($resource) {
         , update: {method: 'PUT'}
     });
 });
+
+fzApp.factory("Tag", function tagServiceFactory($resource){
+    return $resource('api/tags');
+    });

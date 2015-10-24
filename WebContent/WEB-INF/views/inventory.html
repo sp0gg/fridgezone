@@ -23,7 +23,9 @@
             <button type="button" class="btn btn-primary" id="filterFavorites" ng-click="filterTag('favorite')"><span class="glyphicon glyphicon-heart"></span> Favorites</button>
             <button type="button" class="btn btn-warning" id="filterShopping" ng-click="filterTag('shopping')"><span class="glyphicon glyphicon-shopping-cart"></span> Shopping</button>
             <label for="tagFilter">Filter</label>
-            <input type="text" id="tagFilter" ng-model="tagFilter" ng-maxlength="15" ng-change="filterTag(tagFilter)">
+            <div class="btn-group">
+                <input type="text" id="tagFilter" class="form-control" ng-model="tagFilter" uib-typeahead="tag for tag in allTags | filter:$viewValue" ng-maxlength="15" ng-change="filterTag(tagFilter)">
+            </div>
             <button type="button" class="btn btn-xs btn-danger" id="filterClear" ng-click="filterTag('')" ng-hide="!tagFilter">Clear</button>
         </div>
         <div id="items" class="col-sm-12 row" style="padding-left: 20px; padding-right: 20px">
@@ -66,19 +68,19 @@
                                 <label class="text-left" for="itemAddTagShopping">Shopping</label>
                             </div>
                                 <h4>Custom tags</h4>
-                                    <ul class="list-group" id = "customTags">
-                                        <li ng-repeat="tag in modalItem.getCustomTags()" class="list-group-item row">
-                                            {{tag.name}}<button class="btn btn-danger pull-right btn-sm custom-tag-button" ng-click="removeTag(tag)"><span class="glyphicon glyphicon-remove-sign"></span> Remove</button>
-                                        </li>
-                                        <li class="list-group-item row custom-tag-li">
-                                            <div class="col-xs-6">
-                                                 <input type="text" ng-model="modalTag.name" id="itemAddTagName" class="form-control pull-left" placeholder="Tag name" ng-maxlength="15">
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <button id="itemSaveTag" class="btn btn-success btn-sm pull-right custom-tag-button" ng-click="addModalTag()" ng-disabled="!modalTag.name || containsTag(modalItem, modalTag.name)"><span class="glyphicon glyphicon-ok-sign"></span> Add tag</button>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                <ul class="list-group" id = "customTags">
+                                    <li ng-repeat="tag in modalItem.getCustomTags()" class="list-group-item row">
+                                        {{tag.name}}<button class="btn btn-danger pull-right btn-sm custom-tag-button" ng-click="removeTag(tag)"><span class="glyphicon glyphicon-remove-sign"></span> Remove</button>
+                                    </li>
+                                    <li class="list-group-item row custom-tag-li">
+                                        <div class="col-xs-6">
+                                             <input type="text" ng-model="modalTag.name" id="itemAddTagName" class="form-control pull-left" placeholder="Tag name" uib-typeahead="tag for tag in allTags | filter:$viewValue" ng-maxlength="15">
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <button id="itemSaveTag" class="btn btn-success btn-sm pull-right custom-tag-button" ng-click="addModalTag()" ng-disabled="!modalTag.name || containsTag(modalItem, modalTag.name)"><span class="glyphicon glyphicon-ok-sign"></span> Add tag</button>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                     </form>
                 </div>
@@ -94,9 +96,8 @@
 
 <script src="webjars/angular/1.4.4/angular.min.js" type="application/javascript"></script>
 <script src="webjars/angular-resource/1.4.4/angular-resource.min.js"></script>
-
 <script src="webjars/angular-ui-grid/3.0.7/ui-grid.min.js"></script>
-<script src="webjars/angular-ui-bootstrap/0.13.3/ui-bootstrap-tpls.min.js"></script>
+<script src="webjars/angular-ui-bootstrap/0.14.2/ui-bootstrap-tpls.min.js"></script>
 <script src="assets/js/app.js"></script>
 <script src="assets/js/main.ctrl.js"></script>
 <script src="assets/js/main.modal.ctrl.js"></script>

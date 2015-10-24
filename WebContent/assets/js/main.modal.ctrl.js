@@ -1,11 +1,11 @@
-fzApp.controller('ItemModalCtrl', function ($scope, $rootScope, $modal, $log) {
+fzApp.controller('ItemModalCtrl', function ($scope, $rootScope, $uibModal, $log) {
 
     $scope.$on('openItemDialog', function(event, item){
         $scope.open(item);
     });
 
     $scope.open = function(item) {
-        var modalInstance = $modal.open({
+        var modalInstance = $uibModal.open({
             templateUrl: 'itemModalTemplate',
             controller: 'ItemModalInstanceCtrl',
             resolve: {
@@ -24,11 +24,13 @@ fzApp.controller('ItemModalCtrl', function ($scope, $rootScope, $modal, $log) {
     };
 });
 
-fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item) {
+fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item, Tag) {
 
     $scope.modalItem = item;
     $scope.modalTag = {};
     $scope.item = angular.copy(item);
+    $scope.allTags = Tag.query();
+
 
     $scope.stockLevelValues = [
         'Surplus',

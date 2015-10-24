@@ -1,8 +1,9 @@
-fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants) {
+fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridConstants) {
 
     $scope.selectedItem = {};
     $scope.favoriteFiltered = false;
     $scope.tagFilter = '';
+    $scope.allTags = Tag.query();
 
     $scope.ItemConst = function(){
       var item = {};
@@ -101,6 +102,7 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
                 });
                 return customTags;
             };
+            $scope.allTags = Tag.query();
         });
     };
 
@@ -122,6 +124,7 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, uiGridConstants
                 });
                 return customTags;
             };
+            $scope.allTags = Tag.query();
         });
     };
 
