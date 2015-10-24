@@ -1,6 +1,7 @@
 package net.sp0gg.fridgezone.config;
 
 import net.sp0gg.fridgezone.data.dao.ItemDao;
+import net.sp0gg.fridgezone.data.dao.TagDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,4 +14,6 @@ import org.springframework.context.annotation.Configuration;
 public class DaoConfig {
     @Autowired
     private ItemDao itemDao;
+    @Autowired
+    private TagDao tagDao;
 }

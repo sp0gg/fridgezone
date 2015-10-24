@@ -3,7 +3,15 @@ INSERT INTO ITEM(ID, NAME, stock_level, optimal_quantity)VALUES(2, 'Ham', 'Low',
 INSERT INTO ITEM(ID, NAME, stock_level, optimal_quantity)VALUES(3, 'Cheese', 'Low', 2)
 INSERT INTO ITEM(ID, NAME, stock_level, optimal_quantity)VALUES(4, 'Milk', 'Stocked', 1)
 INSERT INTO ITEM(ID, NAME, stock_level, optimal_quantity)VALUES(5, 'Eggs', 'Surplus', 2)
+INSERT INTO ITEM(ID, NAME, stock_level, optimal_quantity)VALUES(6, 'Oranges', 'Surplus', 2)
+INSERT INTO ITEM(ID, NAME, stock_level, optimal_quantity)VALUES(7, 'Pineapples', 'Surplus', 2)
 
 INSERT INTO TAG(ID, NAME, ITEM_ID)VALUES(1, 'favorite', 2)
 INSERT INTO TAG(ID, NAME, ITEM_ID)VALUES(2, 'favorite', 4)
 INSERT INTO TAG(ID, NAME, ITEM_ID)VALUES(3, 'dairy', 4)
+INSERT INTO TAG(ID, NAME, ITEM_ID)VALUES(4, 'snacks', 6)
+INSERT INTO TAG(ID, NAME, ITEM_ID)VALUES(5, 'fruit', 6)
+INSERT INTO TAG(ID, NAME, ITEM_ID)VALUES(6, 'fruit', 7)
+INSERT INTO TAG(ID, NAME, ITEM_ID)VALUES(7, 'shopping', 7)
+INSERT INTO TAG(ID, NAME, ITEM_ID)VALUES(8, 'favorite', 7)
+

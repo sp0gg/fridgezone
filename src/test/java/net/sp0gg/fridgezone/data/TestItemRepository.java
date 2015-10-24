@@ -5,12 +5,13 @@ import net.sp0gg.fridgezone.data.repository.ItemRepository;
 import net.sp0gg.fridgezone.data.repository.TagRepository;
 import net.sp0gg.fridgezone.domain.Item;
 import net.sp0gg.fridgezone.domain.Tag;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -25,7 +26,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("local")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class TestFridgezoneRepository {
+public class TestItemRepository {
 
     Logger log = LoggerFactory.getLogger(this.getClass());
 	
@@ -34,6 +35,8 @@ public class TestFridgezoneRepository {
 
     @Autowired
     TagRepository tagRepo;
+
+
 
 	@Test
 	public void shouldFindAllItems() {
@@ -47,7 +50,7 @@ public class TestFridgezoneRepository {
 		assertEquals("Pop", item.getName());
         assertEquals("Out", item.getStockLevel());
         assertEquals(2, item.getOptimalQuantity());
-		assertEquals(5, items.size());
+		assertEquals(7, items.size());
 
         assertEquals("favorite", items.get(1).getTags().get(0).getName());
         assertEquals("favorite", items.get(3).getTags().get(0).getName());

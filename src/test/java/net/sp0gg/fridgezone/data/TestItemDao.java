@@ -36,7 +36,7 @@ public class TestItemDao {
     @Test
     public void shouldFindAllItems(){
         List<Item> itemsReturned = itemDao.findAll();
-        assertEquals(5, itemsReturned.size());
+        assertEquals(7, itemsReturned.size());
     }
 
     @Test
@@ -79,7 +79,7 @@ public class TestItemDao {
         item.setTags(tags);
         itemDao.add(item);
 
-        Item addedItem = itemRepo.findOne(6L);
+        Item addedItem = itemRepo.findOne(8L);
         assertNotNull(addedItem);
         assertNotNull(addedItem.getTags());
         assertEquals(1, addedItem.getTags().size());
