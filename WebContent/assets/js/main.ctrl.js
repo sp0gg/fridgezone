@@ -11,7 +11,7 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
         item.getTagsFormatted = function(){
             var tagsFormatted = '';
             angular.forEach(this.tags, function(tag){
-                tagsFormatted += ' ' + tag.name;
+                tagsFormatted += ' | ' + tag.name;
             });
             return tagsFormatted;
         };
@@ -32,7 +32,7 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
             item.getTagsFormatted = function(){
                 var tagsFormatted = '';
                 angular.forEach(this.tags, function(tag){
-                  tagsFormatted += ' ' + tag.name;
+                  tagsFormatted += ' | ' + tag.name;
                 });
                 return tagsFormatted;
             };
@@ -89,7 +89,7 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
             item.getTagsFormatted = function(){
                 var tagsFormatted = '';
                 angular.forEach(this.tags, function(tag){
-                    tagsFormatted += ' ' + tag.name;
+                    tagsFormatted += ' | ' + tag.name;
                 });
                 return tagsFormatted;
             };
@@ -111,7 +111,7 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
             item.getTagsFormatted = function(){
                 var tagsFormatted = '';
                 angular.forEach(this.tags, function(tag){
-                    tagsFormatted += ' ' + tag.name;
+                    tagsFormatted += ' | ' + tag.name;
                 });
                 return tagsFormatted;
             };
