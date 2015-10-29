@@ -54,4 +54,15 @@ public class Tag implements Serializable {
     public void setItemId(Long itemId) {
         this.itemId = itemId;
     }
+
+    @Override
+    public String toString() {
+        return this.getName();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Tag tag = (Tag)obj;
+        return this.getName() == tag.getName();
+    }
 }

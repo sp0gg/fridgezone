@@ -8,7 +8,7 @@
     </appender>
     <logger name="com.sp0gg" level="INFO"/>
 
-    <root level="INFO">
+    <root level="DEBUG">
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>

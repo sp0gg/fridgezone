@@ -74,7 +74,23 @@ public class Item implements Serializable {
     }
 
     public String toString(){
-        return String.format("Item[id=%d, name='%s']", id, name);
+        return String.format("Item[id=%d, name='%s'], tags[%s]", id, name, this.getTags().toString());
     }
 
+    public boolean containsTagName(String tagName) {
+        for (Tag tag : this.getTags()) {
+            if(tag.getName().equalsIgnoreCase(tagName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Item item = (Item)obj;
+        return this.getName() == item.getName()
+                && this.getStockLevel() == item.getStockLevel()
+                && this.getTags().equals(item.getTags());
+    }
 }
