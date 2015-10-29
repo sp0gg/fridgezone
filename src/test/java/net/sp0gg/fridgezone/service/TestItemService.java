@@ -18,13 +18,14 @@ import static org.mockito.Mockito.*;
 public class TestItemService {
 
     ItemDao mockItemDao = mock(ItemDao.class);
-    Item favoriteOnlyItem = mockFavoriteOnlyItem();
-    Item favoriteAndShoppingItem = mockFavoritAndShoppingItem();
+
     ItemService itemService = new ItemServiceImpl(mockItemDao);
 
 
     @Test
-    public void shouldAddShoppingTagToFavoriteItemsWhenLowOrOut(){
+    public void shouldAddShoppingTagToFavoriteItemsWhenLow(){
+        Item favoriteOnlyItem = mockFavoriteOnlyItem();
+        Item favoriteAndShoppingItem = mockFavoriteAndShoppingItem();
 
         when(mockItemDao.update(any(Item.class))).thenReturn(new Item());
 
@@ -32,7 +33,31 @@ public class TestItemService {
         verify(mockItemDao).update(favoriteAndShoppingItem);
     }
 
-    private Item mockFavoritAndShoppingItem() {
+    @Test
+    public void shouldAddShoppingTagToFavoriteItemsWhenOut(){
+        Item favoriteOnlyItem = mockFavoriteOnlyItem();
+        Item favoriteAndShoppingItem = mockFavoriteAndShoppingItem();
+        favoriteOnlyItem.setStockLevel(Constants.STOCK_LEVEL_OUT);
+        favoriteAndShoppingItem.setStockLevel(Constants.STOCK_LEVEL_OUT);
+        when(mockItemDao.update(any(Item.class))).thenReturn(new Item());
+
+        itemService.updateItem(favoriteOnlyItem);
+        verify(mockItemDao).update(favoriteAndShoppingItem);
+    }
+
+    @Test
+    public void shouldNOTAddShoppingTagToFavoriteItemsWhenStocked(){
+        Item favoriteOnlyItem = mockFavoriteOnlyItem();
+        Item favoriteAndShoppingItem = mockFavoriteAndShoppingItem();
+        favoriteOnlyItem.setStockLevel(Constants.STOCK_LEVEL_STOCKED);
+        favoriteAndShoppingItem.setStockLevel(Constants.STOCK_LEVEL_STOCKED);
+        when(mockItemDao.update(any(Item.class))).thenReturn(new Item());
+
+        itemService.updateItem(favoriteOnlyItem);
+        verify(mockItemDao).update(favoriteOnlyItem);
+    }
+
+    private Item mockFavoriteAndShoppingItem() {
         Tag favoriteTag = new Tag();
         favoriteTag.setName(Constants.FAVORITE_TAG_NAME);
         Tag shoppingTag = new Tag();
@@ -46,7 +71,8 @@ public class TestItemService {
         favoriteAndShoppingItem.setName("Pizza");
         favoriteAndShoppingItem.setStockLevel("Low");
         favoriteAndShoppingItem.setTags(tags);
-        return favoriteAndShoppingItem;    }
+        return favoriteAndShoppingItem;
+    }
 
     private Item mockFavoriteOnlyItem() {
         Tag favoriteTag = new Tag();

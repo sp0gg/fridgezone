@@ -8,4 +8,5 @@ public class Constants {
     public static final String SHOPPING_TAG_NAME = "shopping";
     public static final String STOCK_LEVEL_OUT = "Out";
     public static final String STOCK_LEVEL_LOW = "Low";
+    public static final String STOCK_LEVEL_STOCKED = "STOCKED";
 }
