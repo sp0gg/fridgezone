@@ -21,14 +21,21 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item updateItem(Item item) {
-        if(item.containsTagName(Constants.FAVORITE_TAG_NAME) && !item.containsTagName(Constants.SHOPPING_TAG_NAME) && (item.getStockLevel() == Constants.STOCK_LEVEL_OUT || item.getStockLevel() == Constants.STOCK_LEVEL_LOW)){
-            log.debug("Item " + item.getName() + " is a favorite item and is low or out - adding shopping tag");
+        if(needsToBeAddedToShoppingList(item)){
+            log.debug("Item " + item.getName() + " needs to be on shopping list - adding shopping tag");
             Tag shoppingTag = new Tag();
             shoppingTag.setName(Constants.SHOPPING_TAG_NAME);
             item.getTags().add(shoppingTag);
         }
+
         Item returnedItem = dao.update(item);
         return returnedItem;
+    }
+
+    private boolean needsToBeAddedToShoppingList(Item item) {
+        boolean isFavoriteItemWithoutShoppingTag = item.containsTagName(Constants.FAVORITE_TAG_NAME) && !item.containsTagName(Constants.SHOPPING_TAG_NAME);
+        boolean isStockLevelLowOrOut = item.getStockLevel().equals(Constants.STOCK_LEVEL_OUT) || item.getStockLevel().equals(Constants.STOCK_LEVEL_LOW);
+        return isFavoriteItemWithoutShoppingTag && isStockLevelLowOrOut;
     }
 
     @Autowired
