@@ -8,6 +8,7 @@ import net.sp0gg.fridgezone.data.dao.ItemDao;
 import net.sp0gg.fridgezone.data.rest.ItemRestController;
 import net.sp0gg.fridgezone.domain.Item;
 import net.sp0gg.fridgezone.domain.Tag;
+import net.sp0gg.fridgezone.service.ItemService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,6 +45,9 @@ public class TestItemRestController {
     @Autowired
     ItemDao itemDao;
 
+    @Autowired
+    ItemService itemService;
+
     MockMvc mockMvc;
     ItemRestController itemController;
 
@@ -51,7 +55,7 @@ public class TestItemRestController {
 
     @Before
     public void setUp(){
-        itemController = new ItemRestController(itemDao);
+        itemController = new ItemRestController(itemDao, itemService);
         mockMvc = MockMvcBuilders.standaloneSetup(itemController).build();
     }
 

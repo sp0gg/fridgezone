@@ -2,6 +2,7 @@ package net.sp0gg.fridgezone.data.rest;
 
 import net.sp0gg.fridgezone.data.dao.ItemDao;
 import net.sp0gg.fridgezone.domain.Item;
+import net.sp0gg.fridgezone.service.ItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,12 @@ public class ItemRestController {
     Logger log = LoggerFactory.getLogger(this.getClass());
 
     private ItemDao itemDao;
+    private ItemService itemService;
 
     @Autowired
-    public ItemRestController(ItemDao itemDao){
+    public ItemRestController(ItemDao itemDao, ItemService itemService){
         this.itemDao = itemDao;
+        this.itemService = itemService;
     }
 
     @RequestMapping(value = "/items", method = RequestMethod.GET)
@@ -37,7 +40,8 @@ public class ItemRestController {
 
     @RequestMapping(value = "/items/{id}", method = RequestMethod.PUT)
     public @ResponseBody Item updateItem(@RequestBody Item item) {
-        Item itemReturned = itemDao.update(item);
+//        Item itemReturned = itemDao.update(item);
+        Item itemReturned = itemService.updateItem(item);
         return itemReturned;
     }
 
