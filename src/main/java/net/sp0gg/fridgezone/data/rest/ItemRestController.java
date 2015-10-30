@@ -1,6 +1,5 @@
 package net.sp0gg.fridgezone.data.rest;
 
-import net.sp0gg.fridgezone.data.dao.ItemDao;
 import net.sp0gg.fridgezone.domain.Item;
 import net.sp0gg.fridgezone.service.ItemService;
 import org.slf4j.Logger;
@@ -20,27 +19,24 @@ public class ItemRestController {
 
     Logger log = LoggerFactory.getLogger(this.getClass());
 
-    private ItemDao itemDao;
     private ItemService itemService;
 
     @Autowired
-    public ItemRestController(ItemDao itemDao, ItemService itemService){
-        this.itemDao = itemDao;
+    public ItemRestController(ItemService itemService){
         this.itemService = itemService;
     }
 
     @RequestMapping(value = "/items", method = RequestMethod.GET)
-    public @ResponseBody Collection<Item> findAll(){return itemDao.findAll();}
+    public @ResponseBody Collection<Item> findAll(){return itemService.fetchAll();}
 
     @RequestMapping(value = "/items", method = RequestMethod.POST)
     public @ResponseBody Item addItem(@RequestBody Item item) {
-        Item itemReturned = itemDao.add(item);
+        Item itemReturned = itemService.addItem(item);
         return itemReturned;
     }
 
     @RequestMapping(value = "/items/{id}", method = RequestMethod.PUT)
     public @ResponseBody Item updateItem(@RequestBody Item item) {
-//        Item itemReturned = itemDao.update(item);
         Item itemReturned = itemService.updateItem(item);
         return itemReturned;
     }

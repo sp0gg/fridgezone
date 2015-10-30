@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+
 /**
  * Created by sp0gg on 10/27/15.
  */
@@ -30,6 +32,16 @@ public class ItemServiceImpl implements ItemService {
 
         Item returnedItem = dao.update(item);
         return returnedItem;
+    }
+
+    @Override
+    public Item addItem(Item item) {
+        return dao.add(item);
+    }
+
+    @Override
+    public Collection<Item> fetchAll() {
+        return dao.findAll();
     }
 
     private boolean needsToBeAddedToShoppingList(Item item) {

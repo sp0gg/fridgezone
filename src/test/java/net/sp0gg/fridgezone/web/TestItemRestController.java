@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.sp0gg.fridgezone.config.TestDataConfig;
-import net.sp0gg.fridgezone.data.dao.ItemDao;
 import net.sp0gg.fridgezone.data.rest.ItemRestController;
 import net.sp0gg.fridgezone.domain.Item;
 import net.sp0gg.fridgezone.domain.Tag;
@@ -43,9 +42,6 @@ public class TestItemRestController {
     Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    ItemDao itemDao;
-
-    @Autowired
     ItemService itemService;
 
     MockMvc mockMvc;
@@ -55,7 +51,7 @@ public class TestItemRestController {
 
     @Before
     public void setUp(){
-        itemController = new ItemRestController(itemDao, itemService);
+        itemController = new ItemRestController(itemService);
         mockMvc = MockMvcBuilders.standaloneSetup(itemController).build();
     }
 
