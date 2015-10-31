@@ -50,7 +50,7 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
         $scope.addAlert('success', 'Fridgezone is online');
     },
         function(data){
-            $scope.addAlert('danger', 'Fridgezone is offline - please try again later');
+            $scope.addAlert('danger', 'There was a problem communicating with Fridgezone - please try logging in again');
         }
     );
 
@@ -114,7 +114,7 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
 
             },
             function(error){
-                $scope.addAlert('danger', 'There was a problem communicating with Fridgezone - please try logging in again: ');
+                $scope.addAlert('danger', 'There was a problem communicating with Fridgezone - please try logging in again');
             }
 
         );
@@ -142,7 +142,7 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
             $scope.addAlert('success', item.name + ' updated');
         },
             function(error){
-                $scope.addAlert('danger', 'There was a problem communicating with Fridgezone - please try logging in again: ');
+                $scope.addAlert('danger', 'There was a problem communicating with Fridgezone - please try logging in again');
             }
         );
     };
@@ -178,7 +178,7 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
                 displayName: 'Tags',
                 filter: {
                     condition: function(searchTerm, cellValue){
-                        return((cellValue.indexOf($scope.tagFilter) > 0));
+                        return(cellValue.search(new RegExp($scope.tagFilter, 'i')));
                     },
                     noTerm: true
                 }
