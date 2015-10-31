@@ -1,7 +1,7 @@
 package net.sp0gg.fridgezone.data;
 
 import net.sp0gg.fridgezone.config.TestDataConfig;
-import net.sp0gg.fridgezone.data.dao.ItemDao;
+import net.sp0gg.fridgezone.data.dao.interfaces.ItemDao;
 import net.sp0gg.fridgezone.data.repository.ItemRepository;
 import net.sp0gg.fridgezone.domain.Item;
 import net.sp0gg.fridgezone.domain.Tag;

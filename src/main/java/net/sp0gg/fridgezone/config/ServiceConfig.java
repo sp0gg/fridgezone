@@ -1,6 +1,6 @@
 package net.sp0gg.fridgezone.config;
 
-import net.sp0gg.fridgezone.service.ItemService;
+import net.sp0gg.fridgezone.service.interfaces.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

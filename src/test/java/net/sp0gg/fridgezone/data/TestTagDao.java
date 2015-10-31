@@ -1,7 +1,7 @@
 package net.sp0gg.fridgezone.data;
 
 import net.sp0gg.fridgezone.config.TestDataConfig;
-import net.sp0gg.fridgezone.data.dao.TagDao;
+import net.sp0gg.fridgezone.data.dao.interfaces.TagDao;
 import net.sp0gg.fridgezone.data.repository.TagRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;

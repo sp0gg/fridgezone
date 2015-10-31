@@ -1,5 +1,6 @@
-package net.sp0gg.fridgezone.data.dao;
+package net.sp0gg.fridgezone.data.dao.impl;
 
+import net.sp0gg.fridgezone.data.dao.interfaces.TagDao;
 import net.sp0gg.fridgezone.data.repository.TagRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

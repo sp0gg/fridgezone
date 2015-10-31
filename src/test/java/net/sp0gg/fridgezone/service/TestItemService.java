@@ -1,8 +1,10 @@
 package net.sp0gg.fridgezone.service;
 
-import net.sp0gg.fridgezone.data.dao.ItemDao;
+import net.sp0gg.fridgezone.data.dao.interfaces.ItemDao;
 import net.sp0gg.fridgezone.domain.Item;
 import net.sp0gg.fridgezone.domain.Tag;
+import net.sp0gg.fridgezone.service.impl.ItemServiceImpl;
+import net.sp0gg.fridgezone.service.interfaces.ItemService;
 import net.sp0gg.fridgezone.util.Constants;
 import org.junit.Test;
 

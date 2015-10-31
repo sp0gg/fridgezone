@@ -1,8 +1,9 @@
-package net.sp0gg.fridgezone.service;
+package net.sp0gg.fridgezone.service.impl;
 
-import net.sp0gg.fridgezone.data.dao.ItemDao;
+import net.sp0gg.fridgezone.data.dao.interfaces.ItemDao;
 import net.sp0gg.fridgezone.domain.Item;
 import net.sp0gg.fridgezone.domain.Tag;
+import net.sp0gg.fridgezone.service.interfaces.ItemService;
 import net.sp0gg.fridgezone.util.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package net.sp0gg.fridgezone.data.dao;
+package net.sp0gg.fridgezone.data.dao.interfaces;
 
 import net.sp0gg.fridgezone.domain.Item;
 

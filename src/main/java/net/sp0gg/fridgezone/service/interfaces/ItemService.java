@@ -1,4 +1,4 @@
-package net.sp0gg.fridgezone.service;
+package net.sp0gg.fridgezone.service.interfaces;
 
 import net.sp0gg.fridgezone.domain.Item;
 

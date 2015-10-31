@@ -1,7 +1,7 @@
 package net.sp0gg.fridgezone.data.rest;
 
 import net.sp0gg.fridgezone.domain.Item;
-import net.sp0gg.fridgezone.service.ItemService;
+import net.sp0gg.fridgezone.service.interfaces.ItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

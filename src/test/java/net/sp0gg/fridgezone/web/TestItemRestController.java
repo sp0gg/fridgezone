@@ -7,7 +7,7 @@ import net.sp0gg.fridgezone.config.TestDataConfig;
 import net.sp0gg.fridgezone.data.rest.ItemRestController;
 import net.sp0gg.fridgezone.domain.Item;
 import net.sp0gg.fridgezone.domain.Tag;
-import net.sp0gg.fridgezone.service.ItemService;
+import net.sp0gg.fridgezone.service.interfaces.ItemService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

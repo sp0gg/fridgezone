@@ -1,7 +1,7 @@
 package net.sp0gg.fridgezone.config;
 
-import net.sp0gg.fridgezone.data.dao.ItemDao;
-import net.sp0gg.fridgezone.data.dao.TagDao;
+import net.sp0gg.fridgezone.data.dao.interfaces.ItemDao;
+import net.sp0gg.fridgezone.data.dao.interfaces.TagDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

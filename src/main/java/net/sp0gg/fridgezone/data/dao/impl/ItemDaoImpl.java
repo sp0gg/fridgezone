@@ -1,5 +1,6 @@
-package net.sp0gg.fridgezone.data.dao;
+package net.sp0gg.fridgezone.data.dao.impl;
 
+import net.sp0gg.fridgezone.data.dao.interfaces.ItemDao;
 import net.sp0gg.fridgezone.data.repository.ItemRepository;
 import net.sp0gg.fridgezone.data.repository.TagRepository;
 import net.sp0gg.fridgezone.domain.Item;

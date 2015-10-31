@@ -1,6 +1,6 @@
 package net.sp0gg.fridgezone.data.rest;
 
-import net.sp0gg.fridgezone.data.dao.TagDao;
+import net.sp0gg.fridgezone.data.dao.interfaces.TagDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
