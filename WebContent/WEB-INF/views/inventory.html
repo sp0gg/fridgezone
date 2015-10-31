@@ -35,11 +35,12 @@
     <div class="row" style="padding: 20px">
         <button id="addItem" class="btn btn-success" ng-click="openItemDialog()"><span class="glyphicon glyphicon-plus-sign"></span> New item</button>
     </div>
+    <div id="alerts" class="row col-sm-4">
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" dismiss-on-timeout="3000">{{alert.msg}}</uib-alert>
+    </div>
 </div>
 
-<!----------####### alerts ------->
 
-<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" dismiss-on-timeout="3000">{{alert.msg}}</uib-alert>
 
 <!----------####### modal template ------->
 

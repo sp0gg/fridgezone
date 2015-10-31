@@ -16,7 +16,7 @@ fzApp.controller('ItemModalCtrl', function ($scope, $rootScope, $uibModal, $log)
         });
 
         modalInstance.result.then(function (modalItem) {
-            console.log("item returned: " + angular.toJson(modalItem));
+            console.log("returning item: " + angular.toJson(modalItem));
             $rootScope.$broadcast('itemModified', modalItem);
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());

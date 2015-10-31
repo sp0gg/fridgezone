@@ -47,7 +47,12 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
                 return customTags;
             };
         });
-    });
+        $scope.addAlert('success', 'Fridgezone is online');
+    },
+        function(data){
+            $scope.addAlert('danger', 'Fridgezone is offline - please try again later');
+        }
+    );
 
     $scope.handleGridSelection = function(row){
         if(row.isSelected) {
@@ -65,6 +70,7 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
 
     $scope.$on('itemModified', function(event, item){
         var returnedItem = $scope.saveItem(item);
+        console.log('saved item is ' + angular.toJson(returnedItem));
 
         var oldItem = $scope.itemList.filter(function(listItem){
             return listItem.id === returnedItem.id;
@@ -72,10 +78,8 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
         var index = $scope.itemList.indexOf(oldItem);
         if(index >= 0) {
             $scope.itemList[index] = returnedItem;
-            $scope.addAlert('success', item.name + ' updated');
         }else{
             $scope.itemList.push(returnedItem);
-            $scope.addAlert('success', item.name + ' added');
         }
     });
 
@@ -106,7 +110,14 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
                 return customTags;
             };
             $scope.allTags = Tag.query();
-        });
+            $scope.addAlert('success', item.name + ' added');
+
+            },
+            function(error){
+                $scope.addAlert('danger', 'There was a problem communicating with Fridgezone - please try logging in again: ');
+            }
+
+        );
     };
 
     $scope.updateItem = function(item){
@@ -128,7 +139,12 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
                 return customTags;
             };
             $scope.allTags = Tag.query();
-        });
+            $scope.addAlert('success', item.name + ' updated');
+        },
+            function(error){
+                $scope.addAlert('danger', 'There was a problem communicating with Fridgezone - please try logging in again: ');
+            }
+        );
     };
 
     $scope.getCellClass = function(item){
@@ -165,7 +181,6 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
                         return((cellValue.indexOf($scope.tagFilter) > 0));
                     },
                     noTerm: true
-
                 }
             }
         ],
@@ -174,7 +189,6 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
         enableColumnMenus: false,
         multiSelect: false,
         enableFiltering: false
-
     };
 
     $scope.filterTag = function(tag){
