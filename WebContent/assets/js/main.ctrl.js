@@ -178,7 +178,7 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
                 displayName: 'Tags',
                 filter: {
                     condition: function(searchTerm, cellValue){
-                        return(cellValue.search(new RegExp($scope.tagFilter, 'i')));
+                        return(cellValue.search(new RegExp($scope.tagFilter, 'i')) > 0);
                     },
                     noTerm: true
                 }
