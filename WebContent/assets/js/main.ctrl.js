@@ -4,6 +4,7 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
     $scope.favoriteFiltered = false;
     $scope.tagFilter = '';
     $scope.allTags = Tag.query();
+    $scope.alerts = [];
 
     $scope.ItemConst = function(){
       var item = {};
@@ -62,7 +63,7 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
         $rootScope.$broadcast('openItemDialog', item);
     };
 
-    $scope.$on('itemAdded', function(event, item){
+    $scope.$on('itemModified', function(event, item){
         var returnedItem = $scope.saveItem(item);
 
         var oldItem = $scope.itemList.filter(function(listItem){
@@ -71,8 +72,10 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
         var index = $scope.itemList.indexOf(oldItem);
         if(index >= 0) {
             $scope.itemList[index] = returnedItem;
+            $scope.addAlert('success', item.name + ' updated');
         }else{
             $scope.itemList.push(returnedItem);
+            $scope.addAlert('success', item.name + ' added');
         }
     });
 
@@ -185,7 +188,14 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
         $scope.gridApi.grid.refresh();
     };
 
-    //CP
+    $scope.addAlert = function(type, message){
+        $scope.alerts.push({type:type, msg: message});
+    };
+
+    $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+    };
+
     $scope.itemGridOptions.onRegisterApi = function(gridApi){
         $scope.gridApi = gridApi;
         gridApi.selection.on.rowSelectionChanged($scope, $scope.handleGridSelection);

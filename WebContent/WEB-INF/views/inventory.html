@@ -37,7 +37,11 @@
     </div>
 </div>
 
-<!----------####### modal ------->
+<!----------####### alerts ------->
+
+<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" dismiss-on-timeout="3000">{{alert.msg}}</uib-alert>
+
+<!----------####### modal template ------->
 
 <div ng-controller="ItemModalCtrl">
     <script type="text/ng-template" id="itemModalTemplate">
@@ -86,7 +90,6 @@
                 </div>
                 </div>
             </div>
-
             <div class="modal-footer">
                 <button id="saveItem" class="btn btn-success" ng-disabled="itemForm.$invalid" ng-click="save()"><span class="glyphicon glyphicon-ok-sign"></span> {{saveLabel}}</button>
                 <button id="cancelAddItem" class="btn btn-danger" ng-click="cancel()"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
