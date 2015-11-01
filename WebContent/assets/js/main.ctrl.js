@@ -111,7 +111,6 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
             };
             $scope.allTags = Tag.query();
             $scope.addAlert('success', item.name + ' added');
-
             },
             function(error){
                 $scope.addAlert('danger', 'There was a problem communicating with Fridgezone - please try logging in again');
@@ -158,7 +157,11 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
         data: $scope.itemList,
         columnDefs: [
             {field: 'id',  visible: false},
-            {field: 'name', name: 'name', displayName: 'Item',
+            {
+                field: 'name',
+                name: 'name',
+                displayName: 'Item',
+                width: 250,
                 cellClass: function(grid, row) {
                     return $scope.getCellClass(row.entity);
                 },
@@ -167,7 +170,10 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
                 },
                 enableFiltering: false
             },
-            {field: 'stockLevel',
+            {
+                field: 'stockLevel',
+                displayName: 'Level',
+                width: 85,
                 cellClass: function(grid, row) {
                     return $scope.getCellClass(row.entity);
                 },
