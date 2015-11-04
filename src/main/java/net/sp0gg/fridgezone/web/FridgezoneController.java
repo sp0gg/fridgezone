@@ -1,14 +1,10 @@
 package net.sp0gg.fridgezone.web;
 
 import net.sp0gg.fridgezone.data.repository.ItemRepository;
-import net.sp0gg.fridgezone.domain.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.util.List;
 
 @Controller
 public class FridgezoneController {
@@ -26,9 +22,7 @@ public class FridgezoneController {
 	}
 
     @RequestMapping(value = "/inventory", method=RequestMethod.GET)
-    public String inventory(Model model){
-        List<Item> items = repo.findAll();
-        model.addAttribute("items", items);
+    public String inventory(){
         return "inventory";
     }
 
