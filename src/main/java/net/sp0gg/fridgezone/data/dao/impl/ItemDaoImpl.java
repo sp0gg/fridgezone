@@ -18,7 +18,6 @@ import java.util.List;
  */
 @Component
 public class ItemDaoImpl implements ItemDao {
-    Logger log = LoggerFactory.getLogger(this.getClass());
 
     private ItemRepository itemRepo;
     private TagRepository tagRepo;

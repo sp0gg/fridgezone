@@ -25,7 +25,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public Item updateItem(Item item) {
         if(needsToBeAddedToShoppingList(item)){
-            log.debug("Item " + item.getName() + " needs to be on shopping list - adding shopping tag");
+            log.info("Item " + item.getName() + " needs to be on shopping list - adding shopping tag");
             Tag shoppingTag = new Tag();
             shoppingTag.setName(Constants.SHOPPING_TAG_NAME);
             item.getTags().add(shoppingTag);

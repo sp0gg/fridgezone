@@ -24,7 +24,9 @@ public class TagRestController {
 
     @RequestMapping(value = "/tags", method = RequestMethod.GET)
     public @ResponseBody
-    Collection<String> findAll(){return tagDao.findAllNames();}
+    Collection<String> findAll(){
+        log.info("Retrieving tag name list");
+        return tagDao.findAllNames();}
 
     @Autowired
     public TagRestController(TagDao tagDao){

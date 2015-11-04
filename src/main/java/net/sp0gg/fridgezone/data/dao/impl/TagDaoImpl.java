@@ -16,11 +16,9 @@ import java.util.List;
 public class TagDaoImpl implements TagDao {
 
     private final TagRepository tagRepository;
-    Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public List<String> findAllNames() {
-        log.info("Running findAllNames");
         return tagRepository.findDistinctTagNames();
     }
 

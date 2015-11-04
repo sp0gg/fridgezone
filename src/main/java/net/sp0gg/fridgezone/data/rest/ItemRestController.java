@@ -27,16 +27,20 @@ public class ItemRestController {
     }
 
     @RequestMapping(value = "/items", method = RequestMethod.GET)
-    public @ResponseBody Collection<Item> findAll(){return itemService.fetchAll();}
+    public @ResponseBody Collection<Item> findAll(){
+        log.info("Retrieving full item list");
+        return itemService.fetchAll();}
 
     @RequestMapping(value = "/items", method = RequestMethod.POST)
     public @ResponseBody Item addItem(@RequestBody Item item) {
+        log.info("Adding item " + item.getName() + " with info: \r\n" + item.toString());
         Item itemReturned = itemService.addItem(item);
         return itemReturned;
     }
 
     @RequestMapping(value = "/items/{id}", method = RequestMethod.PUT)
     public @ResponseBody Item updateItem(@RequestBody Item item) {
+        log.info("Updating item " + item.getName() + " ID " + item.getId() + " with info: \r\n" + item.toString());
         Item itemReturned = itemService.updateItem(item);
         return itemReturned;
     }
