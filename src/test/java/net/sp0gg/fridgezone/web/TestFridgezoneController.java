@@ -1,7 +1,6 @@
 package net.sp0gg.fridgezone.web;
 
 import net.sp0gg.fridgezone.config.TestDataConfig;
-import net.sp0gg.fridgezone.data.repository.ItemRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -16,7 +15,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -41,8 +39,7 @@ public class TestFridgezoneController {
     @Test
     public void rootPathShouldRedirectToInventoryPage() throws Exception {
         log.info("Running rootShouldRedirectToInventoryPage");
-        ItemRepository mockRepo = mock(ItemRepository.class);
-        FridgezoneController fridgezoneController = new FridgezoneController(mockRepo);
+        FridgezoneController fridgezoneController = new FridgezoneController();
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(fridgezoneController).build();
             mockMvc.perform(get("/")).andExpect(view().name("redirect:/inventory"));
     }
