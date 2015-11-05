@@ -6,6 +6,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import javax.sql.DataSource;
+
 /**
  * Created by sp0gg on 9/14/15.
  */
@@ -13,13 +15,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
+    private DataSource fridgezoneDataSource;
+
+    @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-        auth.inMemoryAuthentication().withUser("nelson").password("gandalf529***").roles("USER").and()
-        .withUser("ATDD_USER").password("OUf?lJ?of|%Cz8F&N.rd").roles("USER");
+        auth.jdbcAuthentication().dataSource(fridgezoneDataSource);
     }
 
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin().and().httpBasic().and().csrf().disable();
+        http.formLogin().and().httpBasic().and().rememberMe()
+                .and().csrf().disable();
         http.authorizeRequests().anyRequest().authenticated();
     }
 }
