@@ -26,7 +26,8 @@ public class TagRestController {
     public @ResponseBody
     Collection<String> findAll(){
         log.info("Retrieving tag name list");
-        return tagDao.findAllNames();}
+        return tagDao.findAllNames();
+    }
 
     @Autowired
     public TagRestController(TagDao tagDao){

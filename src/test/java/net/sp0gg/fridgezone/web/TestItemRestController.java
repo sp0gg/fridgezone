@@ -3,7 +3,7 @@ package net.sp0gg.fridgezone.web;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import net.sp0gg.fridgezone.config.TestDataConfig;
+import net.sp0gg.fridgezone.config.TestWebConfig;
 import net.sp0gg.fridgezone.data.rest.ItemRestController;
 import net.sp0gg.fridgezone.domain.Item;
 import net.sp0gg.fridgezone.domain.Tag;
@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -22,17 +23,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Created by sp0gg on 9/19/15.
  */
-@ContextConfiguration(classes = {TestDataConfig.class})
+@ContextConfiguration(classes = {TestWebConfig.class})
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("local")
@@ -44,6 +47,9 @@ public class TestItemRestController {
     @Autowired
     ItemService itemService;
 
+    @Autowired
+    WebApplicationContext context;
+
     MockMvc mockMvc;
     ItemRestController itemController;
 
@@ -52,10 +58,13 @@ public class TestItemRestController {
     @Before
     public void setUp(){
         itemController = new ItemRestController(itemService);
-        mockMvc = MockMvcBuilders.standaloneSetup(itemController).build();
+        mockMvc = MockMvcBuilders
+                .webAppContextSetup(context)
+                .apply(springSecurity()).build();
     }
 
     @Test
+    @WithMockUser
     public void shouldReturnItemList() throws Exception {
         log.info("Running shouldReturnItemList");
         String controllerResponse = mockMvc.perform(get(baseUrl)).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
@@ -63,6 +72,7 @@ public class TestItemRestController {
     }
 
     @Test
+    @WithMockUser
     public void shouldAddItem() throws Exception{
         log.info("Running shouldAddItem");
         Item item = generateDummyItem();
@@ -78,6 +88,7 @@ public class TestItemRestController {
     }
 
     @Test
+    @WithMockUser
     public void shouldUpdateItem() throws Exception {
         log.info("Running shouldUpdateItem");
 
