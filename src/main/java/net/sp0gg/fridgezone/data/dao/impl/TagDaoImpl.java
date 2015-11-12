@@ -15,7 +15,7 @@ import java.util.List;
 @Component
 public class TagDaoImpl implements TagDao {
 
-    private final TagRepository tagRepository;
+    private TagRepository tagRepository;
 
     @Override
     public List<String> findAllNames() {

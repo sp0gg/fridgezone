@@ -28,13 +28,13 @@ import static org.junit.Assert.*;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestItemRepository {
 
-    Logger log = LoggerFactory.getLogger(this.getClass());
+    private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
-    ItemRepository itemRepo;
+    private ItemRepository itemRepo;
 
     @Autowired
-    TagRepository tagRepo;
+    private TagRepository tagRepo;
 
 
 

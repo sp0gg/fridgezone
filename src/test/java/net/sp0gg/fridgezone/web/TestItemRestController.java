@@ -42,18 +42,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestItemRestController {
 
-    Logger log = LoggerFactory.getLogger(this.getClass());
+    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    ItemService itemService;
+    private ItemService itemService;
 
     @Autowired
-    WebApplicationContext context;
+    private WebApplicationContext context;
 
-    MockMvc mockMvc;
-    ItemRestController itemController;
+    private MockMvc mockMvc;
+    private ItemRestController itemController;
 
-    String baseUrl = "/api/items";
+    private String baseUrl = "/api/items";
 
     @Before
     public void setUp(){

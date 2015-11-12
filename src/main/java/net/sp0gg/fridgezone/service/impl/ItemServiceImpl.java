@@ -18,7 +18,7 @@ import java.util.Collection;
 @Service
 public class ItemServiceImpl implements ItemService {
 
-    Logger log = LoggerFactory.getLogger(this.getClass());
+    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     private ItemDao dao;
 

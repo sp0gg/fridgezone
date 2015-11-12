@@ -18,9 +18,9 @@ import java.util.Collection;
 @RequestMapping("/api")
 public class TagRestController {
 
-    Logger log = LoggerFactory.getLogger(this.getClass());
+    private Logger log = LoggerFactory.getLogger(this.getClass());
 
-    TagDao tagDao;
+    private TagDao tagDao;
 
     @RequestMapping(value = "/tags", method = RequestMethod.GET)
     public @ResponseBody

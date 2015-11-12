@@ -19,9 +19,9 @@ import static org.mockito.Mockito.*;
  */
 public class TestItemService {
 
-    ItemDao mockItemDao = mock(ItemDao.class);
+    private ItemDao mockItemDao = mock(ItemDao.class);
 
-    ItemService itemService = new ItemServiceImpl(mockItemDao);
+    private ItemService itemService = new ItemServiceImpl(mockItemDao);
 
 
     @Test

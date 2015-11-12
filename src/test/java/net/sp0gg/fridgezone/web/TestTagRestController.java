@@ -1,6 +1,5 @@
 package net.sp0gg.fridgezone.web;
 
-import net.sp0gg.fridgezone.config.TestDataConfig;
 import net.sp0gg.fridgezone.config.TestWebConfig;
 import net.sp0gg.fridgezone.data.dao.interfaces.TagDao;
 import net.sp0gg.fridgezone.data.rest.TagRestController;
@@ -39,12 +38,12 @@ public class TestTagRestController {
     private TagDao tagDao;
 
     @Autowired
-    WebApplicationContext context;
+    private WebApplicationContext context;
 
-    MockMvc mockMvc;
-    TagRestController tagController;
+    private MockMvc mockMvc;
+    private TagRestController tagController;
 
-    String baseUrl = "/api/tags";
+    private String baseUrl = "/api/tags";
 
     @Before
     public void setUp(){

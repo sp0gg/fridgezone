@@ -17,7 +17,7 @@ import java.util.Collection;
 @RequestMapping("/api")
 public class ItemRestController {
 
-    Logger log = LoggerFactory.getLogger(this.getClass());
+    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     private ItemService itemService;
 
