@@ -86,7 +86,7 @@ public class Item implements Serializable {
     }
 
     public String toString(){
-        return String.format("Item[id=%d, name='%s'], tags[%s]", id, name, this.getTags().toString());
+        return String.format("Item[id=%d, name=%s, user=%s], tags[%s]", id, name, username, this.getTags().toString());
     }
 
     public boolean containsTagName(String tagName) {

@@ -27,7 +27,7 @@ public class TagRestController {
     public @ResponseBody
     Collection<String> findAll(Principal principal){
         String username = principal.getName();
-        log.info("Retrieving tag name list for user");
+        log.info("Retrieving tag name list for user: " + username);
         return tagDao.findAllNames(username);
     }
 

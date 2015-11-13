@@ -24,24 +24,26 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item updateItem(Item item) {
+        log.debug("updating item: " + item.toString());
         if(needsToBeAddedToShoppingList(item)){
             log.info("Item " + item.getName() + " needs to be on shopping list - adding shopping tag");
             Tag shoppingTag = new Tag();
             shoppingTag.setName(Constants.SHOPPING_TAG_NAME);
             item.getTags().add(shoppingTag);
         }
-
         Item returnedItem = dao.update(item);
         return returnedItem;
     }
 
     @Override
     public Item addItem(Item item) {
+        log.debug("adding item: " + item.toString());
         return dao.add(item);
     }
 
     @Override
     public Collection<Item> fetchAll(String username) {
+        log.debug("fetching all for: " + username);
         return dao.findAllByUsername(username);
     }
 
