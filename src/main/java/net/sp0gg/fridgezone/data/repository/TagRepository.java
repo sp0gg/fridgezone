@@ -17,6 +17,6 @@ import java.util.List;
 public interface TagRepository extends JpaRepository<Tag, Long> {
     void deleteByItem(Item item);
 
-    @Query("select distinct name from tag")
-    List<String> findDistinctTagNames();
+    @Query("select distinct t.name from tag t, item i where i = t.item and i.username = ?")
+    List<String> findDistinctTagNames(String username);
 }

@@ -10,5 +10,5 @@ import java.util.Collection;
 public interface ItemService {
     Item updateItem(Item item);
     Item addItem(Item item);
-    Collection<Item> fetchAll();
+    Collection<Item> fetchAll(String username);
 }

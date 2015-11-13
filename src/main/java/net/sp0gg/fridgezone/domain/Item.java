@@ -1,5 +1,7 @@
 package net.sp0gg.fridgezone.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,8 +22,10 @@ public class Item implements Serializable {
     @Column(name = "optimal_quantity")
     private int optimalQuantity;
 
+    @JsonIgnore
+    private String username;
+
     @OneToMany(mappedBy="item", fetch=FetchType.EAGER)
-//    @OneToMany(mappedBy="item", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     private List<Tag> tags = new ArrayList<>();
 
 
@@ -51,6 +55,14 @@ public class Item implements Serializable {
 
     public void setOptimalQuantity(int optimalQuantity) {
         this.optimalQuantity = optimalQuantity;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public List<Tag> getTags() {

@@ -34,8 +34,8 @@ public class TestItemDao {
     private ItemDao itemDao;
 
     @Test
-    public void shouldFindAllItems(){
-        List<Item> itemsReturned = itemDao.findAll();
+    public void shouldFindAllItemsByUsername(){
+        List<Item> itemsReturned = itemDao.findAllByUsername("testUser1");
         assertEquals(7, itemsReturned.size());
     }
 
@@ -72,6 +72,7 @@ public class TestItemDao {
         Item item = new Item();
         item.setName("New Item");
         item.setStockLevel("Stocked");
+        item.setUsername("testUser1");
         List<Tag> tags = new ArrayList<>();
         Tag tag = new Tag();
         tag.setName("Test tag");
@@ -79,7 +80,7 @@ public class TestItemDao {
         item.setTags(tags);
         itemDao.add(item);
 
-        Item addedItem = itemRepo.findOne(8L);
+        Item addedItem = itemRepo.findOne(9L);
         assertNotNull(addedItem);
         assertNotNull(addedItem.getTags());
         assertEquals(1, addedItem.getTags().size());

@@ -4,10 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.sp0gg.fridgezone.config.TestWebConfig;
-import net.sp0gg.fridgezone.data.rest.ItemRestController;
 import net.sp0gg.fridgezone.domain.Item;
 import net.sp0gg.fridgezone.domain.Tag;
-import net.sp0gg.fridgezone.service.interfaces.ItemService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,26 +43,22 @@ public class TestItemRestController {
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private ItemService itemService;
-
-    @Autowired
     private WebApplicationContext context;
 
     private MockMvc mockMvc;
-    private ItemRestController itemController;
 
     private String baseUrl = "/api/items";
+    private final String testUser1 = "testUser1";
 
     @Before
     public void setUp(){
-        itemController = new ItemRestController(itemService);
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .apply(springSecurity()).build();
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(value=testUser1)
     public void shouldReturnItemList() throws Exception {
         log.info("Running shouldReturnItemList");
         String controllerResponse = mockMvc.perform(get(baseUrl)).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
@@ -72,7 +66,7 @@ public class TestItemRestController {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(value=testUser1)
     public void shouldAddItem() throws Exception{
         log.info("Running shouldAddItem");
         Item item = generateDummyItem();
@@ -88,7 +82,7 @@ public class TestItemRestController {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(value=testUser1)
     public void shouldUpdateItem() throws Exception {
         log.info("Running shouldUpdateItem");
 

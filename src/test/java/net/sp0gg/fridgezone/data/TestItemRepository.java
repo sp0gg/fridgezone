@@ -39,9 +39,9 @@ public class TestItemRepository {
 
 
 	@Test
-	public void shouldFindAllItems() {
-		log.info("Running shouldFindAllItems");
-		List<Item> items = itemRepo.findAll();
+	public void shouldFindAllItemsByUsername() {
+		log.info("Running shouldFindAllItemsByUsername");
+		List<Item> items = itemRepo.findAllByUsername("testUser1");
 		System.out.println("Items found:");
 		for (Item item : items) {
 			System.out.println(item.toString());
@@ -63,6 +63,7 @@ public class TestItemRepository {
 		Item newItem = new Item();
 		newItem.setName("Grapes");
         newItem.setStockLevel("Out");
+        newItem.setUsername("testUser1");
         newItem.setOptimalQuantity(1);
         List<Tag> tags = new ArrayList<>();
         Tag tag = new Tag();
@@ -86,12 +87,14 @@ public class TestItemRepository {
         cheese.setId(3L);
         cheese.setStockLevel("Stocked");
         cheese.setName("Cheese");
+        cheese.setUsername("testUser1");
         cheese.setOptimalQuantity(2);
 
         Item eggs = new Item();
         eggs.setStockLevel("Surplus");
         eggs.setId(5L);
         eggs.setName("Eggs");
+        eggs.setUsername("testUser1");
         eggs.setOptimalQuantity(2);
 
         List<Tag> tags = new ArrayList<>();

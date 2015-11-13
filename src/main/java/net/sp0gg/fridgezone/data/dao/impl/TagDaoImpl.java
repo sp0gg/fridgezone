@@ -18,8 +18,8 @@ public class TagDaoImpl implements TagDao {
     private TagRepository tagRepository;
 
     @Override
-    public List<String> findAllNames() {
-        return tagRepository.findDistinctTagNames();
+    public List<String> findAllNames(String username) {
+        return tagRepository.findDistinctTagNames(username);
     }
 
     @Autowired

@@ -30,15 +30,12 @@ public class TestTagRepository {
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private ItemRepository itemRepo;
-
-    @Autowired
     private TagRepository tagRepo;
 
     @Test
     public void shouldFindDistinctTags() {
         log.info("Running shouldFindDistinctTags");
-        List<String> tags = tagRepo.findDistinctTagNames();
+        List<String> tags = tagRepo.findDistinctTagNames("testUser1");
         log.info("Tags found:");
         for (String tag : tags) {
             log.info(tag);

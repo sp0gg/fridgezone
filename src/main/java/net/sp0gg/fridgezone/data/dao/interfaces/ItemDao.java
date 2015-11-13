@@ -8,7 +8,8 @@ import java.util.List;
  * Created by sp0gg on 10/3/15.
  */
 public interface ItemDao {
-    List<Item> findAll();
+    List<Item> findAllByUsername(String username);
+//        List<Item> findAll();
     Item add(Item item);
     Item update(Item item);
 }

@@ -23,6 +23,14 @@ public class TestItemService {
 
     private ItemService itemService = new ItemServiceImpl(mockItemDao);
 
+    private String username = "testUser1";
+
+    @Test
+    public void shouldCallDaoForFind(){
+        when(mockItemDao.findAllByUsername(any(String.class))).thenReturn(new ArrayList<Item>());
+        itemService.fetchAll(username);
+        verify(mockItemDao).findAllByUsername(username);
+    }
 
     @Test
     public void shouldAddShoppingTagToFavoriteItemsWhenLow(){

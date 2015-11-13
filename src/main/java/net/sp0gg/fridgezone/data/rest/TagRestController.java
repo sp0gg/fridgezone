@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.Collection;
 
 /**
@@ -24,9 +25,10 @@ public class TagRestController {
 
     @RequestMapping(value = "/tags", method = RequestMethod.GET)
     public @ResponseBody
-    Collection<String> findAll(){
-        log.info("Retrieving tag name list");
-        return tagDao.findAllNames();
+    Collection<String> findAll(Principal principal){
+        String username = principal.getName();
+        log.info("Retrieving tag name list for user");
+        return tagDao.findAllNames(username);
     }
 
     @Autowired

@@ -18,7 +18,7 @@ import java.util.Collection;
 @Service
 public class ItemServiceImpl implements ItemService {
 
-    private Logger log = LoggerFactory.getLogger(this.getClass());
+    Logger log = LoggerFactory.getLogger(this.getClass());
 
     private ItemDao dao;
 
@@ -41,8 +41,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Collection<Item> fetchAll() {
-        return dao.findAll();
+    public Collection<Item> fetchAll(String username) {
+        return dao.findAllByUsername(username);
     }
 
     private boolean needsToBeAddedToShoppingList(Item item) {

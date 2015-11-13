@@ -1,8 +1,6 @@
 package net.sp0gg.fridgezone.web;
 
 import net.sp0gg.fridgezone.config.TestWebConfig;
-import net.sp0gg.fridgezone.data.dao.interfaces.TagDao;
-import net.sp0gg.fridgezone.data.rest.TagRestController;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,26 +33,21 @@ public class TestTagRestController {
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private TagDao tagDao;
-
-    @Autowired
     private WebApplicationContext context;
 
     private MockMvc mockMvc;
-    private TagRestController tagController;
 
     private String baseUrl = "/api/tags";
 
     @Before
     public void setUp(){
-        tagController = new TagRestController(tagDao);
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .apply(springSecurity()).build();
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(value="testUser1")
     public void shouldReturnDistinctTagList() throws Exception {
         log.info("Running shouldReturnDistinctTagList");
         String controllerResponse = mockMvc.perform(get(baseUrl)).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();

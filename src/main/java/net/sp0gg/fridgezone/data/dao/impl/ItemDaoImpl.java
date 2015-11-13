@@ -23,8 +23,8 @@ public class ItemDaoImpl implements ItemDao {
     private TagRepository tagRepo;
 
     @Override
-    public List<Item> findAll() {
-        return itemRepo.findAll();
+    public List<Item> findAllByUsername(String username) {
+        return itemRepo.findAllByUsername(username);
     }
 
     public Item add(Item item) {
@@ -38,7 +38,6 @@ public class ItemDaoImpl implements ItemDao {
         item = applyTagItemRelations(item);
         tagRepo.deleteByItem(item);
         tagRepo.save(item.getTags());
-
         return itemRepo.save(item);
     }
 
@@ -69,5 +68,4 @@ public class ItemDaoImpl implements ItemDao {
         this.itemRepo = itemRepo;
         this.tagRepo = tagRepo;
     }
-
 }

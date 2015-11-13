@@ -6,5 +6,5 @@ import java.util.List;
  * Created by sp0gg on 10/23/15.
  */
 public interface TagDao {
-    List<String> findAllNames();
+    List<String> findAllNames(String username);
 }

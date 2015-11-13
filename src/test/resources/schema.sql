@@ -6,7 +6,8 @@ CREATE TABLE item
     create_by VARCHAR(25),
     create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     stock_level VARCHAR(15) NOT NULL,
-    optimal_quantity INT DEFAULT 0 NOT NULL
+    optimal_quantity INT DEFAULT 0 NOT NULL,
+    username VARCHAR(50) NOT NULL
 );
 CREATE TABLE tag
 (

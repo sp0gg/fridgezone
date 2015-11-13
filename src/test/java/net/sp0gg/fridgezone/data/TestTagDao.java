@@ -30,6 +30,6 @@ public class TestTagDao {
 
     @Test
     public void shouldFindDistinctTags(){
-        assertEquals(5, tagDao.findAllNames().size());
+        assertEquals(5, tagDao.findAllNames("testUser1").size());
     }
 }
