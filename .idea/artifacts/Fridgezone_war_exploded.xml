@@ -19,29 +19,29 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-orm:4.2.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:4.2.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:4.2.3.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework.data:spring-data-rest-webmvc:2.3.2.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework.data:spring-data-rest-core:2.3.2.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework.hateoas:spring-hateoas:0.17.0.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.data:spring-data-rest-webmvc:2.4.1.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.data:spring-data-rest-core:2.4.1.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.hateoas:spring-hateoas:0.19.0.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE" />
           <element id="library" level="project" name="Maven: org.atteo:evo-inflector:1.2.1" />
-          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.5.4" />
-          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.5.4" />
-          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.5.4" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.6.3" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.6.3" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.6.3" />
           <element id="library" level="project" name="Maven: com.github.fge:json-patch:1.7" />
           <element id="library" level="project" name="Maven: com.github.fge:jackson-coreutils:1.6" />
           <element id="library" level="project" name="Maven: com.github.fge:msg-simple:1.1" />
           <element id="library" level="project" name="Maven: com.github.fge:btf:1.2" />
           <element id="library" level="project" name="Maven: com.google.guava:guava:16.0.1" />
           <element id="library" level="project" name="Maven: com.google.code.findbugs:jsr305:2.0.1" />
-          <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.12" />
+          <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.13" />
+          <element id="library" level="project" name="Maven: org.springframework.data:spring-data-jpa:1.9.1.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.data:spring-data-commons:1.11.1.RELEASE" />
+          <element id="library" level="project" name="Maven: org.aspectj:aspectjrt:1.8.7" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:4.0.3.RELEASE" />
           <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:4.0.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:4.0.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final" />
-          <element id="library" level="project" name="Maven: org.springframework.data:spring-data-jpa:1.8.2.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework.data:spring-data-commons:1.10.2.RELEASE" />
-          <element id="library" level="project" name="Maven: org.aspectj:aspectjrt:1.8.6" />
           <element id="library" level="project" name="Maven: org.hibernate:hibernate-entitymanager:4.3.10.Final" />
           <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.1.3.GA" />
           <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging-annotations:1.2.0.Beta1" />
@@ -64,7 +64,6 @@
           <element id="library" level="project" name="Maven: org.webjars.bower:angular:1.4.7" />
           <element id="library" level="project" name="Maven: org.webjars.bower:angular-resource:1.4.7" />
           <element id="library" level="project" name="Maven: org.webjars.bower:angular-ui-grid:3.0.7" />
-          <element id="library" level="project" name="Maven: org.objenesis:objenesis:2.1" />
         </element>
       </element>
       <element id="directory" name="META-INF">
