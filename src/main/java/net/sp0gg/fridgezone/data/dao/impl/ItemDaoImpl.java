@@ -27,6 +27,11 @@ public class ItemDaoImpl implements ItemDao {
         return itemRepo.findAllByUsername(username);
     }
 
+    @Override
+    public Item findItemById(Long id) {
+        return itemRepo.findOne(id);
+    }
+
     public Item add(Item item) {
         Item savedItem = itemRepo.save(item);
         item = applyTagItemRelations(item);

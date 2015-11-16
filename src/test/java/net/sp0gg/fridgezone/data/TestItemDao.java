@@ -38,6 +38,10 @@ public class TestItemDao {
         List<Item> itemsReturned = itemDao.findAllByUsername("testUser1");
         assertEquals(7, itemsReturned.size());
     }
+    @Test
+    public void shouldFindSingleItemById(){
+        Item itemReturned = itemDao.findItemById(1L);
+    }
 
     @Test
     public void shouldRemoveTagsWhenPassingEmptyTagList(){

@@ -76,8 +76,10 @@ public class TestItemRestController {
         String jsonString = objectToJson(item);
         log.info("testing with url: " + baseUrl);
 
-        String controllerResponse = mockMvc.perform(post(baseUrl).content(jsonString).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        String controllerResponse = mockMvc
+                .perform(post(baseUrl).content(jsonString).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
         log.info("shouldAddItem returned: " + controllerResponse);
     }
 
@@ -101,8 +103,54 @@ public class TestItemRestController {
         String updateUrl = baseUrl + "/" + item.getId();
         log.info("testing with url: " + updateUrl);
 
-        String controllerResponse = mockMvc.perform(put(updateUrl).content(jsonString).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        String controllerResponse = mockMvc
+                .perform(put(updateUrl).content(jsonString).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
         log.info("shouldUpdateItem returned: " + controllerResponse);
+    }
+
+    @Test
+    @WithMockUser(value="testUser2")
+    public void shouldReturnNotFoundWhenUpdatingItemsNotOwnedByUser() throws Exception{
+        log.info("Running shouldReturnNotFoundWhenUpdatingItemsNotOwnedByUser");
+
+        Item item = generateDummyItem();
+        item.setId(3L);
+
+        List<Tag> tags = generateDummyTags();
+        item.setTags(tags);
+
+        String jsonString = objectToJson(item);
+        String updateUrl = baseUrl + "/" + item.getId();
+        log.info("testing with url: " + updateUrl);
+
+        String controllerResponse = mockMvc
+                .perform(put(updateUrl).content(jsonString).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andReturn().getResponse().getContentAsString();
+    }
+
+    @Test
+    @WithMockUser(value=testUser1)
+    public void shouldReturnNotFoundWhenExistingItemDoesNotExist() throws Exception{
+        log.info("Running shouldReturnNotFoundWhenExistingItemDoesNotExist");
+
+        Item item = generateDummyItem();
+        item.setId(9999L);
+
+        List<Tag> tags = generateDummyTags();
+        item.setTags(tags);
+
+        String jsonString = objectToJson(item);
+        String updateUrl = baseUrl + "/" + item.getId();
+        log.info("testing with url: " + updateUrl);
+
+        String controllerResponse = mockMvc
+                .perform(put(updateUrl).content(jsonString).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andReturn().getResponse().getContentAsString();
+
     }
 
     private Item generateDummyItem(){

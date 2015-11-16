@@ -7,6 +7,7 @@ import net.sp0gg.fridgezone.service.impl.ItemServiceImpl;
 import net.sp0gg.fridgezone.service.interfaces.ItemService;
 import net.sp0gg.fridgezone.util.Constants;
 import org.junit.Test;
+import org.springframework.security.access.AccessDeniedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,7 @@ public class TestItemService {
         Item favoriteAndShoppingItem = mockFavoriteAndShoppingItem();
 
         when(mockItemDao.update(any(Item.class))).thenReturn(new Item());
+        when(mockItemDao.findItemById(1L)).thenReturn(favoriteOnlyItem);
 
         itemService.updateItem(favoriteOnlyItem);
         verify(mockItemDao).update(favoriteAndShoppingItem);
@@ -49,7 +51,9 @@ public class TestItemService {
         Item favoriteAndShoppingItem = mockFavoriteAndShoppingItem();
         favoriteOnlyItem.setStockLevel(Constants.STOCK_LEVEL_OUT);
         favoriteAndShoppingItem.setStockLevel(Constants.STOCK_LEVEL_OUT);
+
         when(mockItemDao.update(any(Item.class))).thenReturn(new Item());
+        when(mockItemDao.findItemById(1L)).thenReturn(favoriteOnlyItem);
 
         itemService.updateItem(favoriteOnlyItem);
         verify(mockItemDao).update(favoriteAndShoppingItem);
@@ -61,10 +65,24 @@ public class TestItemService {
         Item favoriteAndShoppingItem = mockFavoriteAndShoppingItem();
         favoriteOnlyItem.setStockLevel(Constants.STOCK_LEVEL_STOCKED);
         favoriteAndShoppingItem.setStockLevel(Constants.STOCK_LEVEL_STOCKED);
+
         when(mockItemDao.update(any(Item.class))).thenReturn(new Item());
+        when(mockItemDao.findItemById(1L)).thenReturn(favoriteOnlyItem);
 
         itemService.updateItem(favoriteOnlyItem);
+
         verify(mockItemDao).update(favoriteOnlyItem);
+    }
+
+    @Test(expected=AccessDeniedException.class)
+    public void shouldNOTAllowUpdatingItemsForOtherUsers(){
+        Item storedItem = mockFavoriteOnlyItem();
+        Item requestItem = mockFavoriteOnlyItem();
+        requestItem.setUsername("testUser2");
+
+        when(mockItemDao.findItemById(1L)).thenReturn(storedItem);
+
+        itemService.updateItem(requestItem);
     }
 
     private Item mockFavoriteAndShoppingItem() {
@@ -78,6 +96,8 @@ public class TestItemService {
         tags.add(shoppingTag);
 
         Item favoriteAndShoppingItem = new Item();
+        favoriteAndShoppingItem.setId(1L);
+        favoriteAndShoppingItem.setUsername("testUser1");
         favoriteAndShoppingItem.setName("Pizza");
         favoriteAndShoppingItem.setStockLevel("Low");
         favoriteAndShoppingItem.setTags(tags);
@@ -92,6 +112,8 @@ public class TestItemService {
         tags.add(favoriteTag);
 
         Item favoriteOnlyItem = new Item();
+        favoriteOnlyItem.setId(1L);
+        favoriteOnlyItem.setUsername("testUser1");
         favoriteOnlyItem.setName("Pizza");
         favoriteOnlyItem.setStockLevel("Low");
         favoriteOnlyItem.setTags(tags);

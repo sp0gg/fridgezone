@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface ItemDao {
     List<Item> findAllByUsername(String username);
-//        List<Item> findAll();
+    Item findItemById(Long id);
     Item add(Item item);
     Item update(Item item);
 }
