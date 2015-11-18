@@ -36,7 +36,6 @@
                 <version>2.6</version>
                 <configuration>
                     <warName>Fridgezone</warName>
-                    <warSourceDirectory>WebContent</warSourceDirectory>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
