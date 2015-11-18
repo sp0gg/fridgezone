@@ -41,6 +41,18 @@ public class ItemServiceImpl implements ItemService {
         return returnedItem;
     }
 
+    @Override
+    public Item addItem(Item item) {
+        log.debug("adding item: " + item.toString());
+        return dao.add(item);
+    }
+
+    @Override
+    public Collection<Item> fetchAll(String username) {
+        log.debug("fetching all for: " + username);
+        return dao.findAllByUsername(username);
+    }
+
     private void validateItemOperation(Item item) {
         Item existingItem = dao.findItemById(item.getId());
 
@@ -53,18 +65,6 @@ public class ItemServiceImpl implements ItemService {
             log.info("Unauthorized attempt to update item id " + existingItem.getId() + " by user " + item.getUsername());
             throw new AccessDeniedException("Item id " + existingItem.getId() + " is not owned by user " + item.getUsername());
         }
-    }
-
-    @Override
-    public Item addItem(Item item) {
-        log.debug("adding item: " + item.toString());
-        return dao.add(item);
-    }
-
-    @Override
-    public Collection<Item> fetchAll(String username) {
-        log.debug("fetching all for: " + username);
-        return dao.findAllByUsername(username);
     }
 
     private boolean needsToBeAddedToShoppingList(Item item) {
