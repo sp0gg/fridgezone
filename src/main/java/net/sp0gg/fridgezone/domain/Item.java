@@ -28,7 +28,6 @@ public class Item implements Serializable {
     @OneToMany(mappedBy="item", fetch=FetchType.EAGER)
     private List<Tag> tags = new ArrayList<>();
 
-
     public Long getId() {return id;}
     public void setId(Long id) {
         this.id = id;
@@ -73,20 +72,8 @@ public class Item implements Serializable {
         this.tags = tags;
     }
 
-    public void addTag(Tag tag){
-        if(tag == null){
-            return;
-        }else{
-            if(this.tags == null){
-                this.tags = new ArrayList<>();
-            }
-            tag.setItem(this);
-            this.tags.add(tag);
-        }
-    }
-
     public String toString(){
-        return String.format("Item[id=%d, name=%s, user=%s], tags[%s]", id, name, username, this.getTags().toString());
+        return String.format("Item[id=%d, name=%s, level=%s, user=%s], tags[%s]", id, name, stockLevel, username, this.getTags().toString());
     }
 
     public boolean containsTagName(String tagName) {
