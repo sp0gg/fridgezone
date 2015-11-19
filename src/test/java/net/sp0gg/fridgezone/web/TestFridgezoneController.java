@@ -30,9 +30,6 @@ public class TestFridgezoneController {
         log.info("Running rootShouldRedirectToInventoryPage");
         FridgezoneController fridgezoneController = new FridgezoneController();
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(fridgezoneController).build();
-            mockMvc.perform(get("/")).andExpect(view().name("redirect:/inventory"));
+            mockMvc.perform(get("/")).andExpect(view().name("fridgezone"));
     }
-
-
-
 }
