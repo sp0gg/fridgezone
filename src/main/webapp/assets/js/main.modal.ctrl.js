@@ -16,7 +16,6 @@ fzApp.controller('ItemModalCtrl', function ($scope, $rootScope, $uibModal, $log)
         });
 
         modalInstance.result.then(function (modalItem) {
-            console.log("returning item: " + angular.toJson(modalItem));
             $rootScope.$broadcast('itemModified', modalItem);
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
@@ -38,8 +37,6 @@ fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item
         'Low',
         'Out'
     ];
-
-    console.log("item passed in: " + angular.toJson(item));
 
     $scope.containsTag = function(item, tagName){
         if('tags' in item) {

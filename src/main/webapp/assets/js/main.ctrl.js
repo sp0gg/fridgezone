@@ -8,7 +8,12 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
 
     $scope.ItemConst = function(){
       var item = {};
-        item.tags = [];
+      item.tags = [];
+        item = $scope.itemDecorator(item);
+        return item;
+    };
+
+    $scope.itemDecorator = function(item){
         item.getTagsFormatted = function(){
             var tagsFormatted = '';
             angular.forEach(this.tags, function(tag){
@@ -30,22 +35,7 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
 
     $scope.itemList = Item.query(function(items){
         angular.forEach(items, function(item){
-            item.getTagsFormatted = function(){
-                var tagsFormatted = '';
-                angular.forEach(this.tags, function(tag){
-                  tagsFormatted += ' | ' + tag.name;
-                });
-                return tagsFormatted;
-            };
-            item.getCustomTags = function() {
-                var customTags = [];
-                angular.forEach(this.tags, function (tag) {
-                    if (tag.name !== 'favorite' && tag.name !== 'shopping') {
-                        customTags.push(tag);
-                    }
-                });
-                return customTags;
-            };
+            item = $scope.itemDecorator(item);
         });
         $scope.addAlert('success', 'Fridgezone is online');
     },
@@ -70,7 +60,6 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
 
     $scope.$on('itemModified', function(event, item){
         var returnedItem = $scope.saveItem(item);
-        console.log('saved item is ' + angular.toJson(returnedItem));
 
         var oldItem = $scope.itemList.filter(function(listItem){
             return listItem.id === returnedItem.id;
@@ -93,22 +82,7 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
 
     $scope.addItem = function(item){
         return Item.add(item, function(item){
-            item.getTagsFormatted = function(){
-                var tagsFormatted = '';
-                angular.forEach(this.tags, function(tag){
-                    tagsFormatted += ' | ' + tag.name;
-                });
-                return tagsFormatted;
-            };
-            item.getCustomTags = function() {
-                var customTags = [];
-                angular.forEach(this.tags, function (tag) {
-                    if (tag.name !== 'favorite' && tag.name !== 'shopping') {
-                        customTags.push(tag);
-                    }
-                });
-                return customTags;
-            };
+            item = $scope.itemDecorator(item);
             $scope.allTags = Tag.query();
             $scope.addAlert('success', item.name + ' added');
             },
@@ -121,22 +95,7 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
 
     $scope.updateItem = function(item){
         return Item.update(item, function(item){
-            item.getTagsFormatted = function(){
-                var tagsFormatted = '';
-                angular.forEach(this.tags, function(tag){
-                    tagsFormatted += ' | ' + tag.name;
-                });
-                return tagsFormatted;
-            };
-            item.getCustomTags = function() {
-                var customTags = [];
-                angular.forEach(this.tags, function (tag) {
-                    if (tag.name !== 'favorite' && tag.name !== 'shopping') {
-                        customTags.push(tag);
-                    }
-                });
-                return customTags;
-            };
+            item = $scope.itemDecorator(item);
             $scope.allTags = Tag.query();
             $scope.addAlert('success', item.name + ' updated');
         },
