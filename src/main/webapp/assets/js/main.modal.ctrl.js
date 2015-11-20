@@ -16,7 +16,6 @@ fzApp.controller('ItemModalCtrl', function ($scope, $rootScope, $uibModal, $log)
         });
 
         modalInstance.result.then(function (modalItem) {
-            console.log("returning item: " + angular.toJson(modalItem));
             $rootScope.$broadcast('itemModified', modalItem);
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
@@ -24,12 +23,12 @@ fzApp.controller('ItemModalCtrl', function ($scope, $rootScope, $uibModal, $log)
     };
 });
 
-fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item, Tag) {
+fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item, TagService) {
 
     $scope.modalItem = item;
     $scope.modalTag = {};
     $scope.item = angular.copy(item);
-    $scope.allTags = Tag.query();
+    $scope.allTags = TagService.query();
 
 
     $scope.stockLevelValues = [
@@ -38,8 +37,6 @@ fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item
         'Low',
         'Out'
     ];
-
-    console.log("item passed in: " + angular.toJson(item));
 
     $scope.containsTag = function(item, tagName){
         if('tags' in item) {

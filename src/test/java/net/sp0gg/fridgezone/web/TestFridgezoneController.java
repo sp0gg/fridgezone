@@ -12,8 +12,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -27,23 +25,11 @@ public class TestFridgezoneController {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
-
-    public ViewResolver viewRes(){
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/WEB-INF/views/");
-        resolver.setSuffix(".html");
-        resolver.setExposeContextBeansAsAttributes(true);
-        return resolver;
-    }
-
     @Test
     public void rootPathShouldRedirectToInventoryPage() throws Exception {
         log.info("Running rootShouldRedirectToInventoryPage");
         FridgezoneController fridgezoneController = new FridgezoneController();
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(fridgezoneController).build();
-            mockMvc.perform(get("/")).andExpect(view().name("redirect:/inventory"));
+            mockMvc.perform(get("/")).andExpect(view().name("fridgezone"));
     }
-
-
-
 }
