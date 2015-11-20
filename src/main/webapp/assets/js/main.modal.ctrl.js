@@ -23,12 +23,12 @@ fzApp.controller('ItemModalCtrl', function ($scope, $rootScope, $uibModal, $log)
     };
 });
 
-fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item, Tag) {
+fzApp.controller('ItemModalInstanceCtrl', function ($scope, $modalInstance, item, TagService) {
 
     $scope.modalItem = item;
     $scope.modalTag = {};
     $scope.item = angular.copy(item);
-    $scope.allTags = Tag.query();
+    $scope.allTags = TagService.query();
 
 
     $scope.stockLevelValues = [

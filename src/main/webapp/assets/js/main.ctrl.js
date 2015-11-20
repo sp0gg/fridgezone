@@ -1,12 +1,23 @@
-fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridConstants) {
+fzApp.controller("mainCtrl", function ($scope, $rootScope, ItemService, TagService, uiGridConstants) {
 
     $scope.selectedItem = {};
     $scope.favoriteFiltered = false;
     $scope.tagFilter = '';
-    $scope.allTags = Tag.query();
+    $scope.allTags = TagService.query();
     $scope.alerts = [];
 
-    $scope.ItemConst = function(){
+    $scope.itemList = ItemService.query(function(items){
+            angular.forEach(items, function(item){
+                item = $scope.itemDecorator(item);
+            });
+            $scope.addAlert('success', 'Fridgezone is online');
+        },
+        function(){
+            $scope.addAlert('danger', 'There was a problem communicating with Fridgezone - please try logging in again');
+        }
+    );
+
+    $scope.Item = function(){
       var item = {};
       item.tags = [];
         item = $scope.itemDecorator(item);
@@ -33,27 +44,9 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
         return item;
     };
 
-    $scope.itemList = Item.query(function(items){
-        angular.forEach(items, function(item){
-            item = $scope.itemDecorator(item);
-        });
-        $scope.addAlert('success', 'Fridgezone is online');
-    },
-        function(data){
-            $scope.addAlert('danger', 'There was a problem communicating with Fridgezone - please try logging in again');
-        }
-    );
-
-    $scope.handleGridSelection = function(row){
-        if(row.isSelected) {
-            $scope.gridApi.selection.clearSelectedRows();
-            $scope.openItemDialog(row.entity);
-        }
-    };
-
     $scope.openItemDialog = function(item){
-        if(typeof item === 'undefined'){
-            item = new $scope.ItemConst();
+        if(!item){
+            item = new $scope.Item();
         }
         $rootScope.$broadcast('openItemDialog', item);
     };
@@ -73,7 +66,7 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
     });
 
     $scope.saveItem = function(item){
-        if(typeof item.id === 'undefined'){
+        if(!item.id){
             return $scope.addItem(item);
         }else{
             return $scope.updateItem(item);
@@ -81,20 +74,19 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
     };
 
     $scope.addItem = function(item){
-        return Item.add(item, function(item){
+        return ItemService.add(item, function(item){
             item = $scope.itemDecorator(item);
-            $scope.allTags = Tag.query();
+            $scope.allTags = TagService.query();
             $scope.addAlert('success', item.name + ' added');
             },
             function(error){
                 $scope.addAlert('danger', 'There was a problem communicating with Fridgezone - please try logging in again');
             }
-
         );
     };
 
     $scope.updateItem = function(item){
-        return Item.update(item, function(item){
+        return ItemService.update(item, function(item){
             item = $scope.itemDecorator(item);
             $scope.allTags = Tag.query();
             $scope.addAlert('success', item.name + ' updated');
@@ -105,12 +97,17 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
         );
     };
 
-    $scope.getCellClass = function(item){
-        if(item.stockLevel === 'Low' || item.stockLevel === 'Out') {
-            return 'low';
+    $scope.filterTag = function(tag){
+        $scope.tagFilter = tag;
+
+        if(tag !== ''){
+            $scope.itemGridOptions.enableFiltering = true;
+        }else{
+            $scope.itemGridOptions.enableFiltering = false;
         }
-        return '';
+        $scope.gridApi.grid.refresh();
     };
+
 
     $scope.itemGridOptions={
         data: $scope.itemList,
@@ -156,17 +153,6 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
         enableFiltering: false
     };
 
-    $scope.filterTag = function(tag){
-        $scope.tagFilter = tag;
-
-        if(tag !== ''){
-            $scope.itemGridOptions.enableFiltering = true;
-        }else{
-            $scope.itemGridOptions.enableFiltering = false;
-        }
-        $scope.gridApi.grid.refresh();
-    };
-
     $scope.addAlert = function(type, message){
         $scope.alerts.push({type:type, msg: message});
     };
@@ -175,9 +161,23 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, Item, Tag, uiGridCons
         $scope.alerts.splice(index, 1);
     };
 
+    $scope.handleGridSelection = function(row){
+        if(row.isSelected) {
+            $scope.gridApi.selection.clearSelectedRows();
+            $scope.openItemDialog(row.entity);
+        }
+    };
+
     $scope.itemGridOptions.onRegisterApi = function(gridApi){
         $scope.gridApi = gridApi;
         gridApi.selection.on.rowSelectionChanged($scope, $scope.handleGridSelection);
+    };
+
+    $scope.getCellClass = function(item){
+        if(item.stockLevel === 'Low' || item.stockLevel === 'Out') {
+            return 'low';
+        }
+        return '';
     };
 
 });
