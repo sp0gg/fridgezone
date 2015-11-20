@@ -9,11 +9,6 @@ public class FridgezoneController {
 	
     @RequestMapping(value = "/", method=RequestMethod.GET)
 	public String root(){
-		return "redirect:/inventory";
+		return "fridgezone";
 	}
-
-    @RequestMapping(value = "/inventory", method=RequestMethod.GET)
-    public String inventory(){
-        return "inventory";
-    }
 }

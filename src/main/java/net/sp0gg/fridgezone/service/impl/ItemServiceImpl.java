@@ -27,17 +27,8 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public Item updateItem(Item item){
         log.debug("updating item: " + item.toString());
-        Item existingItem = dao.findItemById(item.getId());
 
-        if(existingItem == null){
-            log.info("Could not find item id " + item.getId());
-            throw new ItemNotFoundException();
-        }
-
-        if(!existingItem.getUsername().equals(item.getUsername())){
-            log.info("Unauthorized attempt to update item id " + existingItem.getId() + " by user " + item.getUsername());
-            throw new AccessDeniedException("Item id " + existingItem.getId() + " is not owned by user " + item.getUsername());
-        }
+        validateItemOperation(item);
 
         if(needsToBeAddedToShoppingList(item)){
             log.info("Item " + item.getName() + " needs to be on shopping list - adding shopping tag");
@@ -45,6 +36,7 @@ public class ItemServiceImpl implements ItemService {
             shoppingTag.setName(Constants.SHOPPING_TAG_NAME);
             item.getTags().add(shoppingTag);
         }
+
         Item returnedItem = dao.update(item);
         return returnedItem;
     }
@@ -59,6 +51,20 @@ public class ItemServiceImpl implements ItemService {
     public Collection<Item> fetchAll(String username) {
         log.debug("fetching all for: " + username);
         return dao.findAllByUsername(username);
+    }
+
+    private void validateItemOperation(Item item) {
+        Item existingItem = dao.findItemById(item.getId());
+
+        if(existingItem == null){
+            log.info("Could not find item id " + item.getId());
+            throw new ItemNotFoundException();
+        }
+
+        if(!existingItem.getUsername().equals(item.getUsername())){
+            log.info("Unauthorized attempt to update item id " + existingItem.getId() + " by user " + item.getUsername());
+            throw new AccessDeniedException("Item id " + existingItem.getId() + " is not owned by user " + item.getUsername());
+        }
     }
 
     private boolean needsToBeAddedToShoppingList(Item item) {

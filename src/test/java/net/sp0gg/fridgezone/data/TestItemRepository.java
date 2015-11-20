@@ -36,8 +36,6 @@ public class TestItemRepository {
     @Autowired
     private TagRepository tagRepo;
 
-
-
 	@Test
 	public void shouldFindAllItemsByUsername() {
 		log.info("Running shouldFindAllItemsByUsername");
@@ -47,6 +45,7 @@ public class TestItemRepository {
 			System.out.println(item.toString());
 		}
         Item item = items.get(0);
+
 		assertEquals("Pop", item.getName());
         assertEquals("Out", item.getStockLevel());
         assertEquals(2, item.getOptimalQuantity());
@@ -60,18 +59,22 @@ public class TestItemRepository {
 	@Test
 	public void shouldAddItem(){
 		log.info("Running shouldAddItem");
+
 		Item newItem = new Item();
 		newItem.setName("Grapes");
         newItem.setStockLevel("Out");
         newItem.setUsername("testUser1");
         newItem.setOptimalQuantity(1);
+
         List<Tag> tags = new ArrayList<>();
         Tag tag = new Tag();
         tag.setName("favorite");
         tag.setItem(newItem);
         tags.add(tag);
         newItem.setTags(tags);
+
 		Item returned = itemRepo.save(newItem);
+
 		assertEquals("Grapes", returned.getName());
         assertEquals("Out", returned.getStockLevel());
         assertEquals(1, returned.getOptimalQuantity());
@@ -112,13 +115,13 @@ public class TestItemRepository {
 
         Item cheeseRetrieved = itemRepo.findOne(3l);
         Item eggsRetrieved = itemRepo.findOne(5l);
+
         assertEquals("Stocked", cheeseRetrieved.getStockLevel());
         assertEquals(2, cheeseRetrieved.getOptimalQuantity());
         assertEquals("Surplus", eggsRetrieved.getStockLevel());
         assertEquals(2, eggsRetrieved.getOptimalQuantity());
         assertEquals("favorite", eggsRetrieved.getTags().get(0).getName());
     }
-
 
     @Test
     public void learningToRemoveExistingTags(){

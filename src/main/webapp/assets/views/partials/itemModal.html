@@ -1,0 +1,53 @@
+<div ng-controller="ItemModalCtrl">
+    <script type="text/ng-template" id="itemModalTemplate">
+        <div class="modal-header">
+            <h3 class="modal-title">{{saveLabel}} item {{item.name}}</h3>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                <div class="form-inline">
+                    <form name="itemForm" id="itemForm" novalidate>
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="sr-only" for="itemAddName">Item name</label>
+                                <input type="text" id="itemAddName" ng-model="modalItem.name" class="form-control"
+                                       placeholder="Item name" ng-maxlength="25" maxlength="25" required>
+                                <label class="sr-only" for="itemAddStockLevel">Stock level</label>
+                                <select id="itemAddStockLevel" ng-model="modalItem.stockLevel" class="form-control" required>
+                                    <option value='' disabled>Stock Level</option>
+                                    <option ng-repeat="level in stockLevelValues">{{level}}</option>
+                                </select>
+                                <input type="hidden" ng-model="modalItem.id">
+                            </div>
+                            <div class="row" style="padding: 10px">
+                                <input class="text-left" type="checkbox" id="itemAddTagFavorite" ng-click="toggleFavorite()" ng-model="favorite" class="form-control" placeholder="Favorite">
+                                <label class="text-left" for="itemAddTagFavorite">Favorite</label>
+
+                                <input class="text-left" type="checkbox" id="itemAddTagShopping" ng-click="toggleShopping()" ng-model="shopping" class="form-control" placeholder="Shopping">
+                                <label class="text-left" for="itemAddTagShopping">Shopping</label>
+                            </div>
+                            <h4>Custom tags</h4>
+                            <ul class="list-group" id = "customTags">
+                                <li ng-repeat="tag in modalItem.getCustomTags()" class="list-group-item row">
+                                    {{tag.name}}<button class="btn btn-danger pull-right btn-sm custom-tag-button" ng-click="removeTag(tag)"><span class="glyphicon glyphicon-remove-sign"></span> Remove</button>
+                                </li>
+                                <li class="list-group-item row custom-tag-li">
+                                    <div class="col-xs-6">
+                                        <input type="text" ng-model="modalTag.name" id="itemAddTagName" class="form-control pull-left" placeholder="Tag name" uib-typeahead="tag for tag in allTags | filter:$viewValue" ng-maxlength="15" maxlength="15" >
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <button id="itemSaveTag" class="btn btn-success btn-sm pull-right custom-tag-button" ng-click="addModalTag()" ng-disabled="!modalTag.name || containsTag(modalItem, modalTag.name)"><span class="glyphicon glyphicon-ok-sign"></span> Add tag</button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button id="saveItem" class="btn btn-success" ng-disabled="itemForm.$invalid" ng-click="save()"><span class="glyphicon glyphicon-ok-sign"></span> {{saveLabel}}</button>
+            <button id="cancelAddItem" class="btn btn-danger" ng-click="cancel()"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
+        </div>
+    </script>
+</div>

@@ -59,15 +59,6 @@ public class ItemDaoImpl implements ItemDao {
         return item;
     }
 
-    private List<Item> applyTagItemRelations(List<Item> items){
-        List<Item> returnItems = new ArrayList<>();
-        for (Item item : items) {
-            item = applyTagItemRelations(item);
-            returnItems.add(item);
-        }
-        return returnItems;
-    }
-
     @Autowired
     public ItemDaoImpl(ItemRepository itemRepo, TagRepository tagRepo){
         this.itemRepo = itemRepo;
