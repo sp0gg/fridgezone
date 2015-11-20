@@ -88,7 +88,7 @@ fzApp.controller("mainCtrl", function ($scope, $rootScope, ItemService, TagServi
     $scope.updateItem = function(item){
         return ItemService.update(item, function(item){
             item = $scope.itemDecorator(item);
-            $scope.allTags = Tag.query();
+            $scope.allTags = TagService.query();
             $scope.addAlert('success', item.name + ' updated');
         },
             function(error){
